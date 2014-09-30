@@ -1,8 +1,14 @@
--- MAC 0211 - Laboratório de Banco de Dados
+-- MAC 0439 - Laboratório de Banco de Dados
 -- IME-USP  - Segundo  Semestre   de   2014
 -- Turma 45 - Prof.ª  Kelly  Rosa  Bragheto
---
--- Data definition
+-- 
+-- Lucas Dário                    - 7990940
+-- Renato Cordeiro Ferreira       - 7990933
+-- Ruan de Menezes Costa          - 7990929
+
+------------------------------------------------------------------------
+--                          Data definition                           --
+------------------------------------------------------------------------
 
 CREATE SCHEMA IF NOT EXISTS IEDB;
 SET search_path TO IEDB;
@@ -24,6 +30,54 @@ CREATE TABLE IF NOT EXISTS IEDB.Title
     PRIMARY KEY(id)
 );
 
+CREATE TABLE IF NOT EXISTS IEDB.Auditive
+(
+    id            INTEGER PRIMARY KEY,
+    FOREIGN KEY(id) REFERENCES(IEDB.Title)
+);
+
+CREATE TABLE IF NOT EXISTS IEDB.Written
+(
+    id            INTEGER PRIMARY KEY,
+    FOREIGN KEY(id) REFERENCES(IEDB.Title)
+);
+
+CREATE TABLE IF NOT EXISTS IEDB.Visual
+(
+    id            INTEGER PRIMARY KEY,
+    FOREIGN KEY(id) REFERENCES(IEDB.Title)
+);
+
+CREATE TABLE IF NOT EXISTS IEDB.Music
+(
+    id            INTEGER PRIMARY KEY,
+    FOREIGN KEY(id) REFERENCES(IEDB.Auditive)
+);
+
+CREATE TABLE IF NOT EXISTS IEDB.HQ
+(
+    id            INTEGER PRIMARY KEY,
+    FOREIGN KEY(id) REFERENCES(IEDB.Written)
+);
+
+CREATE TABLE IF NOT EXISTS IEDB.Book
+(
+    id            INTEGER PRIMARY KEY,
+    FOREIGN KEY(id) REFERENCES(IEDB.Written)
+);
+
+CREATE TABLE IF NOT EXISTS IEDB.Movie
+(
+    id            INTEGER PRIMARY KEY,
+    FOREIGN KEY(id) REFERENCES(IEDB.Visual)
+);
+
+CREATE TABLE IF NOT EXISTS IEDB.Series
+(
+    id            INTEGER PRIMARY KEY,
+    FOREIGN KEY(id) REFERENCES(IEDB.Visual)
+);
+
 CREATE TABLE IF NOT EXISTS IEDB.Change
 (
     id            INTEGER,
@@ -35,6 +89,18 @@ CREATE TABLE IF NOT EXISTS IEDB.Change
     new_text      TEXT        NOT NULL,
     PRIMARY KEY(id)
 );
+
+CREATE TABLE IF NOT EXISTS IEDB.Company
+(
+    id            INTEGER,
+    name          VARCHAR(128)
+    PRIMARY KEY(id),
+    UNIQUE(name)
+);
+
+------------------------------------------------------------------------
+--                  Triggers and stored procedures                    --
+------------------------------------------------------------------------
 
 CREATE OR REPLACE FUNCTION change_update(
     _target_table varchar(32), _afected_col varchar(32),
