@@ -22,3 +22,15 @@ VALUES(1, 'The Lord of the Rings: The Fellowship of the Ring',
 
 INSERT INTO IEDB.Change(id, creation_date, target_table, operation, afected_col, conversion, new_text)
 VALUES(1, '2014/09/28', 'Title', 'UPDATE', 'description', NULL, 'A meek hobbit of the Shire and eight companions set out on a journey to Mount Doom to destroy the One Ring and the dark lord Sauron. Based on J.R.R.Tolkien book.');
+
+INSERT INTO IEDB.Genre_auditive
+VALUES ('Rock');
+
+INSERT INTO IEDB.Genre_written
+VALUES ('Romance');
+
+INSERT INTO IEDB.Genre_visual
+VALUES ('Action');
+
+INSERT INTO IEDB.Visual_censorship --Motion picture rating system
+VALUES ('G');
