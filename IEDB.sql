@@ -27,7 +27,7 @@ CREATE DOMAIN IEDB.TYPE_NAME AS VARCHAR(128) NOT NULL;
 
 CREATE DOMAIN IEDB.TYPE_NATIONALITY AS VARCHAR(50) NOT NULL;
 
-CREATE DOMAIN IEDB.TYPE_RATE AS INT NOT NULL
+CREATE DOMAIN IEDB.TYPE_RATE AS NUMERIC(1,1) NOT NULL DEFAULT 0
         CHECK (VALUE >= 0 AND VALUE <= 5);
 
 /*
@@ -46,8 +46,7 @@ CREATE TABLE IF NOT EXISTS IEDB.Change
     target_table  VARCHAR(32)  NOT NULL,
     operation     CHAR(6)      NOT NULL,
     afected_col   VARCHAR(32)  NOT NULL,
-    conversion    CHAR(12),    
-    new_text      TEXT         NOT NULL
+    info          TEXT         NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS IEDB.Genre_auditive
@@ -211,8 +210,8 @@ CREATE TABLE IF NOT EXISTS IEDB.Book
 
 CREATE TABLE IF NOT EXISTS IEDB.HQ
 (
-    written_id   SERIAL  PRIMARY KEY,
-    num_editions INT,
+    written_id SERIAL  PRIMARY KEY,
+    num        INT,
     
     FOREIGN KEY(written_id) REFERENCES IEDB.Written(title_id)
         ON UPDATE CASCADE ON DELETE RESTRICT
@@ -420,14 +419,13 @@ CREATE TABLE IF NOT EXISTS IEDB.rel_performs
 \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 */
 
-CREATE OR REPLACE FUNCTION change(_id INTEGER)
+CREATE OR REPLACE FUNCTION allow_change(_id INTEGER)
     RETURNS void AS $$
     DECLARE 
         _target_table VARCHAR(32);
         _operation    CHAR(6);
         _afected_col  VARCHAR(32);
-        _conversion   CHAR(12);
-        _new_text     TEXT;
+        _info         TEXT;
     BEGIN
         _target_table := (SELECT target_table
                           FROM IEDB.Change WHERE id = _id);
@@ -435,16 +433,14 @@ CREATE OR REPLACE FUNCTION change(_id INTEGER)
                           FROM IEDB.Change WHERE id = _id);
         _afected_col  := (SELECT afected_col
                           FROM IEDB.Change WHERE id = _id);
-        _conversion   := (SELECT conversion
-                          FROM IEDB.Change WHERE id = _id);
-        _new_text     := (SELECT new_text
+        _info         := (SELECT info
                           FROM IEDB.Change WHERE id = _id);
         
         IF( _operation = 'UPDATE' ) THEN
             EXECUTE '
                 UPDATE ' || _target_table || '
                 SET    ' || _afected_col  || '
-                =      ' || quote_literal(_new_text);
+                =      ' || quote_literal(_info);
         END IF;
     END;
 $$ LANGUAGE plpgsql;
