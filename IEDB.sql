@@ -27,6 +27,8 @@ CREATE DOMAIN IEDB.TYPE_ID AS INTEGER NOT NULL;
 
 CREATE DOMAIN IEDB.TYPE_NAME AS VARCHAR(128) NOT NULL;
 
+CREATE DOMAIN IEDB.TYPE_NATIONALITY AS VARCHAR(50) NOT NULL;
+
 CREATE DOMAIN IEDB.TYPE_RATE AS INT NOT NULL
 		CHECK (VALUE >= 0 AND VALUE <= 5);
 
@@ -51,6 +53,41 @@ CREATE TABLE IF NOT EXISTS IEDB.Reviewer
 		ON UPDATE CASCADE ON DELETE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS IEDB.Person
+(
+    name        TYPE_NAME   PRIMARY KEY,
+    birthday    DATE,
+    nationality TYPE_NATIONALITY
+);
+
+CREATE TABLE IF NOT EXISTS IEDB.Actor
+(
+    name_person TYPE_NAME   PRIMARY KEY,
+    FOREIGN KEY(name_person) REFERENCES IEDB.Person(name)
+        ON UPDATE CASCADE ON DELETE RESTRICT
+);
+
+CREATE TABLE IF NOT EXISTS IEDB.Author
+(
+    name_person TYPE_NAME   PRIMARY KEY,
+    FOREIGN KEY(name_person) REFERENCES IEDB.Person(name)
+        ON UPDATE CASCADE ON DELETE RESTRICT
+);
+
+CREATE TABLE IF NOT EXISTS IEDB.Director
+(
+    name_person TYPE_NAME   PRIMARY KEY,
+    FOREIGN KEY(name_person) REFERENCES IEDB.Person(name)
+        ON UPDATE CASCADE ON DELETE RESTRICT
+);
+
+CREATE TABLE IF NOT EXISTS IEDB.Musician
+(
+    name_person TYPE_NAME   PRIMARY KEY,
+    FOREIGN KEY(name_person) REFERENCES IEDB.Person(name)
+        ON UPDATE CASCADE ON DELETE RESTRICT
+);
+
 CREATE TABLE IF NOT EXISTS IEDB.Title
 (
     id            TYPE_ID   PRIMARY KEY,
@@ -61,6 +98,11 @@ CREATE TABLE IF NOT EXISTS IEDB.Title
 	rate		  TYPE_RATE,
 	FOREIGN KEY(came_from) REFERENCES IEDB.Title(id)
 		ON UPDATE CASCADE ON DELETE RESTRICT
+);
+
+CREATE TABLE IF NOT EXISTS IEDB.Character
+(
+    name        TYPE_NAME   PRIMARY KEY,
 );
 
 CREATE TABLE IF NOT EXISTS IEDB.Auditive
@@ -86,9 +128,9 @@ CREATE TABLE IF NOT EXISTS IEDB.Visual
 
 CREATE TABLE IF NOT EXISTS IEDB.Music
 (
-    id_auditive TYPE_ID PRIMARY KEY,
-	genre		TYPE_NAME NOT NULL DEFAULT 'Other',
-	duration	INTERVAL,
+    id_auditive     TYPE_ID PRIMARY KEY,
+	genre		    TYPE_NAME NOT NULL DEFAULT 'Other',
+	duration	    INTERVAL,
 	FOREIGN KEY(genre) REFERENCES IEDB.Genre_auditive(name),
 		ON UPDATE CASCADE ON DELETE SET DEFAULT,
     FOREIGN KEY(id_auditive) REFERENCES IEDB.Auditive(id)
@@ -119,11 +161,11 @@ CREATE TABLE IF NOT EXISTS IEDB.Book
 
 CREATE TABLE IF NOT EXISTS IEDB.Movie
 (
-    id_visual TYPE_ID PRIMARY KEY,
-	genre		TYPE_NAME NOT NULL DEFAULT 'Other',
-	duration	INTERVAL,
+    id_visual    TYPE_ID PRIMARY KEY,
+	genre		 TYPE_NAME NOT NULL DEFAULT 'Other',
+	duration	 INTERVAL,
 	censorship	 TYPE_NAME,
-	country		VARCHAR(50),
+	nationality  TYPE_NATIONALITY,
     FOREIGN KEY(id_visual) REFERENCES IEDB.Visual(id)
         ON UPDATE CASCADE ON DELETE RESTRICT,
 	FOREIGN KEY(censorship) REFERENCES IEDB.Visual_censorship(rating)
@@ -157,6 +199,146 @@ CREATE TABLE IF NOT EXISTS IEDB.Change
     afected_col   VARCHAR(32)  NOT NULL,
     conversion    CHAR(12),    
     new_text      TEXT         NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS IEDB.rel_publishes
+(
+    company_id    TYPE_ID,
+    title_id      TYPE_ID,
+    date          DATE,
+    
+    PRIMARY KEY(company_id, title_id),
+    FOREIGN KEY(company_id) REFERENCES IEDB.Company(id)
+        ON UPDATE CASCADE ON DELETE RESTRICT,
+    FOREIGN KEY(title_id)   REFERENCES IEDB.Company(id)
+        ON UPDATE CASCADE ON DELETE RESTRICT
+);
+
+CREATE TABLE IF NOT EXISTS IEDB.rel_followed_by
+(
+    title_id                   TYPE_ID,
+    continuation_title_id      TYPE_ID,
+    
+    PRIMARY KEY(title_id, continuation_title_id),
+    FOREIGN KEY(title_id) REFERENCES IEDB.Title(id)
+        ON UPDATE CASCADE ON DELETE RESTRICT,
+    FOREIGN KEY(continuation_title_id)   REFERENCES IEDB.Title(id)
+        ON UPDATE CASCADE ON DELETE RESTRICT
+);
+
+CREATE TABLE IF NOT EXISTS IEDB.rel_references
+(
+    referencer_title_id   TYPE_ID,
+    refered_title_id      TYPE_ID,
+    
+    PRIMARY KEY(referencer_title_id, refered_title_id),
+    FOREIGN KEY(referencer_title_id) REFERENCES IEDB.Title(id)
+        ON UPDATE CASCADE ON DELETE RESTRICT,
+    FOREIGN KEY(refered_title_id)   REFERENCES IEDB.Title(id)
+        ON UPDATE CASCADE ON DELETE RESTRICT
+);
+
+CREATE TABLE IF NOT EXISTS IEDB.rel_adapted_to
+(
+    original_title_id      TYPE_ID,
+    adaptation_title_id    TYPE_ID,
+
+    PRIMARY KEY(original_title_id, adaptation_title_id),
+    FOREIGN KEY(original_title_id) REFERENCES IEDB.Title(id)
+        ON UPDATE CASCADE ON DELETE RESTRICT,
+    FOREIGN KEY(adaptation_title_id) REFERENCES IEDB.Title(id)
+        ON UPDATE CASCADE ON DELETE RESTRICT
+
+);
+
+CREATE TABLE IF NOT EXISTS IEDB.rel_rates --Não pode deletar usuário??
+(
+    username_client        TYPE_USERNAME,
+    original_title_id      TYPE_ID,
+    adaptation_title_id    TYPE_ID,
+    rate                   TYPE_RATE,
+    
+    PRIMARY KEY(username_client, original_title_id, adaptation_title_id),
+    FOREIGN KEY(username_client) REFERENCES IEDB.Client(username)
+        ON UPDATE CASCADE ON DELETE RESTRICT,
+    FOREIGN KEY(original_title_id, adaptation_title_id) 
+        REFERENCES IEDB.rel_adapted_to(original_title_id, adaptation_title_id)
+            ON UPDATE CASCADE ON DELETE RESTRICT
+);
+
+CREATE TABLE IF NOT EXISTS IEDB.rel_stars
+(
+    username_client     TYPE_USERNAME,
+    title_id            TYPE_ID,
+    date                DATE,
+
+    FOREIGN KEY(username_client) REFERENCES IEDB.Client(username)
+        ON UPDATE CASCADE ON DELETE RESTRICT,
+    FOREIGN KEY(title_id) REFERENCES IEDB.Title(id)
+        ON UPDATE CASCADE ON DELETE RESTRICT
+);
+
+CREATE TABLE IF NOT EXISTS IEDB.rel_has
+(
+    character_name  TYPE_NAME,
+    title_id        TYPE_ID,
+
+    PRIMARY KEY(character_name, title_id),
+    FOREIGN KEY(character_name) REFERENCES IEDB.Character(name)
+        ON UPDATE CASCADE ON DELETE RESTRICT,
+    FOREIGN KEY(title_id) REFERENCES IEDB.Title(id)
+        ON UPDATE CASCADE ON DELETE RESTRICT
+);
+
+CREATE TABLE IF NOT EXISTS IEDB.rel_interps
+(
+    name_actor      TYPE_NAME,
+    name_character  TYPE_NAME,
+    title_id        TYPE_ID,
+
+    PRIMARY KEY(name_actor, name_character, title_id),
+    FOREIGN KEY(name_actor) REFERENCES IEDB.Actor(name_person)
+        ON UPDATE CASCADE ON DELETE RESTRICT,
+    FOREIGN KEY(character_name) REFERENCES IEDB.Character(name)
+        ON UPDATE CASCADE ON DELETE RESTRICT,
+    FOREIGN KEY(title_id) REFERENCES IEDB.Title(id)
+        ON UPDATE CASCADE ON DELETE RESTRICT
+);
+
+CREATE TABLE IF NOT EXISTS IEDB.rel_creates
+(
+    title_id        TYPE_ID,
+    author_name     TYPE_NAME,
+
+    PRIMARY KEY(title_id, author_name),
+    FOREIGN KEY(title_id) REFERENCES IEDB.Title(id)
+        ON UPDATE CASCADE ON DELETE RESTRICT,
+    FOREIGN KEY(author_name) REFERENCES IEDB.Author(name_person)
+        ON UPDATE CASCADE ON DELETE RESTRICT
+);
+
+CREATE TABLE IF NOT EXISTS IEDB.rel_directs
+(
+    title_id          TYPE_ID,
+    director_name     TYPE_NAME,
+
+    PRIMARY KEY(title_id, director_name),
+    FOREIGN KEY(title_id) REFERENCES IEDB.Title(id)
+        ON UPDATE CASCADE ON DELETE RESTRICT,
+    FOREIGN KEY(director_name) REFERENCES IEDB.Director(name_person)
+        ON UPDATE CASCADE ON DELETE RESTRICT
+);
+
+CREATE TABLE IF NOT EXISTS IEDB.rel_performs
+(
+    title_id          TYPE_ID,
+    musician_name     TYPE_NAME,
+
+    PRIMARY KEY(title_id, musician_name),
+    FOREIGN KEY(title_id) REFERENCES IEDB.Title(id)
+        ON UPDATE CASCADE ON DELETE RESTRICT,
+    FOREIGN KEY(author_name) REFERENCES IEDB.Musician(name_person)
+        ON UPDATE CASCADE ON DELETE RESTRICT
 );
 
 CREATE TABLE IF NOT EXISTS IEDB.Company
