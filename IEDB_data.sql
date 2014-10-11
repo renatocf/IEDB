@@ -4,17 +4,17 @@
 -- 
 -- Data sample
 
-INSERT INTO IEDB.Client(username, email)
-VALUES('renatocf', 'renato.cordeiro.ferreira@usp.br');
+INSERT INTO IEDB.Client(username, email, password)
+VALUES('renatocf', 'renato.cordeiro.ferreira@usp.br', '14159265');
 
-INSERT INTO IEDB.Client(username, email)
-VALUES('ruan0408', 'ruan.costa@usp.br');
+INSERT INTO IEDB.Client(username, email, password)
+VALUES('ruan0408', 'ruan.costa@usp.br', '35897932');
 
-INSERT INTO IEDB.Client(username, email)
-VALUES('tuiuiu', 'lucas.dario@usp.br');
+INSERT INTO IEDB.Client(username, email, password)
+VALUES('tuiuiu', 'lucas.dario@usp.br', '38462643');
 
-INSERT INTO IEDB.Client(username, email)
-VALUES('karinaawoki', 'karina.suemi.awoki@usp.br');
+INSERT INTO IEDB.Client(username, email, password)
+VALUES('karinaawoki', 'karina.suemi.awoki@usp.br', '38327950');
 
 INSERT INTO IEDB.Reviewer(username) VALUES('renatocf');
 INSERT INTO IEDB.Reviewer(username) VALUES('ruan0408');
