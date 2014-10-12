@@ -302,6 +302,7 @@ CREATE TABLE IF NOT EXISTS IEDB.rel_adapted_to
 (
     original_title_id    SERIAL,
     adaptation_title_id  SERIAL,
+    rate                 TYPE_RATE,
 
     PRIMARY KEY(original_title_id, adaptation_title_id),
     FOREIGN KEY(original_title_id) REFERENCES IEDB.Title(id)
