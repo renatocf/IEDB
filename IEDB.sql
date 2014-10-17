@@ -62,10 +62,10 @@ CREATE TABLE IF NOT EXISTS IEDB.Change
     reviewer_username  TYPE_USERNAME  DEFAULT NULL,
     target_table       VARCHAR(32)    NOT NULL,
     operation          TYPE_OPERATION NOT NULL,
-    afected_col        VARCHAR(32)    DEFAULT NULL,
-    info               TEXT           DEFAULT NULL,
     id_col             VARCHAR(32)    DEFAULT NULL,
     id_value           TEXT           DEFAULT NULL,
+    afected_col        VARCHAR(32)    DEFAULT NULL,
+    info               TEXT           DEFAULT NULL,
     approval           BOOLEAN        DEFAULT NULL,
     
     FOREIGN KEY(submitter_username) REFERENCES IEDB.Client(username)
