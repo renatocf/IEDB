@@ -17,23 +17,23 @@ SET search_path TO IEDB;
 \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 */
 
-CREATE DOMAIN IEDB.TYPE_USERNAME AS VARCHAR(32) NOT NULL
+CREATE DOMAIN IEDB.TYPE_USERNAME AS VARCHAR(32)
        CHECK (VALUE ~ '^[a-zA-Z][a-zA-Z0-9]*$');
 
-CREATE DOMAIN IEDB.TYPE_EMAIL AS VARCHAR(64) NOT NULL
+CREATE DOMAIN IEDB.TYPE_EMAIL AS VARCHAR(64)
        CHECK (VALUE ~ '^[a-zA-Z0-9._]+@[a-zA-Z0-9]+(\.\w{3})?(\.\w{2})?$');
 
-CREATE DOMAIN IEDB.TYPE_PASSWORD AS VARCHAR(128) NOT NULL
+CREATE DOMAIN IEDB.TYPE_PASSWORD AS VARCHAR(128)
        CHECK (char_length(VALUE) >= 8);
 
-CREATE DOMAIN IEDB.TYPE_OPERATION AS CHAR(6) NOT NULL
+CREATE DOMAIN IEDB.TYPE_OPERATION AS CHAR(6)
        CHECK(VALUE = 'INSERT' OR VALUE = 'UPDATE' OR VALUE = 'DELETE');
 
-CREATE DOMAIN IEDB.TYPE_NAME AS VARCHAR(128) NOT NULL;
+CREATE DOMAIN IEDB.TYPE_NAME AS VARCHAR(128);
 
-CREATE DOMAIN IEDB.TYPE_NATIONALITY AS VARCHAR(50) NOT NULL;
+CREATE DOMAIN IEDB.TYPE_NATIONALITY AS VARCHAR(50);
 
-CREATE DOMAIN IEDB.TYPE_RATE AS NUMERIC(1,1) NOT NULL DEFAULT 0
+CREATE DOMAIN IEDB.TYPE_RATE AS NUMERIC(1,1) DEFAULT 0
        CHECK (VALUE >= 0 AND VALUE <= 5);
 
 /*
@@ -48,28 +48,25 @@ CREATE DOMAIN IEDB.TYPE_RATE AS NUMERIC(1,1) NOT NULL DEFAULT 0
 CREATE TABLE IF NOT EXISTS IEDB.Client
 (
     username TYPE_USERNAME PRIMARY KEY,
-    email    TYPE_EMAIL,
-    password TYPE_PASSWORD,
-    active   BOOLEAN
-);
-
-CREATE TABLE IF NOT EXISTS IEDB.Reviewer
-(
-    username TYPE_USERNAME PRIMARY KEY,
-    FOREIGN KEY(username) REFERENCES IEDB.Client(username)
-        ON UPDATE CASCADE ON DELETE CASCADE
+    email    TYPE_EMAIL    NOT NULL,
+    password TYPE_PASSWORD NOT NULL,
+    active   BOOLEAN DEFAULT true,
+    reviewer BOOLEAN DEFAULT false
 );
 
 -- Artificial ----------------------------------------------------------
 CREATE TABLE IF NOT EXISTS IEDB.Change
 (
     id                 SERIAL         PRIMARY KEY,
-    submitter_username TYPE_USERNAME,
+    submitter_username TYPE_USERNAME  NOT NULL,
     reviewer_username  TYPE_USERNAME  DEFAULT NULL,
     target_table       VARCHAR(32)    NOT NULL,
     operation          TYPE_OPERATION NOT NULL,
-    afected_col        VARCHAR(32)    NOT NULL,
-    info               TEXT           NOT NULL,
+    afected_col        VARCHAR(32)    DEFAULT NULL,
+    info               TEXT           DEFAULT NULL,
+    id_col             VARCHAR(32)    DEFAULT NULL,
+    id_value           TEXT           DEFAULT NULL,
+    approval           BOOLEAN        DEFAULT NULL,
     
     FOREIGN KEY(submitter_username) REFERENCES IEDB.Client(username)
         ON UPDATE CASCADE ON DELETE RESTRICT,
@@ -79,10 +76,11 @@ CREATE TABLE IF NOT EXISTS IEDB.Change
 
 CREATE TABLE IF NOT EXISTS IEDB.Prototype_change
 (
-    name              TYPE_NAME      PRIMARY KEY,
-    target_table      VARCHAR(32)    NOT NULL,
-    operation         TYPE_OPERATION NOT NULL,
-    afected_col       VARCHAR(32)    NOT NULL
+    name         TYPE_NAME      PRIMARY KEY,
+    target_table VARCHAR(32)    NOT NULL,
+    operation    TYPE_OPERATION NOT NULL,
+    id_col       VARCHAR(32)    NOT NULL,
+    afected_col  VARCHAR(32)    NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS IEDB.Genre_auditive
@@ -177,7 +175,7 @@ CREATE TABLE IF NOT EXISTS IEDB.Title
 CREATE TABLE IF NOT EXISTS IEDB.Auditive
 (
     id    INTEGER PRIMARY KEY,
-    genre TYPE_NAME NOT NULL DEFAULT 'Other',
+    genre TYPE_NAME DEFAULT NULL,
     
     FOREIGN KEY(id) REFERENCES IEDB.Title(id)
         ON UPDATE CASCADE ON DELETE RESTRICT,
@@ -188,7 +186,7 @@ CREATE TABLE IF NOT EXISTS IEDB.Auditive
 CREATE TABLE IF NOT EXISTS IEDB.Written
 (
     id    INTEGER PRIMARY KEY,
-    genre TYPE_NAME NOT NULL DEFAULT 'Other',
+    genre TYPE_NAME DEFAULT NULL,
     
     FOREIGN KEY(id) REFERENCES IEDB.Title(id)
         ON UPDATE CASCADE ON DELETE RESTRICT,
@@ -199,8 +197,8 @@ CREATE TABLE IF NOT EXISTS IEDB.Written
 CREATE TABLE IF NOT EXISTS IEDB.Visual
 (
     id         INTEGER PRIMARY KEY,
-    censorship TYPE_NAME,
-    genre      TYPE_NAME NOT NULL DEFAULT 'Other',
+    censorship TYPE_NAME DEFAULT NULL,
+    genre      TYPE_NAME DEFAULT NULL,
     
     FOREIGN KEY(id) REFERENCES IEDB.Title(id)
         ON UPDATE CASCADE ON DELETE RESTRICT,
@@ -331,6 +329,7 @@ CREATE TABLE IF NOT EXISTS IEDB.rel_rates
     client_name          TYPE_USERNAME,
     original_title_id    INTEGER,
     adaptation_title_id  INTEGER,
+    rate                 TYPE_RATE,
     
     PRIMARY KEY(client_name, original_title_id, adaptation_title_id),
     FOREIGN KEY(client_name) REFERENCES IEDB.Client(username)
@@ -344,7 +343,9 @@ CREATE TABLE IF NOT EXISTS IEDB.rel_stars
 (
     client_name  TYPE_USERNAME,
     title_id     INTEGER,
-
+    rate         TYPE_RATE,
+    
+    PRIMARY KEY(client_name, title_id),
     FOREIGN KEY(client_name) REFERENCES IEDB.Client(username)
         ON UPDATE CASCADE ON DELETE RESTRICT,
     FOREIGN KEY(title_id) REFERENCES IEDB.Title(id)
@@ -427,3 +428,34 @@ CREATE TABLE IF NOT EXISTS IEDB.rel_performs
     FOREIGN KEY(musician_name) REFERENCES IEDB.Musician(person_name)
         ON UPDATE CASCADE ON DELETE RESTRICT
 );
+
+/*
+////////////////////////////////////////////////////////////////////////
+-----------------------------------------------------------------------
+                              TRIGGER
+-----------------------------------------------------------------------
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+*/
+
+-- @procedure validate_reviewer
+CREATE OR REPLACE FUNCTION validate_reviewer()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF ( NEW.reviewer_username IS NOT NULL 
+    AND  (SELECT reviewer FROM IEDB.Client 
+          WHERE username = NEW.reviewer_username) = false) 
+    THEN
+        RAISE EXCEPTION '% is not a reviewer', _reviewer_username;
+        RETURN NULL;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- @trigger AllowChange
+DROP TRIGGER IF EXISTS AllowChange ON IEDB.Change;
+CREATE TRIGGER AllowChange
+BEFORE UPDATE ON IEDB.Change
+FOR EACH ROW
+    WHEN ( NEW.id IS NOT NULL )
+        EXECUTE PROCEDURE validate_reviewer();

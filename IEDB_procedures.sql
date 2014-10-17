@@ -18,10 +18,11 @@ SET search_path TO IEDB;
 */
 
 ------------------------------------------------------------------------
---                        Create new account                          --
+--                       Account administration                       --
 ------------------------------------------------------------------------
 
-CREATE OR REPLACE FUNCTION create_client(
+-- @procedure create_account
+CREATE OR REPLACE FUNCTION create_account(
     _username TYPE_USERNAME, _email TYPE_EMAIL, _password TYPE_PASSWORD)
 RETURNS void AS $$
 BEGIN
@@ -30,11 +31,8 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-------------------------------------------------------------------------
---                          Change account                            --
-------------------------------------------------------------------------
-
-CREATE OR REPLACE FUNCTION change_client_email(
+-- @procedure change_account_email
+CREATE OR REPLACE FUNCTION change_account_email(
     _username TYPE_USERNAME, _new_email TYPE_EMAIL)
 RETURNS void AS $$
 BEGIN
@@ -43,7 +41,8 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION change_client_password(
+-- @procedure change_account_password
+CREATE OR REPLACE FUNCTION change_account_password(
     _username TYPE_USERNAME, _password TYPE_PASSWORD)
 RETURNS void AS $$
 BEGIN
@@ -52,10 +51,45 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+-- @procedure deactivate_account
+CREATE OR REPLACE FUNCTION deactivate_account(_username TYPE_USERNAME)
+RETURNS void AS $$
+BEGIN
+    UPDATE IEDB.Client SET active = false WHERE username = _username;
+END;
+$$ LANGUAGE plpgsql;
+
+-- @procedure reactivate_account
+CREATE OR REPLACE FUNCTION deactivate_account(_username TYPE_USERNAME)
+RETURNS void AS $$
+BEGIN
+    UPDATE IEDB.Client SET active = true WHERE username = _username;
+END;
+$$ LANGUAGE plpgsql;
+
+-- @procedure grant_reviewer_privilege
+CREATE OR REPLACE FUNCTION grant_reviewer_permission(
+    _username TYPE_USERNAME)
+RETURNS void AS $$
+BEGIN
+    UPDATE IEDB.Client SET reviewer = true WHERE username = _username;
+END;
+$$ LANGUAGE plpgsql;
+
+-- @procedure revoke_reviewer_privilege
+CREATE OR REPLACE FUNCTION revoke_reviewer_permission(
+    _username TYPE_USERNAME)
+RETURNS void AS $$
+BEGIN
+    UPDATE IEDB.Client SET reviewer = false WHERE username = _username;
+END;
+$$ LANGUAGE plpgsql;
+
 ------------------------------------------------------------------------
---                           Create title                             --
+--                         Title management                           --
 ------------------------------------------------------------------------
 
+-- @procedure create_title
 CREATE OR REPLACE FUNCTION create_title(_type varchar(6), _name TYPE_NAME)
 RETURNS void AS $$
 DECLARE
@@ -66,20 +100,20 @@ BEGIN
     
     CASE
         WHEN _type = 'music' THEN
-            INSERT INTO IEDB.Auditive (title_id)    VALUES(_id);
-            INSERT INTO IEDB.Music    (auditive_id) VALUES(_id);
+            INSERT INTO IEDB.Auditive (id) VALUES(_id);
+            INSERT INTO IEDB.Music    (id) VALUES(_id);
         WHEN _type = 'book' THEN      
-            INSERT INTO IEDB.Written (title_id)   VALUES(_id);
-            INSERT INTO IEDB.Book    (written_id) VALUES(_id);
+            INSERT INTO IEDB.Written (id) VALUES(_id);
+            INSERT INTO IEDB.Book    (id) VALUES(_id);
         WHEN _type = 'hq' THEN                    
-            INSERT INTO IEDB.Written (title_id)   VALUES(_id);
-            INSERT INTO IEDB.HQ      (written_id) VALUES(_id);
+            INSERT INTO IEDB.Written (id) VALUES(_id);
+            INSERT INTO IEDB.HQ      (id) VALUES(_id);
         WHEN _type = 'movie' THEN                   
-            INSERT INTO IEDB.Visual (title_id)  VALUES(_id);
-            INSERT INTO IEDB.Movie  (visual_id) VALUES(_id);
+            INSERT INTO IEDB.Visual(id) VALUES(_id);
+            INSERT INTO IEDB.Movie(id)  VALUES(_id);
         WHEN _type = 'series' THEN              
-            INSERT INTO IEDB.Visual (title_id)  VALUES(_id);
-            INSERT INTO IEDB.Series (visual_id) VALUES(_id);
+            INSERT INTO IEDB.Visual(id) VALUES(_id);
+            INSERT INTO IEDB.Series(id) VALUES(_id);
         ELSE
             RAISE EXCEPTION 'Incorrect type --> %', _type
             USING HINT = 'Please check valid title types';
@@ -91,7 +125,7 @@ $$ LANGUAGE plpgsql;
 --                          Calculate rate                            --
 ------------------------------------------------------------------------
 
--- Title
+-- @procedure calculate_rate
 CREATE OR REPLACE FUNCTION calculate_rate(_title_id INTEGER)
 RETURNS INTEGER AS $$
 BEGIN
@@ -100,7 +134,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
--- Adaptation
+-- @procedure calculate_rate
 CREATE OR REPLACE FUNCTION calculate_rate(
     _original_title_id INTEGER, _adaptation_title_id INTEGER)
 RETURNS INTEGER AS $$
@@ -112,82 +146,114 @@ END;
 $$ LANGUAGE plpgsql;
 
 ------------------------------------------------------------------------
---                           Create change                            --
+--                        Change management                           --
 ------------------------------------------------------------------------
 
+-- @procedure create_change
+-- Create change without a prototype
 CREATE OR REPLACE FUNCTION create_change(
     _submitter_username TYPE_USERNAME,
-    _target_table       VARCHAR(32),
-    _operation          CHAR(6),
-    _afected_col        VARCHAR(32),
-    _info               TEXT)
+    _target_table VARCHAR(32), _operation CHAR(6),
+    _id_col       VARCHAR(32), _id_value  TEXT,
+    _afected_col  VARCHAR(32), _info      TEXT)
 RETURNS void AS $$
 BEGIN
-    INSERT INTO IEDB.Change(submitter_username, target_table,
-                            operation, afected_col, info)
-    VALUES(_submitter_username, _target_table, 
-           _operation, _afected_col, _info);
+    INSERT INTO IEDB.Change(submitter_username, target_table, operation,
+                            id_col, id_value, afected_col, info)
+    VALUES(_submitter_username, _target_table, _operation,
+           _id_col, _id_value, _afected_col, _info);
 END;
 $$ LANGUAGE plpgsql;
 
+-- @procedure create_change
+-- Create change using a tuple from Prototype_change
 CREATE OR REPLACE FUNCTION create_change(
     _submitter_username TYPE_USERNAME,
-    _prototype_name     TYPE_NAME,
-    _info               TEXT)
+    _prototype_name TYPE_NAME, _id_value TEXT, _info TEXT)
 RETURNS void AS $$
 DECLARE
-    _target_table VARCHAR(32)  NOT NULL;
-    _operation    CHAR(6)      NOT NULL;
-    _afected_col  VARCHAR(32)  NOT NULL;
+    _target_table VARCHAR(32);
+    _operation    CHAR(6);
+    _id_col       VARCHAR(32);
+    _afected_col  VARCHAR(32);
 BEGIN
     _target_table := (SELECT target_table FROM IEDB.Prototype_change
                       WHERE name = _prototype_name);
     _operation    := (SELECT operation FROM IEDB.Prototype_change
                       WHERE name = _prototype_name);
+    _id_col       := (SELECT id_col FROM IEDB.Prototype_change
+                      WHERE name = _prototype_name);
     _afected_col  := (SELECT afected_col FROM IEDB.Prototype_change
                       WHERE name = _prototype_name);
     
-    INSERT INTO IEDB.Change(submitter_username, target_table,
-                            operation, afected_col, info)
-    VALUES(_submitter_username, _target_table, 
-           _operation, _afected_col, _info);
+    INSERT INTO IEDB.Change(submitter_username, target_table, operation,
+                            id_col, id_value, afected_col, info)
+    VALUES(_submitter_username, _target_table, _operation,
+           _id_col, _id_value, _afected_col, _info);
 END;
 $$ LANGUAGE plpgsql;
 
-------------------------------------------------------------------------
---                           Allow change                             --
-------------------------------------------------------------------------
-
-CREATE OR REPLACE FUNCTION allow_change(_id INTEGER)
+-- @procedure approve_change
+CREATE OR REPLACE FUNCTION approve_change(
+    _reviewer_username TYPE_USERNAME, _id INTEGER)
 RETURNS void AS $$
 DECLARE 
-    _target_table VARCHAR(32);
-    _operation    CHAR(6);
-    _afected_col  VARCHAR(32);
-    _info         TEXT;
+    _target_table VARCHAR(32); _operation CHAR(6);
+    _id_col       VARCHAR(32); _id_value  TEXT;
+    _afected_col  VARCHAR(32); _info      TEXT;
 BEGIN
-    _target_table := (SELECT target_table
-                      FROM IEDB.Change WHERE id = _id);
-    _operation    := (SELECT operation
-                      FROM IEDB.Change WHERE id = _id);
-    _afected_col  := (SELECT afected_col
-                      FROM IEDB.Change WHERE id = _id);
-    _info         := (SELECT info
-                      FROM IEDB.Change WHERE id = _id);
+    IF ((SELECT approval FROM IEDB.Change 
+         WHERE reviewer_username = _reviewer_username) IS NOT NULL)
+        THEN RETURN;
+    END IF;
+    
+    UPDATE IEDB.Change
+    SET    reviewer_username = _reviewer_username, approval = true 
+    WHERE  id = _id;
+    
+    _target_table := (SELECT target_table FROM IEDB.Change WHERE id = _id);
+    _operation    := (SELECT operation    FROM IEDB.Change WHERE id = _id);
+    _id_col       := (SELECT id_col       FROM IEDB.Change WHERE id = _id);
+    _id_value     := (SELECT id_value     FROM IEDB.Change WHERE id = _id);
+    _afected_col  := (SELECT afected_col  FROM IEDB.Change WHERE id = _id);
+    _info         := (SELECT info         FROM IEDB.Change WHERE id = _id);
     
     IF( _operation = 'INSERT' ) THEN
         EXECUTE '
-            INSERT INTO ' || _target_table || '(' || _afected_col  || ')
-            VALUES (' || quote_literal(_info) || ')';
+            INSERT INTO ' || _target_table        || '
+                       (' || _afected_col         || ')
+            VALUES     (' || quote_literal(_info) || ')';
     ELSIF( _operation = 'UPDATE' ) THEN
         EXECUTE '
-            UPDATE ' || _target_table || '
-            SET    ' || _afected_col  || '
-            =      ' || quote_literal(_info);
+            UPDATE ' || _target_table        || '
+            SET    ' || _afected_col         || '
+            =      ' || quote_literal(_info) || '
+            WHERE  ' || _id_col              || '
+            =      ' || quote_literal(_id_value);
     ELSIF( _operation = 'DELETE' ) THEN
         EXECUTE '
             DELETE FROM ' || _target_table || '
-            WHERE' || _afected_col || '=' || quote_literal(_info);
+            WHERE       ' || _id_col       || '
+            =           ' || quote_literal(_id_value);
+    ELSE
+        RAISE EXCEPTION '% is not a valid operation', _operation
+        USING HINT = 'Operations should be either INSERT/UPDATE/DELETE';
     END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+-- @procedure reprove_change
+CREATE OR REPLACE FUNCTION reprove_change(
+    _reviewer_username TYPE_USERNAME, _id INTEGER)
+RETURNS void AS $$
+BEGIN
+    IF ((SELECT approval FROM IEDB.Change 
+         WHERE reviewer_username = _reviewer_username) IS NOT NULL)
+        THEN RETURN;
+    END IF;
+    
+    UPDATE IEDB.Change
+    SET    reviewer_username = _reviewer_username, approval = false
+    WHERE  id = _id;
 END;
 $$ LANGUAGE plpgsql;

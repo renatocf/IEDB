@@ -1,39 +1,33 @@
 -- MAC 0211 - Laboratório de Banco de Dados
 -- IME-USP  - Segundo  Semestre   de   2014
 -- Turma 45 - Prof.ª  Kelly  Rosa  Bragheto
--- 
+
+-- Basic info
+INSERT INTO IEDB.Prototype_change
+VALUES ('change_description', 'IEDB.Title', 'UPDATE', 'id', 'description');
+
+INSERT INTO IEDB.Genre_auditive VALUES ('Rock');
+INSERT INTO IEDB.Genre_written VALUES ('Romance');
+INSERT INTO IEDB.Genre_visual VALUES ('Action');
+
+INSERT INTO IEDB.Censorship_visual VALUES ('G');
+
 -- Data sample
+SELECT create_account
+    ('renatocf', 'renato.cordeiro.ferreira@usp.br', '14159265');
+SELECT create_account
+    ('ruan0408', 'ruan.costa@usp.br', '35897932');
+SELECT create_account
+    ('tuiuiu', 'lucas.dario@usp.br', '38462643');
+SELECT create_account
+    ('karinaawoki', 'karina.suemi.awoki@usp.br', '38327950');
 
-INSERT INTO IEDB.Client(username, email, password)
-VALUES('renatocf', 'renato.cordeiro.ferreira@usp.br', '14159265');
+SELECT grant_reviewer_permission('renatocf');
+SELECT grant_reviewer_permission('ruan0408');
 
-INSERT INTO IEDB.Client(username, email, password)
-VALUES('ruan0408', 'ruan.costa@usp.br', '35897932');
+SELECT create_title('movie', 'The Lord of the Rings: The Fellowship of the Ring');
 
-INSERT INTO IEDB.Client(username, email, password)
-VALUES('tuiuiu', 'lucas.dario@usp.br', '38462643');
+SELECT create_change('renatocf', 'change_description', '1', 
+'A meek hobbit of the Shire and eight companions set out on a journey to Mount Doom to destroy the One Ring and the dark lord Sauron.');
 
-INSERT INTO IEDB.Client(username, email, password)
-VALUES('karinaawoki', 'karina.suemi.awoki@usp.br', '38327950');
-
-INSERT INTO IEDB.Reviewer(username) VALUES('renatocf');
-INSERT INTO IEDB.Reviewer(username) VALUES('ruan0408');
-
-INSERT INTO IEDB.Title(name, date_creation, description)
-VALUES('The Lord of the Rings: The Fellowship of the Ring',
-       '2014/09/28', 'A meek hobbit of the Shire and eight companions set out on a journey to Mount Doom to destroy the One Ring and the dark lord Sauron.');
-
-INSERT INTO IEDB.Change(target_table, operation, afected_col, info)
-VALUES('Title', 'UPDATE', 'description', 'A meek hobbit of the Shire and eight companions set out on a journey to Mount Doom to destroy the One Ring and the dark lord Sauron. Based on J.R.R.Tolkien book.');
-
-INSERT INTO IEDB.Genre_auditive
-VALUES ('Rock');
-
-INSERT INTO IEDB.Genre_written
-VALUES ('Romance');
-
-INSERT INTO IEDB.Genre_visual
-VALUES ('Action');
-
-INSERT INTO IEDB.Censorship_visual -- Motion picture rating system
-VALUES ('G');
+SELECT approve_change('ruan0408',1);
