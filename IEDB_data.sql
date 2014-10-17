@@ -23,9 +23,8 @@ INSERT INTO IEDB.Title(name, date_creation, description)
 VALUES('The Lord of the Rings: The Fellowship of the Ring',
        '2014/09/28', 'A meek hobbit of the Shire and eight companions set out on a journey to Mount Doom to destroy the One Ring and the dark lord Sauron.');
 
-INSERT INTO IEDB.Change(creation_date, target_table, 
-                        operation, afected_col, info)
-VALUES('2014/09/28', 'Title', 'UPDATE', 'description', 'A meek hobbit of the Shire and eight companions set out on a journey to Mount Doom to destroy the One Ring and the dark lord Sauron. Based on J.R.R.Tolkien book.');
+INSERT INTO IEDB.Change(target_table, operation, afected_col, info)
+VALUES('Title', 'UPDATE', 'description', 'A meek hobbit of the Shire and eight companions set out on a journey to Mount Doom to destroy the One Ring and the dark lord Sauron. Based on J.R.R.Tolkien book.');
 
 INSERT INTO IEDB.Genre_auditive
 VALUES ('Rock');
