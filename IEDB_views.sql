@@ -6,6 +6,10 @@
 -- Renato Cordeiro Ferreira       - 7990933
 -- Ruan de Menezes Costa          - 7990929
 
+-- DEPENDENCIES: 
+-- Run 'IEDB.sql' and 'IEDB_procedures.sql'
+-- before this.
+
 CREATE SCHEMA IF NOT EXISTS IEDB;
 SET search_path TO IEDB;
 
