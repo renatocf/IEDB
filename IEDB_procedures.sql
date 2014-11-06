@@ -186,7 +186,7 @@ BEGIN
                       WHERE name = _prototype_name);
     _id_col       := (SELECT id_col FROM IEDB.Prototype_change
                       WHERE name = _prototype_name);
-    _affected_col := (SELECT affected_colFROM IEDB.Prototype_change
+    _affected_col := (SELECT affected_col FROM IEDB.Prototype_change
                       WHERE name = _prototype_name);
     
     INSERT INTO IEDB.Change(submitter_username, target_table, operation,
