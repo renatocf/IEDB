@@ -54,19 +54,19 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+-- @procedure activate_account
+CREATE OR REPLACE FUNCTION activate_account(_username TYPE_USERNAME)
+RETURNS void AS $$
+BEGIN
+    UPDATE IEDB.Client SET active = true WHERE username = _username;
+END;
+$$ LANGUAGE plpgsql;
+
 -- @procedure deactivate_account
 CREATE OR REPLACE FUNCTION deactivate_account(_username TYPE_USERNAME)
 RETURNS void AS $$
 BEGIN
     UPDATE IEDB.Client SET active = false WHERE username = _username;
-END;
-$$ LANGUAGE plpgsql;
-
--- @procedure reactivate_account
-CREATE OR REPLACE FUNCTION deactivate_account(_username TYPE_USERNAME)
-RETURNS void AS $$
-BEGIN
-    UPDATE IEDB.Client SET active = true WHERE username = _username;
 END;
 $$ LANGUAGE plpgsql;
 
