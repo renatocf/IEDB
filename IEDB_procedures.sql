@@ -132,7 +132,7 @@ $$ LANGUAGE plpgsql;
 CREATE OR REPLACE FUNCTION calculate_rate(_title_id INTEGER)
 RETURNS INTEGER AS $$
 BEGIN
-    RETURN (SELECT count(*) FROM IEDB.rel_stars
+    RETURN (SELECT avg(rate) FROM IEDB.rel_stars
             WHERE  title_id = _title_id);
 END;
 $$ LANGUAGE plpgsql;
@@ -142,7 +142,7 @@ CREATE OR REPLACE FUNCTION calculate_rate(
     _original_title_id INTEGER, _adaptation_title_id INTEGER)
 RETURNS INTEGER AS $$
 BEGIN
-    RETURN (SELECT count(*) FROM IEDB.rel_rates
+    RETURN (SELECT avg(rate) FROM IEDB.rel_rates
             WHERE  original_title_id = _original_title_id
               AND  adaptation_title_id = _adaptation_title_id);
 END;
