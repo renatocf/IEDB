@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS IEDB.Change
     operation          TYPE_OPERATION NOT NULL,
     id_col             VARCHAR(32)    DEFAULT NULL,
     id_value           TEXT           DEFAULT NULL,
-    afected_col        VARCHAR(32)    DEFAULT NULL,
+    affected_col       VARCHAR(32)    DEFAULT NULL,
     info               TEXT           DEFAULT NULL,
     approval           BOOLEAN        DEFAULT NULL,
     
@@ -80,7 +80,7 @@ CREATE TABLE IF NOT EXISTS IEDB.Prototype_change
     target_table VARCHAR(32)    NOT NULL,
     operation    TYPE_OPERATION NOT NULL,
     id_col       VARCHAR(32)    NOT NULL,
-    afected_col  VARCHAR(32)    NOT NULL
+    affected_col VARCHAR(32)    NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS IEDB.Genre_auditive

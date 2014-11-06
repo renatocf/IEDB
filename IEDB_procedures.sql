@@ -158,13 +158,13 @@ CREATE OR REPLACE FUNCTION create_change(
     _submitter_username TYPE_USERNAME,
     _target_table VARCHAR(32), _operation CHAR(6),
     _id_col       VARCHAR(32), _id_value  TEXT,
-    _afected_col  VARCHAR(32), _info      TEXT)
+    _affected_col VARCHAR(32), _info      TEXT)
 RETURNS void AS $$
 BEGIN
     INSERT INTO IEDB.Change(submitter_username, target_table, operation,
-                            id_col, id_value, afected_col, info)
+                            id_col, id_value, affected_col, info)
     VALUES(_submitter_username, _target_table, _operation,
-           _id_col, _id_value, _afected_col, _info);
+           _id_col, _id_value, _affected_col, _info);
 END;
 $$ LANGUAGE plpgsql;
 
@@ -178,7 +178,7 @@ DECLARE
     _target_table VARCHAR(32);
     _operation    CHAR(6);
     _id_col       VARCHAR(32);
-    _afected_col  VARCHAR(32);
+    _affected_col VARCHAR(32);
 BEGIN
     _target_table := (SELECT target_table FROM IEDB.Prototype_change
                       WHERE name = _prototype_name);
@@ -186,13 +186,13 @@ BEGIN
                       WHERE name = _prototype_name);
     _id_col       := (SELECT id_col FROM IEDB.Prototype_change
                       WHERE name = _prototype_name);
-    _afected_col  := (SELECT afected_col FROM IEDB.Prototype_change
+    _affected_col := (SELECT affected_colFROM IEDB.Prototype_change
                       WHERE name = _prototype_name);
     
     INSERT INTO IEDB.Change(submitter_username, target_table, operation,
-                            id_col, id_value, afected_col, info)
+                            id_col, id_value, affected_col, info)
     VALUES(_submitter_username, _target_table, _operation,
-           _id_col, _id_value, _afected_col, _info);
+           _id_col, _id_value, _affected_col, _info);
 END;
 $$ LANGUAGE plpgsql;
 
@@ -203,7 +203,7 @@ RETURNS void AS $$
 DECLARE 
     _target_table VARCHAR(32); _operation CHAR(6);
     _id_col       VARCHAR(32); _id_value  TEXT;
-    _afected_col  VARCHAR(32); _info      TEXT;
+    _affected_col VARCHAR(32); _info      TEXT;
 BEGIN
     IF ((SELECT approval FROM IEDB.Change 
          WHERE reviewer_username = _reviewer_username) IS NOT NULL)
@@ -218,18 +218,18 @@ BEGIN
     _operation    := (SELECT operation    FROM IEDB.Change WHERE id = _id);
     _id_col       := (SELECT id_col       FROM IEDB.Change WHERE id = _id);
     _id_value     := (SELECT id_value     FROM IEDB.Change WHERE id = _id);
-    _afected_col  := (SELECT afected_col  FROM IEDB.Change WHERE id = _id);
+    _affected_col := (SELECT affected_col FROM IEDB.Change WHERE id = _id);
     _info         := (SELECT info         FROM IEDB.Change WHERE id = _id);
     
     IF( _operation = 'INSERT' ) THEN
         EXECUTE '
             INSERT INTO ' || _target_table        || '
-                       (' || _afected_col         || ')
+                       (' || _affected_col        || ')
             VALUES     (' || quote_literal(_info) || ')';
     ELSIF( _operation = 'UPDATE' ) THEN
         EXECUTE '
             UPDATE ' || _target_table        || '
-            SET    ' || _afected_col         || '
+            SET    ' || _affected_col        || '
             =      ' || quote_literal(_info) || '
             WHERE  ' || _id_col              || '
             =      ' || quote_literal(_id_value);
