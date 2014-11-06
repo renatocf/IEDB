@@ -71,7 +71,7 @@ SELECT * FROM IEDB.Change WHERE approval = true;
 
 -- @view Reproved_change
 CREATE OR REPLACE VIEW IEDB.Reproved_change AS
-SELECT * FROM IEDB.Change WHERE approval = true;
+SELECT * FROM IEDB.Change WHERE approval = false;
 
 -- @view Unanalized_change
 CREATE OR REPLACE VIEW IEDB.Unanalized_change AS
