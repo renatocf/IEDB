@@ -24,7 +24,10 @@ running, please visit our [official website][6] at [Heroku][7].
 Database
 --------
 
-To recreate the database, run them on [PostgreSQL][8] in the 
+IEDB's database is implemented with [PostgreSQL][8]. All avaiable
+SQL files are stored in `/app/models/sql/`.
+
+To recreate the database, run them on PostgreSQL in the 
 following order:
 
 1. IEDB.sql
