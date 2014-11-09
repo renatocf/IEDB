@@ -13,7 +13,9 @@ development tool, in [Java][3] and [Scala][4].
 
 In order to run the server locally, just type 
 
-    $ activator run
+```
+$ activator run
+```
 
 and access `localhost:9000`.
 
