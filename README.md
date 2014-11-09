@@ -36,11 +36,11 @@ following order:
 
 To populate it with a sample database, just run `IEDB_data.sql`.
 
-[1][https://www.playframework.com/]
-[2][https://typesafe.com/activator]
-[3][https://www.oracle.com/java/index.html]
-[4][http://www.scala-lang.org/]
-[5][https://github.com/]
-[6][http://iedb.herokuapp.com]
-[7][http://www.heroku.com/]
-[8][http://www.postgresql.org/]
+[1]: https://www.playframework.com/
+[2]: https://typesafe.com/activator
+[3]: https://www.oracle.com/java/index.html
+[4]: http://www.scala-lang.org/
+[5]: https://github.com/
+[6]: http://iedb.herokuapp.com
+[7]: http://www.heroku.com/
+[8]: http://www.postgresql.org/
