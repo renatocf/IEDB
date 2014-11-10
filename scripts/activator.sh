@@ -21,7 +21,7 @@
     # remind the user to add to $PATH
     if [ ":$PATH:" != *":$ACTIVATOR_DIR:"* ]; then
 	echo "Add the Activator CLI to your PATH using:"
-	echo "$ echo 'PATH=\"$ACTIVATOR_DIR:\$PATH\"' >> ~/.bash/profile.bash"
+	echo "$ echo 'PATH=\"$ACTIVATOR_DIR:\$PATH\"' >> ~/.bashrc"
     fi
 
     echo "Installation complete"

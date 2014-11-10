@@ -20,7 +20,7 @@
     # remind the user to add to $PATH
     if [ ":$PATH:" != *":$HEROKU_DIR/bin:"* ]; then
 	echo "Add the Heroku CLI to your PATH using:"
-	echo "$ echo 'PATH=\"$HEROKU_DIR/bin:\$PATH\"' >> ~/.bash/profile.bash"
+	echo "$ echo 'PATH=\"$HEROKU_DIR/bin:\$PATH\"' >> ~/.bashrc"
     fi
 
     echo "Installation complete"
