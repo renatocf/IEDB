@@ -20,11 +20,11 @@ import java.util.Date;
 
 public class Title
 {
-    private int id;
-    private int cameFrom;
-    private String name;
-    private Date dateCreation;
-    private String description;
+    protected int id;
+    protected int cameFrom;
+    protected String name;
+    protected Date dateCreation;
+    protected String description;
 
     // Getters
     public int getId() {
