@@ -16,8 +16,8 @@
 /**********************************************************************/
 package models;
 
-public class Movie extends Visual
-{
+public class Movie extends Visual {
+
     protected int duration;
     protected String nationality;
 
