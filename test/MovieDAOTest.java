@@ -11,18 +11,24 @@ import static org.junit.Assert.*;
 
 public class MovieDAOTest {
     
-    /**
-     * add your integration test here
-     * in this example we just check if the welcome page is being shown
-     */
-    @Test
-    public void getByName() {
+    private MovieDAO dao;
+
+    @Before
+    public void setUp() throws Exception{
         running(fakeApplication(), new Runnable() {
             public void run() {
-                MovieDAO dao = new MovieDAO();
-                assertEquals("The Lord of the Rings: The Fellowship of the Ring",
-                    dao.getByName("Lord").get(0).getName());
+                dao = new MovieDAO();
             }
         });
+    }
+
+    @After
+    public void tearDown() throws Exception{
+        dao = null;
+    }
+
+    @Test
+    public void getByName() {
+        assertEquals("The Lord of the Rings: The Fellowship of the Ring", dao.getByName("Lord").get(0).getName());
     }
 }
