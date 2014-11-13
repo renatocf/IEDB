@@ -12,6 +12,7 @@ INSERT INTO IEDB.Genre_visual VALUES ('Action');
 
 INSERT INTO IEDB.Censorship_visual VALUES ('G');
 
+
 -- Data sample
 SELECT create_account
     ('renatocf', 'renato.cordeiro.ferreira@usp.br', '14159265');
@@ -26,6 +27,8 @@ SELECT grant_reviewer_permission('renatocf');
 SELECT grant_reviewer_permission('ruan0408');
 
 SELECT create_title('movie', 'The Lord of the Rings: The Fellowship of the Ring');
+
+SELECT create_movie('Matrix', 'A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.', 'Action', 136, 'USA', 'G');
 
 SELECT create_change('renatocf', 'change_description', '1', 
 'A meek hobbit of the Shire and eight companions set out on a journey to Mount Doom to destroy the One Ring and the dark lord Sauron.');

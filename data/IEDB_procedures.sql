@@ -112,15 +112,33 @@ BEGIN
             INSERT INTO IEDB.Written (id) VALUES(_id);
             INSERT INTO IEDB.HQ      (id) VALUES(_id);
         WHEN _type = 'movie' THEN                   
-            INSERT INTO IEDB.Visual(id) VALUES(_id);
-            INSERT INTO IEDB.Movie(id)  VALUES(_id);
+            INSERT INTO IEDB.Visual  (id) VALUES(_id);
+            INSERT INTO IEDB.movie   (id)  VALUES(_id);
         WHEN _type = 'series' THEN              
-            INSERT INTO IEDB.Visual(id) VALUES(_id);
-            INSERT INTO IEDB.Series(id) VALUES(_id);
+            INSERT INTO IEDB.Visual  (id) VALUES(_id);
+            INSERT INTO IEDB.series  (id) VALUES(_id);
         ELSE
             RAISE EXCEPTION 'Incorrect type --> %', _type
             USING HINT = 'Please check valid title types';
     END CASE;
+END;
+$$ LANGUAGE plpgsql;
+
+------------------------------------------------------------------------
+--                         Movie management                           --
+------------------------------------------------------------------------
+-- @procedure crete create_movie
+CREATE OR REPLACE FUNCTION create_movie(_name TYPE_NAME, _description TEXT, _genre varchar(30), 
+                                        _duration INTEGER, _nationality TYPE_NATIONALITY, _censorship TYPE_NAME)
+RETURNS void AS $$
+DECLARE
+    _id INTEGER;
+BEGIN
+    INSERT INTO IEDB.Title(name, date_creation, description)
+    VALUES(_name, current_date, _description) RETURNING id INTO _id;
+
+    INSERT INTO IEDB.Visual  (id, genre, censorship)      VALUES(_id, _genre, _censorship);
+    INSERT INTO IEDB.movie   (id, duration, nationality)  VALUES(_id, _duration, _nationality);
 END;
 $$ LANGUAGE plpgsql;
 
