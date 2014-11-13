@@ -3,7 +3,10 @@ package unit; /**
  */
 
 import models.TitleDAO;
+
 import org.junit.*;
+
+import static play.test.Helpers.*;
 import static org.junit.Assert.*;
 
 public class TitleDAOTest {
@@ -12,7 +15,11 @@ public class TitleDAOTest {
 
     @Before
     public void setUp() throws Exception{
-        dao = new TitleDAO();
+        running(fakeApplication(), new Runnable() {
+            public void run() {
+                dao = new TitleDAO();
+            }
+        });
     }
 
     @After
@@ -24,6 +31,4 @@ public class TitleDAOTest {
     public void getAll(){
         assertEquals("The Lord of the Rings: The Fellowship of the Ring", dao.getAll().get(0).getName());
     }
-
-
 }
