@@ -7,8 +7,10 @@ import models.Title;
 
 // Views
 import views.html.movie;
+import views.html.search_results;
 
 import java.util.List;
+import java.util.ArrayList;
 
 import play.*;
 import play.mvc.*;
@@ -16,15 +18,25 @@ import play.data.Form;
 
 public class Viewer extends Controller {
 
-    public static Result find() {
+    public static Result search() {
         Title title = Form.form(Title.class).bindFromRequest().get();
-        return redirect(routes.Viewer.getMovie(title.getName()));
+        
+        List<Title> searchResults = new ArrayList<Title>();
+        searchResults.addAll(findMovies(title.getName()));
+        
+        return ok(search_results.render(searchResults));
     }
     
     public static Result getMovie(String name) {
-        MovieDAO dao = new MovieDAO();
-        List<Movie> movies = dao.getByName(name.replace('-',' '));
-        return ok(movie.render(movies.get(0).getName()));
+        return showTitle(findMovies(name).get(0));
     }
-
+    
+    public static Result showTitle(Movie m) {
+        return ok(movie.render(m));
+    }
+    
+    private static List<Movie> findMovies(String name) {
+        MovieDAO dao = new MovieDAO();
+        return dao.getByName(name.replace('-',' '));
+    }
 }

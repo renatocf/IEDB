@@ -6,8 +6,8 @@
 GET     /                           controllers.Application.index()
 
 # Title pages
-POST    /                           controllers.Viewer.find()
-GET     /movie/:name                controllers.Viewer.getMovie(name: String)
+POST    /                           controllers.Viewer.search()
+GET     /movie/:name                controllers.Viewer.getMovie(name)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
