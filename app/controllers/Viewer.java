@@ -18,7 +18,7 @@ import play.data.Form;
 
 public class Viewer extends Controller {
 
-    public static Result find() {
+    public static Result search() {
         Title title = Form.form(Title.class).bindFromRequest().get();
         
         List<Title> searchResults = new ArrayList<Title>();
@@ -27,15 +27,16 @@ public class Viewer extends Controller {
         return ok(search_results.render(searchResults));
     }
     
+    public static Result getMovie(String name) {
+        return showTitle(findMovies(name).get(0));
+    }
+    
+    public static Result showTitle(Movie m) {
+        return ok(movie.render(m));
+    }
+    
     private static List<Movie> findMovies(String name) {
         MovieDAO dao = new MovieDAO();
         return dao.getByName(name.replace('-',' '));
     }
-    
-    public static Result showMovie(String name) {
-        MovieDAO dao = new MovieDAO();
-        List<Movie> movies = dao.getByName(name.replace('-',' '));
-        return ok(movie.render(movies.get(0).getName()));
-    }
-
 }
