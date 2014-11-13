@@ -1,7 +1,14 @@
 @(message: String)
 
-@main("Welcome to Play") {
+<form method="post" action="@routes.Viewer.find()">
+    Find on IEDB:<br>
+    <input type="text" name="name">
+    <input type="submit" value="Search">
+</form>
+
+
+<!-- @main("Welcome to Play") {
 
     @play20.welcome(message, style = "Java")
 
-}
+} -->
