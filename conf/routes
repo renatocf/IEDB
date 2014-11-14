@@ -4,11 +4,10 @@
 
 # Home page
 GET     /                           controllers.Application.index()
+POST    /                           controllers.Viewer.search()
 
 # Title pages
-POST    /                            controllers.Viewer.search()
-
-GET     /movie/$name<([^\s-]+[-])*[^\s-]+> controllers.Viewer.getMovie(name)
+GET     /movie/$name<([^\s-]+[-])*[^\s-.]+>.html controllers.Viewer.getMovie(name)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

@@ -10,7 +10,8 @@
         <ul> 
             @results.map { result =>
             <li>
-                <a href="/movie/@(result.getName)">@(result.getName)</a>
+                <a href="/movie/@(result.getName.toLowerCase.replace
+                    (' ','-')).html">@(result.getName)</a>
             </li>
             }
         </ul>

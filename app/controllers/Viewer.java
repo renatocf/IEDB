@@ -29,7 +29,9 @@ public class Viewer extends Controller {
     }
     
     public static Result getMovie(String name) {
-        return showTitle(findMovies(name).get(0));
+        List<Movie> titles = findMovies(name);
+        if(titles.size() == 0) return notFound(name + "not found");
+        else return showTitle(titles.get(0));
     }
     
     public static Result showTitle(Movie m) {
