@@ -164,12 +164,9 @@ CREATE TABLE IF NOT EXISTS IEDB.Company
 CREATE TABLE IF NOT EXISTS IEDB.Title
 (
     id            SERIAL    PRIMARY KEY,
-    came_from     INTEGER,
     name          TYPE_NAME NOT NULL,
     date_creation DATE      NOT NULL,
-    description   TEXT,
-    FOREIGN KEY(came_from) REFERENCES IEDB.Title(id)
-        ON UPDATE CASCADE ON DELETE RESTRICT
+    description   TEXT
 );
 
 CREATE TABLE IF NOT EXISTS IEDB.Auditive
@@ -230,6 +227,7 @@ CREATE TABLE IF NOT EXISTS IEDB.HQ
 (
     id  INTEGER PRIMARY KEY,
     num INT,
+    arc TYPE_NAME,
     
     FOREIGN KEY(id) REFERENCES IEDB.Written(id)
         ON UPDATE CASCADE ON DELETE RESTRICT
