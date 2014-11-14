@@ -128,17 +128,23 @@ $$ LANGUAGE plpgsql;
 --                         Movie management                           --
 ------------------------------------------------------------------------
 -- @procedure crete create_movie
-CREATE OR REPLACE FUNCTION create_movie(_name TYPE_NAME, _description TEXT, _genre varchar(30), 
-                                        _duration INTEGER, _nationality TYPE_NATIONALITY, _censorship TYPE_NAME)
+CREATE OR REPLACE FUNCTION create_movie(
+    _name TYPE_NAME, _description TEXT, _genre varchar(30), 
+    _duration INTEGER, _nationality TYPE_NATIONALITY, 
+    _censorship TYPE_NAME)
 RETURNS void AS $$
 DECLARE
     _id INTEGER;
 BEGIN
     INSERT INTO IEDB.Title(name, date_creation, description)
-    VALUES(_name, current_date, _description) RETURNING id INTO _id;
+    VALUES(_name, current_date, _description) 
+    RETURNING id INTO _id;
 
-    INSERT INTO IEDB.Visual  (id, genre, censorship)      VALUES(_id, _genre, _censorship);
-    INSERT INTO IEDB.movie   (id, duration, nationality)  VALUES(_id, _duration, _nationality);
+    INSERT INTO IEDB.Visual(id, genre, censorship) 
+    VALUES(_id, _genre, _censorship);
+    
+    INSERT INTO IEDB.movie(id, duration, nationality)
+    VALUES(_id, _duration, _nationality);
 END;
 $$ LANGUAGE plpgsql;
 
