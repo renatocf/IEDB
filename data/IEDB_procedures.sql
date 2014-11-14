@@ -129,9 +129,12 @@ $$ LANGUAGE plpgsql;
 ------------------------------------------------------------------------
 -- @procedure crete create_movie
 CREATE OR REPLACE FUNCTION create_movie(
-    _name TYPE_NAME, _description TEXT, _genre varchar(30), 
-    _duration INTEGER, _nationality TYPE_NATIONALITY, 
-    _censorship TYPE_NAME)
+    _name TYPE_NAME,
+    _description TEXT               DEFAULT NULL,
+    _genre varchar(30)              DEFAULT NULL,
+    _duration INTEGER               DEFAULT NULL,
+    _nationality TYPE_NATIONALITY   DEFAULT NULL,
+    _censorship TYPE_NAME           DEFAULT NULL)
 RETURNS void AS $$
 DECLARE
     _id INTEGER;
