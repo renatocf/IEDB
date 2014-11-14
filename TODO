@@ -10,24 +10,24 @@
     [ ] Create DAO classes for all accessing all DB relations.
 
 [controller]
+    [X] Create action for basic research mechanism.
     [ ] Decide wich use cases/user stories will be implemented.
-    [ ] Create action for basic research mechanism.
     [ ] Create action for recommendation mechanism.
 
 [view]
+    [X] Create Scala-HTML view for the research screen.
+    [X] Create Scala-HTML view for titles.
     [ ] Think about a CSS design to use in IEDB (bootstrap).
-    [ ] Create Scala-HTML view for the research screen.
 
 [test]
-    [ ] Create unit tests for models.
     [ ] Create integration tests for DAOs.
     [ ] Create unit tests for controller's actions.
     [ ] Discover how to use selenium with the project.
     [ ] Create acceptance test for use cases/user histories.
-    [ ] Automate check Java Code Conventions.
+    [ ] Automate check of Java Code Conventions.
 
 [documentation]
-    [ ] Use JUnit to try to automate basic documentation.
+    [ ] Use Javadoc to try to automate basic documentation.
     [ ] Write 3 complete use cases.
     [ ] Write 3 user histories (from use cases).
     [ ] Choose non-functional requirements for the system.
