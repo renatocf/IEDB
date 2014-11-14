@@ -16,66 +16,18 @@
 /**********************************************************************/
 package models;
 
-//import java.util.Date;
-import java.util.*;
-
-public class Title
+public class Written extends Title
 {
-    protected int id;
-    protected int cameFrom;
-    protected String name;
-    protected Date dateCreation;
-    protected String description;
-    protected List<Title> references;
+    protected Genre_written genre;
 
     // Getters
-    public int getId() {
-        return this.id;
+    public Genre_written getGenre() {
+        return this.genre;
     }
     
-    public int getCameFrom() {
-        return this.cameFrom;
-    }
-    
-    public String getName() {
-        return this.name;
-    }
-    
-    public Date getDateCreation() {
-        return this.dateCreation;
-    }
-    
-    public String getDescription() {
-        return this.description;
-    }
-
-    public List<Title> getReferences(){
-        return this.references;
-    }
-
     // Setters
-    public void setId(int id) {
-        this.id = id;
+    public void setGenre(Genre_written genre) {
+        this.genre = genre;
     }
     
-    public void setCameFrom(int cameFrom) {
-        this.cameFrom = cameFrom;
-    }
-    
-    public void setName(String name) {
-        this.name = name;
-    }
-    
-    public void setDateCreation(Date dateCreation) {
-        this.dateCreation = dateCreation;
-    }
-    
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setReferences(List<Title> references){
-        this.references = references;
-    }
-
 }

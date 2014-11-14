@@ -16,66 +16,17 @@
 /**********************************************************************/
 package models;
 
-//import java.util.Date;
-import java.util.*;
+public class Hq extends Written {
 
-public class Title
-{
-    protected int id;
-    protected int cameFrom;
-    protected String name;
-    protected Date dateCreation;
-    protected String description;
-    protected List<Title> references;
+    protected int num;
 
     // Getters
-    public int getId() {
-        return this.id;
+    public int getNum() {
+        return this.num;
     }
     
-    public int getCameFrom() {
-        return this.cameFrom;
-    }
-    
-    public String getName() {
-        return this.name;
-    }
-    
-    public Date getDateCreation() {
-        return this.dateCreation;
-    }
-    
-    public String getDescription() {
-        return this.description;
-    }
-
-    public List<Title> getReferences(){
-        return this.references;
-    }
-
     // Setters
-    public void setId(int id) {
-        this.id = id;
+    public void setNum(int num) {
+        this.num = num;
     }
-    
-    public void setCameFrom(int cameFrom) {
-        this.cameFrom = cameFrom;
-    }
-    
-    public void setName(String name) {
-        this.name = name;
-    }
-    
-    public void setDateCreation(Date dateCreation) {
-        this.dateCreation = dateCreation;
-    }
-    
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setReferences(List<Title> references){
-        this.references = references;
-    }
-
 }

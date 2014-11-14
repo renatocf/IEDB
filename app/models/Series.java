@@ -16,66 +16,36 @@
 /**********************************************************************/
 package models;
 
-//import java.util.Date;
-import java.util.*;
+import java.util.Date;
+public class Series extends Visual {
 
-public class Title
-{
-    protected int id;
-    protected int cameFrom;
-    protected String name;
-    protected Date dateCreation;
-    protected String description;
-    protected List<Title> references;
+    protected Date dateInit;
+    protected Date dateEnd;
+    protected int numSeasons;
 
     // Getters
-    public int getId() {
-        return this.id;
+    public Date getDateInit() {
+        return this.dateInit;
     }
     
-    public int getCameFrom() {
-        return this.cameFrom;
+    public Date getDateEnd() {
+        return this.dateEnd;
     }
     
-    public String getName() {
-        return this.name;
-    }
-    
-    public Date getDateCreation() {
-        return this.dateCreation;
-    }
-    
-    public String getDescription() {
-        return this.description;
-    }
-
-    public List<Title> getReferences(){
-        return this.references;
+    public int getNumSeasons(){
+        return this.numSeasons;
     }
 
     // Setters
-    public void setId(int id) {
-        this.id = id;
+    public void setDateInit(Date dateInit) {
+        this.dateInit = dateInit;
     }
     
-    public void setCameFrom(int cameFrom) {
-        this.cameFrom = cameFrom;
-    }
-    
-    public void setName(String name) {
-        this.name = name;
-    }
-    
-    public void setDateCreation(Date dateCreation) {
-        this.dateCreation = dateCreation;
-    }
-    
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDateEnd(Date dateEnd) {
+        this.dateEnd = dateEnd;
     }
 
-    public void setReferences(List<Title> references){
-        this.references = references;
+    public void setNumSeasons(int numSeasons){
+        this.numSeasons = numSeasons;
     }
-
 }

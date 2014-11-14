@@ -23,10 +23,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import java.util.Date;
-import java.util.Calendar;
-import java.util.List;
-import java.util.ArrayList;
+import java.util.*;
 
 public class TitleDAO {
 
@@ -66,5 +63,35 @@ public class TitleDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private List<Title> getAllReferences(Title title){
+
+        String sql = "SELECT refered_title_id"+
+                      "FROM IEDB.rel_references"+
+                      "WHERE referencer_title_id = ?";
+        
+        try {
+            List<Title> references = new ArrayList<Title>();
+            PreparedStatement stmt 
+                = this.connection.prepareStatement(sql);
+            stmt.setString(1, title.getId()+"");
+            
+            ResultSet rs = stmt.executeQuery();
+            
+            while (rs.next()) {
+                Title title_ref = new Title();
+                
+                title_ref.setId(rs.getInt("id"));
+                references.add(title_ref);
+            }
+            
+            rs.close();
+            stmt.close();
+            return references;
+            
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }   
     }
 }
