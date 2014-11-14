@@ -1,5 +1,7 @@
-[DB]
+[db]
     [X] Create database in Heroku PostgreSQL.
+    [ ] Create function to create specific titles.
+    [ ] Create views for accessing visual/auditive/written.
     [ ] Create more data to make more integration tests.
     [ ] Create indexes for the most used queries.
     [ ] Define user for accesse by the application.
