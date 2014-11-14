@@ -56,7 +56,6 @@ public class MovieDAO {
                 Movie movie = new Movie();
                 
                 movie.setId(rs.getInt("id"));
-                movie.setCameFrom(rs.getInt("came_from"));
                 movie.setName(rs.getString("name"));
                 movie.setDateCreation(rs.getDate("date_creation"));
                 movie.setDescription(rs.getString("description"));

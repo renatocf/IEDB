@@ -14,8 +14,8 @@
     <h3> Informaçoes gerais </h3>
     @title.getName <br>
     @title.getDescription <br>
-    
-    <!-- Do not move the "}else{" structure, otherwise scala wont understand-->
+
+    @*<!-- Do not move the '}else{' structure, otherwise scala wont understand-->*@
     @if(title.isInstanceOf[Auditive]){
         <h3> Music shit </h3>
         @title.asInstanceOf[Music].getDuration

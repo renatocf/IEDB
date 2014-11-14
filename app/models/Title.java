@@ -22,7 +22,6 @@ import java.util.*;
 public class Title
 {
     protected int id;
-    protected int cameFrom;
     protected String name;
     protected Date dateCreation;
     protected String description;
@@ -31,10 +30,6 @@ public class Title
     // Getters
     public int getId() {
         return this.id;
-    }
-    
-    public int getCameFrom() {
-        return this.cameFrom;
     }
     
     public String getName() {
@@ -56,10 +51,6 @@ public class Title
     // Setters
     public void setId(int id) {
         this.id = id;
-    }
-    
-    public void setCameFrom(int cameFrom) {
-        this.cameFrom = cameFrom;
     }
     
     public void setName(String name) {
