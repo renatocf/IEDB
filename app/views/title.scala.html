@@ -1,0 +1,56 @@
+@(title: Title)
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>IEDB - @title.getName</title>
+        <!-- <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")"> -->
+        <!-- <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")"> -->
+        <!-- <script src="@routes.Assets.at("javascripts/hello.js")" type="text/javascript"></script> -->
+    </head>
+    <body>
+    <h3> Informaçoes gerais </h3>
+    @title.getName <br>
+    @title.getDescription <br>
+
+    @if(title.isInstanceOf[Movie]){
+        <h3> Movie shit </h3>
+        @title.asInstanceOf[Movie].getDuration <br>
+        @title.asInstanceOf[Movie].getNationality <br>
+        @* @movie(title.asInstanceOf[Movie]) *@
+    }
+    @*else{
+        @title.asInstanceOf[Series].getDateIni <br>
+        @title.asInstanceOf[Series].getDateEnd <br>
+        @title.asInstanceOf[Series].getNumSeasons <br>
+    }
+        
+        if(@title.isInstanceOf[Auditive]){
+            @title.asInstanceOf[Auditive].getDuration
+        }
+        else if(@title.isInstanceOf[Written]){
+
+            if(@title.isInstanceOf[Hq]){
+                @title.asInstanceOf[Hq].getArc
+                @title.asInstanceOf[Hq].getNum
+            }
+            else{
+                @title.asInstanceOf[Book].getNumEditions
+            }
+        }
+        else{
+
+            if(@title istanceof Movie){
+                @title.duration
+                @title.nationality
+            }
+            else{
+                @title.dateIni
+                @title.dateEnd
+                @title.numSeasons
+            }
+
+        } *@
+    </body>
+</html>

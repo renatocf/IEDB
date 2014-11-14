@@ -8,6 +8,7 @@ import models.Title;
 // Views
 import views.html.movie;
 import views.html.search_results;
+import views.html.title;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ public class Viewer extends Controller {
     }
     
     public static Result showTitle(Movie m) {
-        return ok(movie.render(m));
+        return ok(title.render(m));
     }
     
     private static List<Movie> findMovies(String name) {
