@@ -9,6 +9,7 @@ VALUES ('change_description', 'IEDB.Title', 'UPDATE', 'id', 'description');
 INSERT INTO IEDB.Genre_auditive VALUES ('Rock');
 INSERT INTO IEDB.Genre_written VALUES ('Romance');
 INSERT INTO IEDB.Genre_visual VALUES ('Action');
+INSERT INTO IEDB.Genre_visual VALUES ('Adventure');
 
 INSERT INTO IEDB.Censorship_visual VALUES ('G');
 
@@ -26,8 +27,8 @@ SELECT create_account
 SELECT grant_reviewer_permission('renatocf');
 SELECT grant_reviewer_permission('ruan0408');
 
-SELECT create_title('movie', 'The Lord of the Rings: The Fellowship of the Ring');
-
+-- SELECT create_title('movie', 'The Lord of the Rings: The Fellowship of the Ring');
+SELECT create_movie('The Lord of the Rings: The Fellowship of the Ring', 'A meek hobbit of the Shire and eight companions set out on a journey to Mount Doom to destroy the One Ring and the dark lord Sauron.', 'Adventure', 178, 'USA', 'G');
 SELECT create_movie('Matrix', 'A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.', 'Action', 136, 'USA', 'G');
 
 SELECT create_change('renatocf', 'change_description', '1', 

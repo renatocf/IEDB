@@ -4,6 +4,7 @@ package controllers;
 import models.Movie;
 import models.MovieDAO;
 import models.Title;
+import models.TitleDAO;
 
 // Views
 import views.html.movie;
@@ -36,6 +37,11 @@ public class Viewer extends Controller {
     
     public static Result showTitle(Movie m) {
         return ok(title.render(m));
+    }
+
+    public static Result showTitle(String type, String name){
+        TitleDAO dao = new TitleDAO();
+        return ok(title.render(dao.getTitleByTypeAndName(type, name)));
     }
     
     private static List<Movie> findMovies(String name) {

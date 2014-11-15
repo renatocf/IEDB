@@ -19,14 +19,23 @@ package models;
 public class Hq extends Written {
 
     protected int num;
+    protected String arc;
 
     // Getters
     public int getNum() {
         return this.num;
     }
+
+    public String getArc(){
+    	return this.arc;
+    }
     
     // Setters
     public void setNum(int num) {
         this.num = num;
+    }
+
+    public void setArc(String arc){
+    	this.arc = arc;
     }
 }

@@ -22,6 +22,7 @@ import java.util.*;
 public class Title
 {
     protected int id;
+    protected String type;
     protected String name;
     protected Date dateCreation;
     protected String description;
@@ -30,6 +31,10 @@ public class Title
     // Getters
     public int getId() {
         return this.id;
+    }
+
+    public String getType(){
+        return this.type;
     }
     
     public String getName() {
@@ -51,6 +56,10 @@ public class Title
     // Setters
     public void setId(int id) {
         this.id = id;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
     
     public void setName(String name) {

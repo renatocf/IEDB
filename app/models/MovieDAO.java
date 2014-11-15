@@ -56,10 +56,11 @@ public class MovieDAO {
                 Movie movie = new Movie();
                 
                 movie.setId(rs.getInt("id"));
+                movie.setType(rs.getString("type"));
                 movie.setName(rs.getString("name"));
                 movie.setDateCreation(rs.getDate("date_creation"));
                 movie.setDescription(rs.getString("description"));
-                /* movie.setRate(rs.getInt("rate")); */
+                /* movie.setRate(rs.getInt("rate")); */ //I think this is calculated
                 /* movie.setGenre(rs.getString("genre")); */
                 /* movie.setCensorship(rs.); */
                 movie.setDuration(rs.getInt("duration"));
@@ -92,7 +93,6 @@ public class MovieDAO {
                 Movie movie = new Movie();
                 
                 movie.setId(rs.getInt("id"));
-                movie.setCameFrom(rs.getInt("came_from"));
                 movie.setName(rs.getString("name"));
                 movie.setDateCreation(rs.getDate("date_creation"));
                 movie.setDescription(rs.getString("description"));

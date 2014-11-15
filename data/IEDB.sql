@@ -165,8 +165,10 @@ CREATE TABLE IF NOT EXISTS IEDB.Title
 (
     id            SERIAL    PRIMARY KEY,
     name          TYPE_NAME NOT NULL,
+    type          TYPE_NAME NOT NULL,
     date_creation DATE      NOT NULL,
-    description   TEXT
+    description   TEXT,
+    UNIQUE(name, type)
 );
 
 CREATE TABLE IF NOT EXISTS IEDB.Auditive
