@@ -48,4 +48,21 @@ public class Viewer extends Controller {
         MovieDAO dao = new MovieDAO();
         return dao.getByName(name.replace('-',' '));
     }
+
+    /*private static List<Titles> findAllByName(String name){
+        List<Title> titles; = new ArrayList<Title>();
+        MovieDAO daoMovie = new MovieDAO();
+        MovieDAO daoSeries = new SeriesDAO();
+        MovieDAO daoMusic = new MusicDAO();
+        MovieDAO daoHq = new HqDAO();
+        MovieDAO daoBook = new BookDAO();
+
+        titles.addAll(daoMovie.getByName(name));
+        titles.addAll(daoSeries.getByName(name));
+        titles.addAll(daoMusic.getByName(name));
+        titles.addAll(daoHq.getByName(name));
+        titles.addAll(daoBook.getByName(name));
+
+        return titles;
+    }*/
 }

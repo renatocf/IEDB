@@ -72,8 +72,6 @@ public class TitleDAO {
                      " WHERE lower(name) = ?";
                      
         try {
-System.out.println(type);
-System.out.println(name);
             Title title = null;
             PreparedStatement stmt 
                 = this.connection.prepareStatement(sql);

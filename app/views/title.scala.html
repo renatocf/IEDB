@@ -26,6 +26,7 @@
         @if(title.isInstanceOf[Hq]){
             <h3> Hq shit </h3>
             @title.asInstanceOf[Hq].getNum
+            @title.asInstanceOf[Hq].getArc
         }else{
             <h3> Book shit </h3>
             @title.asInstanceOf[Book].getNumEditions
