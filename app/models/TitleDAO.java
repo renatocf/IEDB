@@ -76,7 +76,7 @@ public class TitleDAO {
             PreparedStatement stmt 
                 = this.connection.prepareStatement(sql);
 
-            stmt.setString(1, name.replace("-", " "));
+            stmt.setString(1, name.replace("-", " ").toLowerCase());
             ResultSet rs = stmt.executeQuery();
             
             rs.next();// maybe treat the case where its false?
@@ -125,10 +125,42 @@ public class TitleDAO {
             rs.close();
             stmt.close();
             return title;
-
         } catch (SQLException e) {
             throw new RuntimeException();
         }
+    }
+
+    public List<Title> getAllTitlesWithNameLike(String token){
+        List<Title> titles_id_type = this.getTitlesNameAndTypeWithNameLike(token);
+        List<Title> resp = new ArrayList<Title>();
+        for(Title title : titles_id_type)
+            resp.add(this.getTitleByTypeAndName(title.getType(), title.getName()));
+
+        return resp;
+    }
+
+    private List<Title> getTitlesNameAndTypeWithNameLike(String token){
+        String sql = " SELECT type, name"+
+                     " FROM   IEDB.Title"  +
+                     " WHERE  lower(name) LIKE ?";
+        List<Title> titles = new ArrayList<Title>();
+        Title new_title = null;
+
+        try{
+            PreparedStatement st = this.connection.prepareStatement(sql);
+            st.setString(1, "%"+token+"%");
+            ResultSet rs = st.executeQuery();
+
+            while(rs.next()){
+                new_title = new Title();
+                new_title.setName(rs.getString("name"));
+                new_title.setType(rs.getString("type"));
+                titles.add(new_title);
+            }
+        }catch(SQLException e){
+            throw new RuntimeException();
+        }
+        return titles;
     }
     /*
     private List<Title> getAllReferences(Title title){

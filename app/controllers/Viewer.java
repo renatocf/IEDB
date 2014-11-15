@@ -22,9 +22,10 @@ public class Viewer extends Controller {
 
     public static Result search() {
         Title title = Form.form(Title.class).bindFromRequest().get();
-        
-        List<Title> searchResults = new ArrayList<Title>();
-        searchResults.addAll(findMovies(title.getName()));
+        TitleDAO dao = new TitleDAO();
+
+        List<Title> searchResults = dao.getAllTitlesWithNameLike(title.getName());
+        //searchResults.addAll(findMovies(title.getName()));
         
         return ok(search_results.render(searchResults));
     }
