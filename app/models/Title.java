@@ -77,5 +77,4 @@ public class Title
     public void setReferences(List<Title> references){
         this.references = references;
     }
-
 }
