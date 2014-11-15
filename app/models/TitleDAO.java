@@ -48,6 +48,7 @@ public class TitleDAO {
                 Title title = new Title();
                 
                 title.setId(rs.getInt("id"));
+                title.setType(rs.getString("type"));
                 /* title.setCameFrom(rs.getInt("came_from")); */
                 title.setName(rs.getString("name"));
                 title.setDateCreation(rs.getDate("date_creation"));
