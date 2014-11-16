@@ -16,8 +16,7 @@
 /**********************************************************************/
 package models;
 
-/* import play.db.DB; */
-import play.db.*;
+import play.db.DB;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -25,88 +24,50 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import java.util.Date;
-import java.util.Calendar;
 import java.util.List;
-import java.util.ArrayList;
 
-public class MovieDAO {
+public class MovieDAO extends DAO<Movie> {
 
-    Connection connection;
-    
     public MovieDAO() {
-        /* this.connection = DriverManager.getConnection(); */
-        this.connection = DB.getConnection();
+        super(DB.getConnection());
     }
     
     public List<Movie> getByName(String name) {
-        
-        String sql = "SELECT * FROM IEDB.Complete_movie" +
-                     " WHERE lower(name) LIKE lower(?)";
-        
-        try {
-            List<Movie> movies = new ArrayList<Movie>();
-            
-            PreparedStatement stmt
-                = this.connection.prepareStatement(sql);
-            stmt.setString(1, "%" + name + "%");
-            
-            ResultSet rs = stmt.executeQuery();
-            
-            while (rs.next()) {
-                Movie movie = new Movie();
-                
-                movie.setId(rs.getInt("id"));
-                movie.setType(rs.getString("type"));
-                movie.setName(rs.getString("name"));
-                movie.setDateCreation(rs.getDate("date_creation"));
-                movie.setDescription(rs.getString("description"));
-                /* movie.setRate(rs.getInt("rate")); */ //I think this is calculated
-                /* movie.setGenre(rs.getString("genre")); */
-                /* movie.setCensorship(rs.); */
-                movie.setDuration(rs.getInt("duration"));
-                movie.setNationality(rs.getString("nationality"));
-                
-                movies.add(movie);
+        return this.retrieveAllFromQuery(
+            "SELECT * FROM IEDB.Complete_movie" + 
+            " WHERE lower(name) LIKE lower(?)",
+            new StatementConfigurator() {
+                public void configureStatement(PreparedStatement stmt) 
+                    throws SQLException {
+                    stmt.setString(1, "%" + name + "%");
+                }
             }
-            
-            rs.close();
-            stmt.close();
-            return movies;
-            
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        );
     }
     
     public List<Movie> getAll() {
-        
-        String sql = "SELECT * FROM IEDB.Movie";
-        
-        try {
-            List<Movie> movies = new ArrayList<Movie>();
-            PreparedStatement stmt 
-                = this.connection.prepareStatement(sql);
-            
-            ResultSet rs = stmt.executeQuery();
-            
-            while (rs.next()) {
-                Movie movie = new Movie();
-                
-                movie.setId(rs.getInt("id"));
-                /* movie.setCameFrom(rs.getInt("came_from")); */
-                movie.setName(rs.getString("name"));
-                movie.setDateCreation(rs.getDate("date_creation"));
-                movie.setDescription(rs.getString("description"));
-                
-                movies.add(movie);
+        return this.retrieveAllFromQuery(
+            "SELECT * FROM IEDB.Movie",
+            new StatementConfigurator() {
+                public void configureStatement(PreparedStatement stmt)
+                    throws SQLException {}
             }
-            
-            rs.close();
-            stmt.close();
-            return movies;
-            
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        );
+    }
+    
+    @Override
+    protected Movie buildFromResultSet(ResultSet rs) throws SQLException {
+        Movie movie = new Movie();
+        movie.setId           (rs.getInt    ("id"));
+        movie.setType         (rs.getString ("type"));
+        movie.setName         (rs.getString ("name"));
+        movie.setDateCreation (rs.getDate   ("date_creation"));
+        movie.setDescription  (rs.getString ("description"));
+        /* movie.setRate         (rs.getInt    ("rate")); */
+        /* movie.setGenre        (rs.getString ("genre")); */
+        /* movie.setCensorship   (rs.); */
+        movie.setDuration     (rs.getInt    ("duration"));
+        movie.setNationality  (rs.getString ("nationality"));
+        return movie;
     }
 }

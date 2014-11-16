@@ -35,7 +35,7 @@ public class TitleDAO {
     
     public List<Title> getAll() {
         
-        String sql = "SELECT * FROM IEDB.Title";
+        String sql = "SELECT * FROM IEDB.Title ORDER BY id";
         
         try {
             List<Title> titles = new ArrayList<Title>();
@@ -43,7 +43,6 @@ public class TitleDAO {
                 = this.connection.prepareStatement(sql);
             
             ResultSet rs = stmt.executeQuery();
-            
             while (rs.next()) {
                 Title title = new Title();
                 
@@ -56,8 +55,8 @@ public class TitleDAO {
                 
                 titles.add(title);
             }
-            
             rs.close();
+            
             stmt.close();
             return titles;
             
