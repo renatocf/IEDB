@@ -31,5 +31,16 @@ public class TitleDAOTest {
     @Test
     public void getAll(){
         assertEquals("The Lord of the Rings: The Fellowship of the Ring", dao.getAll().get(0).getName());
+        assertEquals("Matrix", dao.getAll().get(1).getName());
+    }
+
+    @Test
+    public void getTitleByTypeAndName(){
+        assertEquals("The Lord of the Rings: The Fellowship of the Ring", dao.getTitleByTypeAndName("movie", "lord").getName());
+    }
+
+    @Test
+    public void getAllTitlesWithNameLike(){
+        assertEquals("The Lord of the Rings: The Fellowship of the Ring", dao.getAllTitlesWithNameLike("lord").get(0).getName());
     }
 }
