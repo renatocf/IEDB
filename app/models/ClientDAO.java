@@ -23,6 +23,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import java.util.List;
+
 public class ClientDAO extends DAO<Client> {
     
     public ClientDAO() {
@@ -45,6 +47,22 @@ public class ClientDAO extends DAO<Client> {
                 }
             }
         );
+    }
+
+    public Client find(final String email, final String password) {
+
+        List<Client> clients 
+        = this.retrieveAllFromQuery(
+            "SELECT * FROM IEDB.Client WHERE email = ? AND password = ?",
+            new StatementConfigurator() {
+                public void configureStatement(PreparedStatement stmt) 
+                    throws SQLException {
+                    stmt.setString(1, email);
+                    stmt.setString(2, password);
+                }
+            }
+        );
+        return clients.size() > 0 ? clients.get(0) : null;
     }
 
     @Override
