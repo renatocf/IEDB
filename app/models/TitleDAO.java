@@ -47,8 +47,8 @@ public class TitleDAO extends DAO<Title> {
                 /* MovieDAO movieDAO = new MovieDAO(); */
                 return movieDAO.getByName(name).get(0);
             case "book":
-                /* MovieDAO movieDAO = new MovieDAO(); */
-                return movieDAO.getByName(name).get(0);
+                BookDAO bookDAO = new BookDAO();
+                return bookDAO.getByName(name).get(0);
             case "movie": 
                 /* MovieDAO movieDAO = new MovieDAO(); */
                 return movieDAO.getByName(name).get(0);
