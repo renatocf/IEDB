@@ -18,10 +18,12 @@ package controllers;
 
 // Models
 import models.Client;
+import models.ClientDAO;
 
 // Views
 import views.html.index;
 import views.html.login;
+import views.html.addTitle;
 
 // Play
 import play.data.Form;
