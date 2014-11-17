@@ -33,7 +33,9 @@ public class MovieDAO extends DAO<Movie> {
     }
     
     public List<Movie> getAll() {
-        return this.retrieveAllFromQuery("SELECT * FROM IEDB.Movie");
+        return this.retrieveAllFromQuery(
+            "SELECT * FROM IEDB.Complete_movie"
+        );
     }
     
     public List<Movie> getByName(String name) {
@@ -57,11 +59,11 @@ public class MovieDAO extends DAO<Movie> {
         movie.setName         (rs.getString ("name"));
         movie.setDateCreation (rs.getDate   ("date_creation"));
         movie.setDescription  (rs.getString ("description"));
-        /* movie.setRate         (rs.getInt    ("rate")); */
+        /* movie.setCensorship   (rs.getString ("censorship")); */
         /* movie.setGenre        (rs.getString ("genre")); */
-        /* movie.setCensorship   (rs.); */
         movie.setDuration     (rs.getInt    ("duration"));
         movie.setNationality  (rs.getString ("nationality"));
+        /* movie.setRate         (rs.getInt    ("rate")); */
         return movie;
     }
 }
