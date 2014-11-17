@@ -29,8 +29,7 @@ abstract class DAO<T> {
     protected Connection connection;
     
     protected interface StatementConfigurator {
-        public void configureStatement(PreparedStatement stmt)
-            throws SQLException;
+        public void configureStatement(PreparedStatement stmt) throws SQLException;
     }
     
     protected DAO(Connection connection) {
