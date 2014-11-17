@@ -30,25 +30,25 @@ public class Viewer extends Controller {
         return ok(search_results.render(searchResults));
     }
     
-    public static Result getMovie(String name) {
-        List<Movie> titles = findMovies(name);
-        if(titles.size() == 0) return notFound(name + "not found");
-        else return showTitle(titles.get(0));
-    }
-    
-    public static Result showTitle(Movie m) {
-        return ok(title.render(m));
-    }
+    // public static Result getMovie(String name) {
+    //     List<Movie> titles = findMovies(name);
+    //     if(titles.size() == 0) return notFound(name + "not found");
+    //     else return showTitle(titles.get(0));
+    // }
+    // 
+    // public static Result showTitle(Movie m) {
+    //     return ok(title.render(m));
+    // }
 
     public static Result showTitle(String type, String name){
         TitleDAO dao = new TitleDAO();
-        return ok(title.render(dao.getByTypeAndName(type, name).get(0)));
+        return ok(title.render(dao.getByTypeAndName(type, name.replace('-',' ')).get(0)));
     }
     
-    private static List<Movie> findMovies(String name) {
-        MovieDAO dao = new MovieDAO();
-        return dao.getByName(name.replace('-',' '));
-    }
+    // private static List<Movie> findMovies(String name) {
+    //     MovieDAO dao = new MovieDAO();
+    //     return dao.getByName(name.replace('-',' '));
+    // }
 
     /*private static List<Titles> findAllByName(String name){
         List<Title> titles; = new ArrayList<Title>();
