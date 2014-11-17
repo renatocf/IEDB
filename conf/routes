@@ -6,8 +6,11 @@
 GET     /                           controllers.Application.index()
 POST    /                           controllers.Viewer.search()
 GET     /addTitle                   controllers.Application.addTitle()
-
-
+GET     /addTitle/music             controllers.Application.addMusic()
+GET     /addTitle/book              controllers.Application.addBook()
+GET     /addTitle/hq                controllers.Application.addHQ()
+GET     /addTitle/movie             controllers.Application.addMovie()
+GET     /addTitle/series            controllers.Application.addSeries()
 
 # Title pages
 GET     /:type/$name<([^\s-]+[-])*[^\s-.]+>.html controllers.Viewer.showTitle(type, name)

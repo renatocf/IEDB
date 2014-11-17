@@ -14,9 +14,29 @@ public class Application extends Controller {
         return ok(index.render("Hello world"));
     }
 
+
+    //add Title
     public static Result addTitle(){
     	return ok(addTitle.render(""));
     }
+
+    public static Result addMusic(){
+    	return ok(addMusic.render(""));
+    }
+    public static Result addBook(){
+    	return ok(addBook.render(""));
+    }
+    public static Result addHQ(){
+    	return ok(addHQ.render(""));
+    }
+    public static Result addMovie(){
+    	return ok(addMovie.render(""));
+    }
+    public static Result addSeries(){
+    	return ok(addSeries.render(""));
+    }
+
+
 
 	public static Result login() {
 	    return ok(login.render(Form.form(Login.class)));

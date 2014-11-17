@@ -40,10 +40,6 @@ public class Viewer extends Controller {
         ));
     }
 
-    //public static Result add() {
-
-    //}
-
     public static Result showTitle(String type, String name) {
         return ok(title.render(
             Viewer.dao.getByTypeAndName(type, name.replace('-',' ')).get(0)
