@@ -41,6 +41,7 @@ public class Application extends Controller {
 	public static Result authenticate() {
         
     	Form<Login> loginForm = Form.form(Login.class).bindFromRequest();
+        
     	if (loginForm.hasErrors()) {
     	 	return badRequest(login.render(loginForm));
     	} 
@@ -55,9 +56,9 @@ public class Application extends Controller {
     	public String email;
     	public String password;
     	public String validate() {
-            if (Client.authenticate(email, password) == null) {
+            ClientDAO dao = new ClientDAO();
+            if (dao.find(email, password) == null)
                 return "Invalid user or password";
-            }
             return null;
         }
 	}

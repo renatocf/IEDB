@@ -65,9 +65,4 @@ public class Client
     public void setIsReviewer(boolean isReviewer) {
         this.isReviewer = isReviewer;
     }
-
-    public static Client authenticate(String email, String password){
-        ClientDAO dao = new ClientDAO();
-        return dao.find(email, password);
-    }
 }
