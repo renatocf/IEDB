@@ -1,7 +1,4 @@
 package unit;
- /**
- * Created by ruan0408 on 11/11/14.
- */
 
 import models.TitleDAO;
 
@@ -29,18 +26,21 @@ public class TitleDAOTest {
     }
 
     @Test
-    public void getAll(){
-        assertEquals("The Lord of the Rings: The Fellowship of the Ring", dao.getAll().get(0).getName());
+    public void getAll() {
+        assertEquals("The Lord of the Rings: The Fellowship of the Ring", 
+            dao.getAll().get(0).getName());
         assertEquals("Matrix", dao.getAll().get(1).getName());
     }
 
     @Test
-    public void getByTypeAndName(){
-        assertEquals("The Lord of the Rings: The Fellowship of the Ring", dao.getByTypeAndName("movie", "lord").get(0).getName());
+    public void getByTypeAndName() {
+        assertEquals("The Lord of the Rings: The Fellowship of the Ring", 
+            dao.getByTypeAndName("movie", "lord").get(0).getName());
     }
 
     @Test
-    public void getAllTitlesWithNameLike(){
-        assertEquals("The Lord of the Rings: The Fellowship of the Ring", dao.getAllTitlesWithNameLike("lord").get(0).getName());
+    public void getByName() {
+        assertEquals("The Lord of the Rings: The Fellowship of the Ring",
+            dao.getByName("lord").get(0).getName());
     }
 }
