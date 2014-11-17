@@ -37,6 +37,21 @@ public class TitleDAO extends DAO<Title> {
         );
     }
 
+    public List<Title> getAllTitlesWithNameLike(String token) {
+        
+        List<Title> partial = this.retrieveAllFromQuery(
+            "SELECT * FROM IEDB.Title WHERE lower(name) LIKE ?"
+        );
+        
+        List<Title> complete = new ArrayList<Title>();
+        for(Title title: partial)
+            complete.add(
+                getTitleByTypeAndName(title.getType(), title.getName())
+            );
+
+        return complete;
+    }
+
     public Title getTitleByTypeAndName(String type, String name) {
         
         switch(type.toLowerCase()) {
@@ -59,21 +74,6 @@ public class TitleDAO extends DAO<Title> {
                 throw new RuntimeException("Invalid type " + type);
         }
     }
-
-    public List<Title> getAllTitlesWithNameLike(String token){
-        
-        List<Title> partial = this.retrieveAllFromQuery(
-            "SELECT * FROM IEDB.Title WHERE lower(name) LIKE ?"
-        );
-        
-        List<Title> complete = new ArrayList<Title>();
-        for(Title title: partial)
-            complete.add(
-                getTitleByTypeAndName(title.getType(), title.getName())
-            );
-
-        return complete;
-    }
     
     @Override
     protected Title buildFromResultSet(ResultSet rs) throws SQLException {
@@ -81,62 +81,14 @@ public class TitleDAO extends DAO<Title> {
         Title title = new Title();
         title.setId           (rs.getInt    ("id"));
         title.setType         (rs.getString ("type"));
-        /* title.setCameFrom     (rs.getInt    ("came_from")); */
         title.setName         (rs.getString ("name"));
         title.setDateCreation (rs.getDate   ("date_creation"));
         title.setDescription  (rs.getString ("description"));
         return title;
-        
-        // switch ("movie") {
-        //     case "music":
-        //         Music music = new Music();
-        //         music.setId           (rs.getInt    ("id"));
-        //         music.setType         (rs.getString ("type"));
-        //         music.setName         (rs.getString ("name"));
-        //         music.setDateCreation (rs.getDate   ("date_creation"));
-        //         music.setDescription  (rs.getString ("description"));
-        //         music.setDuration     (rs.getInt    ("duration"));
-        //         return music;
-        //     case "hq":
-        //         Hq hq = new Hq();
-        //         hq.setId           (rs.getInt    ("id"));
-        //         hq.setType         (rs.getString ("type"));
-        //         hq.setName         (rs.getString ("name"));
-        //         hq.setDateCreation (rs.getDate   ("date_creation"));
-        //         hq.setDescription  (rs.getString ("description"));
-        //         hq.setArc          (rs.getString ("arc"));
-        //         hq.setNum          (rs.getInt    ("num"));
-        //         return hq;
-        //     case "book":
-        //         Book book = new Book();
-        //         book.setId           (rs.getInt    ("id"));
-        //         book.setType         (rs.getString ("type"));
-        //         book.setName         (rs.getString ("name"));
-        //         book.setDateCreation (rs.getDate   ("date_creation"));
-        //         book.setDescription  (rs.getString ("description"));
-        //         book.setNumEditions  (rs.getInt    ("num_editions"));
-        //         return book;
-        //     case "movie":
-        //         MovieDAO dao = new MovieDAO();
-        //         return dao.buildFromResultSet(rs);
-        //     case "series":
-        //         Series series = new Series();
-        //         series.setType         (rs.getString ("type"));
-        //         series.setName         (rs.getString ("name"));
-        //         series.setDateCreation (rs.getDate   ("date_creation"));
-        //         series.setDescription  (rs.getString ("description"));
-        //         series.setDateInit     (rs.getDate   ("date_init"));
-        //         series.setDateEnd      (rs.getDate   ("date_end"));
-        //         series.setNumSeasons   (rs.getInt    ("num_seasons"));
-        //         // series.setCensorship(rs.getString("censorship"));
-        //         return series;
-        //     default:
-        //         throw new RuntimeException();
-        // }
     }
     
     /*
-    private List<Title> getAllReferences(Title title){
+    private List<Title> getAllReferences(Title title) {
 
         String sql = "SELECT refered_title_id"+
                       "FROM IEDB.rel_references"+
