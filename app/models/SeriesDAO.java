@@ -42,7 +42,7 @@ public class SeriesDAO extends DAO<Series> {
         );
     }
     
-    public List<Series> getByName(String name) {
+    public List<Series> getByName(final String name) {
         return this.retrieveAllFromQuery(
             "SELECT * FROM IEDB.Complete_series" + 
             " WHERE lower(name) LIKE lower(?)",

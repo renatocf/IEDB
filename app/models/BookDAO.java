@@ -42,7 +42,7 @@ public class BookDAO extends DAO<Book> {
         );
     }
     
-    public List<Book> getByName(String name) {
+    public List<Book> getByName(final String name) {
         return this.retrieveAllFromQuery(
             "SELECT * FROM IEDB.Complete_book" + 
             " WHERE lower(name) LIKE lower(?)",

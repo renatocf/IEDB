@@ -42,7 +42,7 @@ public class MusicDAO extends DAO<Music> {
         );
     }
     
-    public List<Music> getByName(String name) {
+    public List<Music> getByName(final String name) {
         return this.retrieveAllFromQuery(
             "SELECT * FROM IEDB.Complete_music" + 
             " WHERE lower(name) LIKE lower(?)",

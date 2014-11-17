@@ -43,7 +43,7 @@ public class TitleDAO extends DAO<Title> {
         ));
     }
 
-    public List<? extends Title> getByName(String name) {
+    public List<? extends Title> getByName(final String name) {
         return this.buildCompleteFromTitle(this.retrieveAllFromQuery(
             "SELECT * FROM IEDB.Title WHERE lower(name) LIKE ?",
             new StatementConfigurator() {

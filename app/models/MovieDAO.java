@@ -42,7 +42,7 @@ public class MovieDAO extends DAO<Movie> {
         );
     }
     
-    public List<Movie> getByName(String name) {
+    public List<Movie> getByName(final String name) {
         return this.retrieveAllFromQuery(
             "SELECT * FROM IEDB.Complete_movie" + 
             " WHERE lower(name) LIKE lower(?)",

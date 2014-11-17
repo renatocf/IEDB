@@ -42,7 +42,7 @@ public class HqDAO extends DAO<Hq> {
         );
     }
     
-    public List<Hq> getByName(String name) {
+    public List<Hq> getByName(final String name) {
         return this.retrieveAllFromQuery(
             "SELECT * FROM IEDB.Complete_hq" + 
             " WHERE lower(name) LIKE lower(?)",
