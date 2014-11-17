@@ -5,6 +5,7 @@
     [ ] Create more data to make more integration tests.
     [ ] Create indexes for the most used queries.
     [ ] Define user for accesse by the application.
+    [ ] Rename HQ to Comics.
 
 [model]
     [X] Try to stablish connection with Herolu PostgreSQL.
