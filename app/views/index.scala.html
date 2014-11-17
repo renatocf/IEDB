@@ -1,7 +1,14 @@
 @(message: String)
 
-<form method="post" action="@routes.Viewer.search()">
-    Find on IEDB:<br>
-    <input type="text" name="name">
-    <input type="submit" value="Search">
-</form>
+<html>
+  <head>
+    <title>IEDB</title>
+  </head>
+  <body>
+    <form method="post" action="@routes.Viewer.search()">
+      Find on IEDB:<br>
+      <input type="text" name="name">
+      <input type="submit" value="Search">
+    </form>
+  </body>
+</html>
