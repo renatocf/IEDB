@@ -35,7 +35,7 @@ public class ClientDAO extends DAO<Client> {
         super(connection);
     }
     
-    public void addClient(final Client client) {
+    public void add(final Client client) {
         this.persistFromQuery(
             "SELECT IEDB.create_account(?, ?, ?)",
             new StatementConfigurator() {

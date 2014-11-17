@@ -39,7 +39,7 @@ public class Register extends Controller {
         Client client = Form.form(Client.class).bindFromRequest().get();
 
         ClientDAO dao = new ClientDAO();
-        dao.addClient(client);
+        dao.add(client);
 
         return redirect(controllers.routes.Application.index());
     }
