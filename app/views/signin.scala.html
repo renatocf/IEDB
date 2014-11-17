@@ -1,8 +1,8 @@
-@(form: Form[Application.Login])
+@(form: Form[Login.Signin])
 
 <html>
     <head>
-        <title>IEDB - Login</title>
+        <title>IEDB - Sign in</title>
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
         <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/login.css")">
     </head>
@@ -15,7 +15,7 @@
             	@form.globalError.message
             </p>
         }
-    	@helper.form(routes.Application.authenticate) {
+    	@helper.form(routes.Login.authenticate) {
     	   <h1>Sign in</h1>
 
     	   <p>
@@ -25,7 +25,7 @@
     	       <input type="password" name="password" placeholder="Password">
     	   </p>
     	   <p>
-    	       <button type="submit">Login</button>
+    	       <button type="submit">Sign-in</button>
     	   </p>
     	}
     </body>
