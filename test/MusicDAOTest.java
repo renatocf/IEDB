@@ -29,7 +29,7 @@ public class MusicDAOTest {
 
     @Test
     public void getByName() {
-        assertEquals(1, dao.getAll().size());
+        assertEquals(1, dao.getByName("sky").size());
         assertEquals("Lucy in the sky with diamonds", dao.getByName("sky").get(0).getName());
     }
     

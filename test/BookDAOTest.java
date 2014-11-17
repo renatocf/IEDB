@@ -29,7 +29,7 @@ public class BookDAOTest {
 
     @Test
     public void getByName() {
-        assertEquals(1, dao.getAll().size());
+        assertEquals(1, dao.getByName("Potter").size());
         assertEquals("Harry Potter and the Philosopher's Stone", dao.getByName("Potter").get(0).getName());
     }
     

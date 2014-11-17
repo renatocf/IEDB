@@ -29,7 +29,7 @@ public class HqDAOTest {
 
     @Test
     public void getByName() {
-        assertEquals(1, dao.getAll().size());
+        assertEquals(1, dao.getByName("Superman").size());
         assertEquals("Superman", dao.getByName("Superman").get(0).getName());
     }
     

@@ -29,7 +29,7 @@ public class SeriesDAOTest {
 
     @Test
     public void getByName() {
-        assertEquals(1, dao.getAll().size());
+        assertEquals(1, dao.getByName("Friends").size());
         assertEquals("Friends", dao.getByName("Friends").get(0).getName());
     }
     

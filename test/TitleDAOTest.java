@@ -27,6 +27,7 @@ public class TitleDAOTest {
 
     @Test
     public void getAll() {
+        assertEquals(2, dao.getAll().size());
         assertEquals("The Lord of the Rings: The Fellowship of the Ring", 
             dao.getAll().get(0).getName());
         assertEquals("Matrix", dao.getAll().get(1).getName());
@@ -34,12 +35,14 @@ public class TitleDAOTest {
 
     @Test
     public void getByTypeAndName() {
+        assertEquals(1, dao.getByTypeAndName("movie", "lord").size());
         assertEquals("The Lord of the Rings: The Fellowship of the Ring", 
             dao.getByTypeAndName("movie", "lord").get(0).getName());
     }
 
     @Test
     public void getByName() {
+        assertEquals(1, dao.getByName("lord").size());
         assertEquals("The Lord of the Rings: The Fellowship of the Ring",
             dao.getByName("lord").get(0).getName());
     }
