@@ -3,20 +3,19 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index()
-POST    /                           controllers.Viewer.search()
+GET     /               controllers.Application.index()
+POST    /               controllers.Viewer.search()
+
+# Login page
+GET     /login          controllers.Application.login()
+POST    /login          controllers.Application.authenticate()
 
 # Register page
-GET     /signup                     controllers.Register.signup()
-POST    /signup                     controllers.Register.addClient()
+GET     /signup         controllers.Register.signup()
+POST    /signup         controllers.Register.addClient()
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file   controllers.Assets.at(path="/public", file)
 
 # Title pages
 GET     /:type/$name<([^\s-]+[-])*[^\s-.]+>.html controllers.Viewer.showTitle(type, name)
-
-####GET     /movie/$name<([^\s-]+[-])*[^\s-.]+>.html controllers.Viewer.getMovie(name)
-
-# Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.at(path="/public", file)
-
-GET     /login                  controllers.Application.login()
-POST    /login                      controllers.Application.authenticate()
