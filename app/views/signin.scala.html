@@ -2,9 +2,11 @@
 
 <html>
     <head>
-        <title>IEDB - Sign in</title>
-        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
-        <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/login.css")">
+        <title>IEDB - Signin</title>
+        <link rel="shortcut icon" type="image/png"
+              href="@routes.Assets.at("images/favicon.png")">
+        <link rel="stylesheet" type="text/css" media="screen"
+              href="@routes.Assets.at("stylesheets/login.css")">
     </head>
     <body>
         <header>
@@ -15,7 +17,7 @@
             	@form.globalError.message
             </p>
         }
-    	@helper.form(routes.Login.authenticate) {
+    	  @helper.form(routes.Login.authenticate) {
     	   <h1>Sign in</h1>
 
     	   <p>

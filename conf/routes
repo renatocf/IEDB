@@ -3,14 +3,23 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index()
-POST    /                           controllers.Viewer.search()
+GET     /               controllers.Application.index()
+POST    /               controllers.Viewer.search()
+
+# Login page
+GET     /signin                  	controllers.Login.login()
+POST    /signin                  	controllers.Login.authenticate()
+
+# Register page
+GET     /signup         controllers.Register.signup()
+POST    /signup         controllers.Register.addClient()
+
+# New Title
+GET     /addTitle       controllers.Application.addTitle()
 
 # Title pages
 GET     /:type/$name<([^\s-]+[-])*[^\s-.]+>.html controllers.Viewer.showTitle(type, name)
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.at(path="/public", file)
+GET     /assets/*file   controllers.Assets.at(path="/public", file)
 
-GET     /login                  	controllers.Login.login()
-POST    /login                  	controllers.Login.authenticate()
