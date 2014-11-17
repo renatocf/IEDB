@@ -55,8 +55,8 @@ public class MovieDAO extends DAO<Movie> {
     protected Movie buildFromResultSet(ResultSet rs) throws SQLException {
         Movie movie = new Movie();
         movie.setId           (rs.getInt    ("id"));
-        movie.setType         (rs.getString ("type"));
         movie.setName         (rs.getString ("name"));
+        movie.setType         (rs.getString ("type"));
         movie.setDateCreation (rs.getDate   ("date_creation"));
         movie.setDescription  (rs.getString ("description"));
         /* movie.setCensorship   (rs.getString ("censorship")); */
