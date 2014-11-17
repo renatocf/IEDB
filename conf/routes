@@ -3,8 +3,16 @@
 # ~~~~
 
 # Home page
+<<<<<<< HEAD
 GET     /               controllers.Application.index()
 POST    /               controllers.Viewer.search()
+=======
+GET     /                           controllers.Application.index()
+POST    /                           controllers.Viewer.search()
+GET     /addTitle                   controllers.Application.addTitle()
+
+
+>>>>>>> 3f6359cb11cc2f532e2c90e7a830d430f3779372
 
 # Login page
 GET     /login          controllers.Application.login()

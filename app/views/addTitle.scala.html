@@ -1,0 +1,59 @@
+<html>
+  <head>
+    <title>IEDB - New Title</title>
+  </head>
+
+  <body>
+    <form method="post" action="@routes.Viewer.search()">
+      Select the type of the new Title:
+      <br>
+      <br>
+      Auditive:
+      <br>
+      <input type="radio" id="music" name="gender" value="Music"> Music
+      <br><br>
+
+      Written:
+      <br>
+      <input type="radio" id="book" name="gender" value="Book"> Book
+      <br>
+      <input type="radio" id="hq" name="gender" value="HQ"> HQ
+      <br><br>
+
+      Visual:
+      <br>
+      <input type="radio" id="movie" name="gender" value="Movie"> Movie
+      <br>
+      <input type="radio" id="series" name="gender" value="Series"> Series
+    </form>
+
+    <button id="next" class="next">Next</button>
+
+    <script>
+      document.getElementById("next").onclick = function() {
+
+        if (document.getElementById('music').checked) {
+          location.href = "/addTitle";
+        };
+
+        if (document.getElementById('book').checked) {
+          location.href = "/addTitle";
+        };
+
+        if (document.getElementById('hq').checked) {
+          location.href = "/addTitle";
+        };
+
+        if (document.getElementById('movie').checked) {
+          location.href = "/addTitle";
+        };
+
+        if (document.getElementById('series').checked) {
+          location.href = "/addTitle";
+        };
+
+      };
+    </script>
+
+  </body>
+</html>

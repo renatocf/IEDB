@@ -9,15 +9,19 @@
     <form method="post" action="@routes.Viewer.search()">
       Find on IEDB:<br>
       <input type="text" name="name">
-      <input type="submit" value="Search">
+      <input type="submit" value="Search" action="@routes.Viewer.search()">
     </form>
-    
+
+    <button id="add-title" class="add-title">Add Title</button>
+
     <script type="text/javascript">
-      document.getElementById("signup-button").onclick = function()
-      {
+      document.getElementById("signup-button").onclick = function() {
         location.href = "@routes.Register.signup()";
       };
+      document.getElementById("add-title").onclick = function() {
+        location.href = "/addTitle";
+      };
     </script>
-  </body>
 
+  </body>
 </html>
