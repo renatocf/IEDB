@@ -37,10 +37,16 @@ public class TitleDAO extends DAO<Title> {
         );
     }
 
-    public List<Title> getAllTitlesWithNameLike(String token) {
+    public List<Title> getAllTitlesWithNameLike(String name) {
         
         List<Title> partial = this.retrieveAllFromQuery(
-            "SELECT * FROM IEDB.Title WHERE lower(name) LIKE ?"
+            "SELECT * FROM IEDB.Title WHERE lower(name) LIKE ?",
+            new StatementConfigurator() {
+                public void configureStatement(PreparedStatement stmt) 
+                    throws SQLException {
+                    stmt.setString(1, "%" + name + "%");
+                }
+            }
         );
         
         List<Title> complete = new ArrayList<Title>();
