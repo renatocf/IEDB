@@ -19,40 +19,20 @@ package models;
 import play.db.DB;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import java.util.Date;
 import java.util.List;
 
-public class MovieDAO extends DAO<Movie> {
+public class MovieDAO extends ViewerDAO<Movie> {
 
     public MovieDAO() {
-        super(DB.getConnection());
+        super("IEDB.Complete_movie", DB.getConnection());
     }
 
     public MovieDAO(Connection connection) {
-        super(connection);
-    }
-    
-    public List<Movie> getAll() {
-        return this.retrieveAllFromQuery(
-            "SELECT * FROM IEDB.Complete_movie"
-        );
-    }
-    
-    public List<Movie> getByName(final String name) {
-        return this.retrieveAllFromQuery(
-            "SELECT * FROM IEDB.Complete_movie" + 
-            " WHERE lower(name) LIKE lower(?)",
-            new StatementConfigurator() {
-                public void configureStatement(PreparedStatement stmt) 
-                    throws SQLException {
-                    stmt.setString(1, "%" + name + "%");
-                }
-            }
-        );
+        super("IEDB.Complete_movie", connection);
     }
     
     @Override

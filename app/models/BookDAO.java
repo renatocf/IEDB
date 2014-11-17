@@ -19,42 +19,21 @@ package models;
 import play.db.DB;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import java.util.Date;
-import java.util.List;
 
-public class BookDAO extends DAO<Book> {
+public class BookDAO extends ViewerDAO<Book> {
 
     public BookDAO() {
-        super(DB.getConnection());
+        super("IEDB.Complete_book", DB.getConnection());
     }
 
     public BookDAO(Connection connection) {
-        super(connection);
+        super("IEDB.Complete_book", connection);
     }
-    
-    public List<Book> getAll() {
-        return this.retrieveAllFromQuery(
-            "SELECT * FROM IEDB.Complete_book"
-        );
-    }
-    
-    public List<Book> getByName(final String name) {
-        return this.retrieveAllFromQuery(
-            "SELECT * FROM IEDB.Complete_book" + 
-            " WHERE lower(name) LIKE lower(?)",
-            new StatementConfigurator() {
-                public void configureStatement(PreparedStatement stmt) 
-                    throws SQLException {
-                    stmt.setString(1, "%" + name + "%");
-                }
-            }
-        );
-    }
-    
+
     @Override
     protected Book buildFromResultSet(ResultSet rs) throws SQLException {
         Book book = new Book();

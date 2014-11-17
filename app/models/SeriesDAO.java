@@ -19,40 +19,20 @@ package models;
 import play.db.DB;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import java.util.Date;
 import java.util.List;
 
-public class SeriesDAO extends DAO<Series> {
+public class SeriesDAO extends ViewerDAO<Series> {
 
     public SeriesDAO() {
-        super(DB.getConnection());
+        super("IEDB.Complete_series", DB.getConnection());
     }
 
     public SeriesDAO(Connection connection) {
-        super(connection);
-    }
-    
-    public List<Series> getAll() {
-        return this.retrieveAllFromQuery(
-            "SELECT * FROM IEDB.Complete_series"
-        );
-    }
-    
-    public List<Series> getByName(final String name) {
-        return this.retrieveAllFromQuery(
-            "SELECT * FROM IEDB.Complete_series" + 
-            " WHERE lower(name) LIKE lower(?)",
-            new StatementConfigurator() {
-                public void configureStatement(PreparedStatement stmt) 
-                    throws SQLException {
-                    stmt.setString(1, "%" + name + "%");
-                }
-            }
-        );
+        super("IEDB.Complete_series", connection);
     }
     
     @Override

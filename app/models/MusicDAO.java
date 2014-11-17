@@ -19,40 +19,20 @@ package models;
 import play.db.DB;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import java.util.Date;
 import java.util.List;
 
-public class MusicDAO extends DAO<Music> {
+public class MusicDAO extends ViewerDAO<Music> {
 
     public MusicDAO() {
-        super(DB.getConnection());
+        super("IEDB.Complete_music", DB.getConnection());
     }
 
     public MusicDAO(Connection connection) {
-        super(connection);
-    }
-    
-    public List<Music> getAll() {
-        return this.retrieveAllFromQuery(
-            "SELECT * FROM IEDB.Complete_music"
-        );
-    }
-    
-    public List<Music> getByName(final String name) {
-        return this.retrieveAllFromQuery(
-            "SELECT * FROM IEDB.Complete_music" + 
-            " WHERE lower(name) LIKE lower(?)",
-            new StatementConfigurator() {
-                public void configureStatement(PreparedStatement stmt) 
-                    throws SQLException {
-                    stmt.setString(1, "%" + name + "%");
-                }
-            }
-        );
+        super("IEDB.Complete_music", connection);
     }
     
     @Override
