@@ -31,13 +31,13 @@ abstract class ViewerDAO<T> extends DAO<T> {
         this.defaultTable = defaultTable;
     }
     
-    public List<T> getAll() {
+    public List<? extends T> getAll() {
         return this.retrieveAllFromQuery(
             "SELECT * FROM " + this.defaultTable + " ORDER BY id"
         );
     }
     
-    public List<T> getByName(final String name) {
+    public List<? extends T> getByName(final String name) {
         return this.retrieveAllFromQuery(
             "SELECT * FROM " + this. defaultTable +
             " WHERE lower(name) LIKE lower(?)",
