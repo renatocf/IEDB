@@ -5,6 +5,8 @@
 # Home page
 GET     /                           controllers.Application.index()
 POST    /                           controllers.Viewer.search()
+GET     /addTitle                   controllers.Application.addTitle()
+
 
 # Title pages
 GET     /:type/$name<([^\s-]+[-])*[^\s-.]+>.html controllers.Viewer.showTitle(type, name)

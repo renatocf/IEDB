@@ -5,10 +5,28 @@
     <title>IEDB</title>
   </head>
   <body>
-    <form method="post" action="@routes.Viewer.search()">
+    <form method="post">
       Find on IEDB:<br>
       <input type="text" name="name">
-      <input type="submit" value="Search">
+      <input type="submit" value="Search" action="@routes.Viewer.search()">
     </form>
+
+    <button id="add-title" class="add-title">Add Title</button>
+
+
+    <script type="text/javascript">
+      document.getElementById("add-title").onclick = function()
+      {
+        location.href = "/addTitle";
+      };
+    
+
+
+    </script>
+    
+
   </body>
 </html>
+
+
+
