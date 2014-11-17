@@ -18,6 +18,7 @@ package controllers;
 
 // Models
 import models.Client;
+import models.ClientDAO;
 
 // Views
 import views.html.index;
