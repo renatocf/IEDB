@@ -31,6 +31,10 @@ public class MusicDAO extends DAO<Music> {
     public MusicDAO() {
         super(DB.getConnection());
     }
+
+    public MusicDAO(Connection connection) {
+        super(connection);
+    }
     
     public List<Music> getAll() {
         return this.retrieveAllFromQuery(

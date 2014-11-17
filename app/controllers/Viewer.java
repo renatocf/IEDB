@@ -42,7 +42,7 @@ public class Viewer extends Controller {
 
     public static Result showTitle(String type, String name){
         TitleDAO dao = new TitleDAO();
-        return ok(title.render(dao.getTitleByTypeAndName(type, name)));
+        return ok(title.render(dao.getByTypeAndName(type, name).get(0)));
     }
     
     private static List<Movie> findMovies(String name) {

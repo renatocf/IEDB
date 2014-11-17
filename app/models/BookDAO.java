@@ -31,6 +31,10 @@ public class BookDAO extends DAO<Book> {
     public BookDAO() {
         super(DB.getConnection());
     }
+
+    public BookDAO(Connection connection) {
+        super(connection);
+    }
     
     public List<Book> getAll() {
         return this.retrieveAllFromQuery(

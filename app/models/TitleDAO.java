@@ -23,23 +23,28 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import java.util.*;
+import java.util.Date;
+import java.util.List;
+import java.util.ArrayList;
 
 public class TitleDAO extends DAO<Title> {
 
     public TitleDAO() {
         super(DB.getConnection());
     }
+
+    public TitleDAO(Connection connection) {
+        super(connection);
+    }
     
-    public List<Title> getAll() {
-        return this.retrieveAllFromQuery(
+    public List<? extends Title> getAll() {
+        return this.buildCompleteFromTitle(this.retrieveAllFromQuery(
             "SELECT * FROM IEDB.Title ORDER BY id"
-        );
+        ));
     }
 
-    public List<Title> getAllTitlesWithNameLike(String name) {
-        
-        List<Title> partial = this.retrieveAllFromQuery(
+    public List<? extends Title> getAllTitlesWithNameLike(String name) {
+        return this.buildCompleteFromTitle(this.retrieveAllFromQuery(
             "SELECT * FROM IEDB.Title WHERE lower(name) LIKE ?",
             new StatementConfigurator() {
                 public void configureStatement(PreparedStatement stmt) 
@@ -47,35 +52,28 @@ public class TitleDAO extends DAO<Title> {
                     stmt.setString(1, "%" + name + "%");
                 }
             }
-        );
-        
-        List<Title> complete = new ArrayList<Title>();
-        for(Title title: partial)
-            complete.add(
-                getTitleByTypeAndName(title.getType(), title.getName())
-            );
-
-        return complete;
+        ));
     }
 
-    public Title getTitleByTypeAndName(String type, String name) {
+    public List<? extends Title>
+    getByTypeAndName(String type, String name) {
         
         switch(type.toLowerCase()) {
             case "music":
-                MusicDAO musicDAO = new MusicDAO();
-                return musicDAO.getByName(name).get(0);
+                MusicDAO musicDAO = new MusicDAO(this.connection);
+                return musicDAO.getByName(name);
             case "hq":
-                HqDAO hqDAO = new HqDAO();
-                return hqDAO.getByName(name).get(0);
+                HqDAO hqDAO = new HqDAO(this.connection);
+                return hqDAO.getByName(name);
             case "book":
-                BookDAO bookDAO = new BookDAO();
-                return bookDAO.getByName(name).get(0);
+                BookDAO bookDAO = new BookDAO(this.connection);
+                return bookDAO.getByName(name);
             case "movie": 
-                MovieDAO movieDAO = new MovieDAO();
-                return movieDAO.getByName(name).get(0);
+                MovieDAO movieDAO = new MovieDAO(this.connection);
+                return movieDAO.getByName(name);
             case "series":
-                SeriesDAO seriesDAO = new SeriesDAO();
-                return seriesDAO.getByName(name).get(0);
+                SeriesDAO seriesDAO = new SeriesDAO(this.connection);
+                return seriesDAO.getByName(name);
             default:
                 throw new RuntimeException("Invalid type " + type);
         }
@@ -91,6 +89,17 @@ public class TitleDAO extends DAO<Title> {
         title.setDateCreation (rs.getDate   ("date_creation"));
         title.setDescription  (rs.getString ("description"));
         return title;
+    }
+    
+    private List<? extends Title> 
+    buildCompleteFromTitle(List<Title> partial) {
+        
+        List<Title> complete = new ArrayList<Title>();
+        for(Title title: partial)
+            complete.addAll(
+                this.getByTypeAndName(title.getType(), title.getName())
+            );
+        return complete;
     }
     
     /*

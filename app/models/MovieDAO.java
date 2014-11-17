@@ -31,6 +31,10 @@ public class MovieDAO extends DAO<Movie> {
     public MovieDAO() {
         super(DB.getConnection());
     }
+
+    public MovieDAO(Connection connection) {
+        super(connection);
+    }
     
     public List<Movie> getAll() {
         return this.retrieveAllFromQuery(

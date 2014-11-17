@@ -35,8 +35,8 @@ public class TitleDAOTest {
     }
 
     @Test
-    public void getTitleByTypeAndName(){
-        assertEquals("The Lord of the Rings: The Fellowship of the Ring", dao.getTitleByTypeAndName("movie", "lord").getName());
+    public void getByTypeAndName(){
+        assertEquals("The Lord of the Rings: The Fellowship of the Ring", dao.getByTypeAndName("movie", "lord").get(0).getName());
     }
 
     @Test

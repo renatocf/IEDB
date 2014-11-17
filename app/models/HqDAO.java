@@ -31,6 +31,10 @@ public class HqDAO extends DAO<Hq> {
     public HqDAO() {
         super(DB.getConnection());
     }
+
+    public HqDAO(Connection connection) {
+        super(connection);
+    }
     
     public List<Hq> getAll() {
         return this.retrieveAllFromQuery(

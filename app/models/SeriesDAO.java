@@ -31,6 +31,10 @@ public class SeriesDAO extends DAO<Series> {
     public SeriesDAO() {
         super(DB.getConnection());
     }
+
+    public SeriesDAO(Connection connection) {
+        super(connection);
+    }
     
     public List<Series> getAll() {
         return this.retrieveAllFromQuery(
