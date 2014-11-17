@@ -39,22 +39,22 @@ public class TitleDAO extends DAO<Title> {
 
     public Title getTitleByTypeAndName(String type, String name) {
         
-        MovieDAO dao = new MovieDAO();
+        MovieDAO movieDAO = new MovieDAO();
         switch(type.toLowerCase()) {
             case "music":
-                return dao.getByName(name).get(0);
+                return movieDAO.getByName(name).get(0);
             case "hq":
-                /* MovieDAO dao = new MovieDAO(); */
-                return dao.getByName(name).get(0);
+                /* MovieDAO movieDAO = new MovieDAO(); */
+                return movieDAO.getByName(name).get(0);
             case "book":
-                /* MovieDAO dao = new MovieDAO(); */
-                return dao.getByName(name).get(0);
+                /* MovieDAO movieDAO = new MovieDAO(); */
+                return movieDAO.getByName(name).get(0);
             case "movie": 
-                /* MovieDAO dao = new MovieDAO(); */
-                return dao.getByName(name).get(0);
+                /* MovieDAO movieDAO = new MovieDAO(); */
+                return movieDAO.getByName(name).get(0);
             case "series":
-                /* MovieDAO dao = new MovieDAO(); */
-                return dao.getByName(name).get(0);
+                SeriesDAO seriesDAO = new SeriesDAO();
+                return seriesDAO.getByName(name).get(0);
             default:
                 throw new RuntimeException("Invalid type " + type);
         }
