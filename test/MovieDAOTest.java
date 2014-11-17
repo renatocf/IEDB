@@ -29,11 +29,13 @@ public class MovieDAOTest {
 
     @Test
     public void getByName() {
+        assertEquals(1, dao.getAll().size());
         assertEquals("The Lord of the Rings: The Fellowship of the Ring", dao.getByName("Lord").get(0).getName());
     }
     
     @Test
     public void getAll() {
+        assertEquals(2, dao.getAll().size());
         assertEquals("The Lord of the Rings: The Fellowship of the Ring", dao.getAll().get(0).getName());
         assertEquals("Matrix", dao.getAll().get(1).getName());
     }
