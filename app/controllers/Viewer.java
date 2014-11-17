@@ -1,69 +1,48 @@
+/**********************************************************************/
+/* Copyright 2014 IEDB                                                */
+/*                                                                    */
+/* Licensed under the Apache License, Version 2.0 (the "License");    */
+/* you may not use this file except in compliance with the License.   */
+/* You may obtain a copy of the License at                            */
+/*                                                                    */
+/*     http://www.apache.org/licenses/LICENSE-2.0                     */
+/*                                                                    */
+/* Unless required by applicable law or agreed to in writing,         */
+/* software distributed under the License is distributed on an        */
+/* "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,       */
+/* either express or implied.                                         */
+/* See the License for the specific language governing permissions    */
+/* and limitations under the License.                                 */
+/**********************************************************************/
 package controllers;
 
 // Models
-import models.Movie;
-import models.MovieDAO;
 import models.Title;
 import models.TitleDAO;
 
 // Views
-import views.html.movie;
-import views.html.search_results;
 import views.html.title;
+import views.html.search_results;
 
-import java.util.List;
-import java.util.ArrayList;
-
-import play.*;
-import play.mvc.*;
+// Play
 import play.data.Form;
+import play.mvc.Result;
+import play.mvc.Controller;
 
 public class Viewer extends Controller {
 
+    static private TitleDAO dao = new TitleDAO();
+
     public static Result search() {
         Title title = Form.form(Title.class).bindFromRequest().get();
-        
-        TitleDAO dao = new TitleDAO();
-        List<? extends Title> searchResults 
-            = dao.getByName(title.getName());
-        
-        return ok(search_results.render(searchResults));
+        return ok(search_results.render(
+            Viewer.dao.getByName(title.getName())
+        ));
     }
-    
-    // public static Result getMovie(String name) {
-    //     List<Movie> titles = findMovies(name);
-    //     if(titles.size() == 0) return notFound(name + "not found");
-    //     else return showTitle(titles.get(0));
-    // }
-    // 
-    // public static Result showTitle(Movie m) {
-    //     return ok(title.render(m));
-    // }
 
-    public static Result showTitle(String type, String name){
-        TitleDAO dao = new TitleDAO();
-        return ok(title.render(dao.getByTypeAndName(type, name.replace('-',' ')).get(0)));
+    public static Result showTitle(String type, String name) {
+        return ok(title.render(
+            Viewer.dao.getByTypeAndName(type, name.replace('-',' ')).get(0)
+        ));
     }
-    
-    // private static List<Movie> findMovies(String name) {
-    //     MovieDAO dao = new MovieDAO();
-    //     return dao.getByName(name.replace('-',' '));
-    // }
-
-    /*private static List<Titles> findAllByName(String name){
-        List<Title> titles; = new ArrayList<Title>();
-        MovieDAO daoMovie = new MovieDAO();
-        MovieDAO daoSeries = new SeriesDAO();
-        MovieDAO daoMusic = new MusicDAO();
-        MovieDAO daoHq = new HqDAO();
-        MovieDAO daoBook = new BookDAO();
-
-        titles.addAll(daoMovie.getByName(name));
-        titles.addAll(daoSeries.getByName(name));
-        titles.addAll(daoMusic.getByName(name));
-        titles.addAll(daoHq.getByName(name));
-        titles.addAll(daoBook.getByName(name));
-
-        return titles;
-    }*/
 }
