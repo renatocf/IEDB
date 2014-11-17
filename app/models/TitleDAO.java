@@ -39,10 +39,10 @@ public class TitleDAO extends DAO<Title> {
 
     public Title getTitleByTypeAndName(String type, String name) {
         
-        MovieDAO movieDAO = new MovieDAO();
         switch(type.toLowerCase()) {
             case "music":
-                return movieDAO.getByName(name).get(0);
+                MusicDAO musicDAO = new MusicDAO();
+                return musicDAO.getByName(name).get(0);
             case "hq":
                 HqDAO hqDAO = new HqDAO();
                 return hqDAO.getByName(name).get(0);
@@ -50,7 +50,7 @@ public class TitleDAO extends DAO<Title> {
                 BookDAO bookDAO = new BookDAO();
                 return bookDAO.getByName(name).get(0);
             case "movie": 
-                /* MovieDAO movieDAO = new MovieDAO(); */
+                MovieDAO movieDAO = new MovieDAO();
                 return movieDAO.getByName(name).get(0);
             case "series":
                 SeriesDAO seriesDAO = new SeriesDAO();
