@@ -6,6 +6,10 @@
 GET     /                           controllers.Application.index()
 POST    /                           controllers.Viewer.search()
 
+# Register page
+GET     /signup                     controllers.Register.signup()
+POST    /signup                     controllers.Register.addClient()
+
 # Title pages
 GET     /:type/$name<([^\s-]+[-])*[^\s-.]+>.html controllers.Viewer.showTitle(type, name)
 

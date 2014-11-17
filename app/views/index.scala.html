@@ -1,14 +1,23 @@
-@(message: String)
-
 <html>
   <head>
     <title>IEDB</title>
   </head>
+
   <body>
+    <button id="signup-button" class="submit-button">Sign up</button>
+
     <form method="post" action="@routes.Viewer.search()">
       Find on IEDB:<br>
       <input type="text" name="name">
       <input type="submit" value="Search">
     </form>
+    
+    <script type="text/javascript">
+      document.getElementById("signup-button").onclick = function()
+      {
+        location.href = "@routes.Register.signup()";
+      };
+    </script>
   </body>
+
 </html>

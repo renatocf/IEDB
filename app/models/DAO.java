@@ -41,7 +41,7 @@ abstract class DAO<T> {
         throws SQLException;
     
     protected List<T> retrieveAllFromQuery(String sql, 
-                                         StatementConfigurator scfg) {
+                                           StatementConfigurator scfg) {
         try {
             PreparedStatement stmt
                 = this.connection.prepareStatement(sql);
@@ -65,6 +65,30 @@ abstract class DAO<T> {
         });
     }
     
+    protected void persistFromQuery(String sql, 
+                                    StatementConfigurator scfg) {
+        try {
+            PreparedStatement stmt
+                = this.connection.prepareStatement(sql);
+
+            scfg.configureStatement(stmt);
+            this.persistFromStatement(stmt);
+            
+            stmt.close();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
+    protected void persistFromQuery(String sql) {
+        this.persistFromQuery(sql, 
+            new StatementConfigurator() {
+                public void configureStatement(PreparedStatement stmt) 
+                    throws SQLException {}
+        });
+    }
+    
     private List<T> retrieveAllFromStatement(PreparedStatement stmt) 
         throws SQLException {
         
@@ -76,5 +100,10 @@ abstract class DAO<T> {
         rs.close();
 
         return Ts;
+    }
+    
+    private void persistFromStatement(PreparedStatement stmt) 
+        throws SQLException {
+        stmt.execute();
     }
 }
