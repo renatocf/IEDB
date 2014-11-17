@@ -32,6 +32,10 @@ public class MovieDAO extends DAO<Movie> {
         super(DB.getConnection());
     }
     
+    public List<Movie> getAll() {
+        return this.retrieveAllFromQuery("SELECT * FROM IEDB.Movie");
+    }
+    
     public List<Movie> getByName(String name) {
         return this.retrieveAllFromQuery(
             "SELECT * FROM IEDB.Complete_movie" + 
@@ -41,16 +45,6 @@ public class MovieDAO extends DAO<Movie> {
                     throws SQLException {
                     stmt.setString(1, "%" + name + "%");
                 }
-            }
-        );
-    }
-    
-    public List<Movie> getAll() {
-        return this.retrieveAllFromQuery(
-            "SELECT * FROM IEDB.Movie",
-            new StatementConfigurator() {
-                public void configureStatement(PreparedStatement stmt)
-                    throws SQLException {}
             }
         );
     }
