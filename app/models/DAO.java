@@ -39,7 +39,7 @@ abstract class DAO<T> {
     
     abstract protected T buildFromResultSet(ResultSet rs) 
         throws SQLException;
-
+    
     protected List<T> retrieveAllFromQuery(String sql, 
                                          StatementConfigurator scfg) {
         try {
@@ -55,6 +55,14 @@ abstract class DAO<T> {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    protected List<T> retrieveAllFromQuery(String sql) {
+        return this.retrieveAllFromQuery(sql, 
+            new StatementConfigurator() {
+                public void configureStatement(PreparedStatement stmt) 
+                    throws SQLException {}
+        });
     }
     
     private List<T> retrieveAllFromStatement(PreparedStatement stmt) 
