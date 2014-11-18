@@ -8,8 +8,8 @@ POST    /                           controllers.Viewer.search()
 
 
 # Login page
-GET     /login          controllers.Application.login()
-POST    /login          controllers.Application.authenticate()
+GET     /signin         controllers.Login.signin()
+POST    /signin         controllers.Login.authenticate()
 
 # Register page
 GET     /signup         controllers.Register.signup()
@@ -24,8 +24,9 @@ GET     /addTitle/hq                controllers.Application.addHQ()
 GET     /addTitle/movie             controllers.Application.addMovie()
 GET     /addTitle/series            controllers.Application.addSeries()
 
+# Title pages
+GET     /:type/$name<([^\s-]+[-])*[^\s-.]+>.html controllers.Viewer.showTitle(type, name)
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file   controllers.Assets.at(path="/public", file)
 
-# Title pages
-GET     /:type/$name<([^\s-]+[-])*[^\s-.]+>.html controllers.Viewer.showTitle(type, name)

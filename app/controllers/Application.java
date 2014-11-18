@@ -6,7 +6,14 @@ import play.data.*;
 import static play.data.Form.*;
 import models.Client;
 
-import views.html.*;
+// Views
+import views.html.index;
+import views.html.addTitle;
+
+// Play
+import play.data.Form;
+import play.mvc.Result;
+import play.mvc.Controller;
 
 public class Application extends Controller {
 
@@ -16,6 +23,7 @@ public class Application extends Controller {
     public static Result addTitle(){
     	return ok(addTitle.render());
     }
+
 
     public static Result addMusic(){
     	return ok(addMusic.render());
@@ -32,35 +40,4 @@ public class Application extends Controller {
     public static Result addSeries(){
     	return ok(addSeries.render());
     }
-
-
-
-	public static Result login() {
-	    return ok(login.render(Form.form(Login.class)));
-	}
-
-	public static Result authenticate() {
-    	Form<Login> loginForm = Form.form(Login.class).bindFromRequest();
-    	if (loginForm.hasErrors()) {
-    	 	return badRequest(login.render(loginForm));
-    	} 
-    	else {
-	      	session().clear();
-	        session("email", loginForm.get().email);
-	        return redirect(routes.Application.index());
-	    }
-	}
-
-	public static class Login {
-
-    	public String email;
-    	public String password;
-
-    	public String validate() {
-	    	if (Client.authenticate(email, password) == null) {
-	    		return "Invalid user or password";
-	    	}
-	    	return null;
-		}
-	}
 }
