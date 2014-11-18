@@ -9,6 +9,11 @@ import models.Client;
 // Views
 import views.html.index;
 import views.html.addTitle;
+import views.html.addMusic;
+import views.html.addBook;
+import views.html.addHQ;
+import views.html.addMovie;
+import views.html.addSeries;
 
 // Play
 import play.data.Form;
