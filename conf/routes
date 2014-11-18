@@ -7,8 +7,8 @@ GET     /               controllers.Application.index()
 POST    /               controllers.Viewer.search()
 
 # Login page
-GET     /signin                  	controllers.Login.login()
-POST    /signin                  	controllers.Login.authenticate()
+GET     /signin         controllers.Login.signin()
+POST    /signin         controllers.Login.authenticate()
 
 # Register page
 GET     /signup         controllers.Register.signup()
