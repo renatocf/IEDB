@@ -14,55 +14,33 @@
 /* See the License for the specific language governing permissions    */
 /* and limitations under the License.                                 */
 /**********************************************************************/
-package models;
+package controllers;
 
-public class Client
-{
-    private String  username;
-    private String  email;
-    private String  password;
-    private boolean isActive;
-    private boolean isReviewer;
+// Models
+import models.Client;
+import models.ClientDAO;
 
-    // Getters
-    public String getUsername() {
-        return this.username;
-    }
-    
-    public String getEmail() {
-        return this.email;
-    }
-    
-    public String getPassword() {
-        return this.password;
-    }
-    
-    public boolean getIsActive() {
-        return this.isActive;
-    }
-    
-    public boolean getIsReviewer() {
-        return this.isReviewer;
+// Views
+import views.html.signup;
+import views.html.search_results;
+
+// Play
+import play.data.Form;
+import play.mvc.Result;
+import play.mvc.Controller;
+
+public class Register extends Controller {
+
+    public static Result signup() {
+        return ok(signup.render());
     }
 
-    // Setters
-    public void setUsername(String username) {
-        this.username = username;
-    }
-    
-    public void setEmail(String email) {
-        this.email = email;
-    }
-    
-    public void setPassword(String password) {
-        this.password = password;
-    }
-    
-    public void setIsActive(boolean isActive) {
-        this.isActive = isActive;
-    }
-    
-    public void setIsReviewer(boolean isReviewer) {
-        this.isReviewer = isReviewer;
+    public static Result addClient() {
+        Client client = Form.form(Client.class).bindFromRequest().get();
+
+        ClientDAO dao = new ClientDAO();
+        dao.add(client);
+
+        return redirect(controllers.routes.Application.index());
     }
 }

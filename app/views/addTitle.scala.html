@@ -1,9 +1,8 @@
-@(message: String)
-
 <html>
   <head>
-    <title>IEDB</title>
+    <title>IEDB - New Title</title>
   </head>
+
   <body>
     <form method="post" action="@routes.Viewer.search()">
       Select the type of the new Title:
@@ -26,20 +25,18 @@
       <input type="radio" id="movie" name="gender" value="Movie"> Movie
       <br>
       <input type="radio" id="series" name="gender" value="Series"> Series
-
-
     </form>
 
     <button id="next" class="next">Next</button>
 
-
     <script>
-      document.getElementById("next").onclick = function()
-      {
+      document.getElementById("next").onclick = function() {
+
         if (document.getElementById('music').checked) {
           location.href = "/addTitle/music";
         };
 
+<<<<<<< HEAD
         if(document.getElementById('book').checked){
           location.href = "/addTitle/book";
         };
@@ -61,5 +58,3 @@
 
   </body>
 </html>
-
-
