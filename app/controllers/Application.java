@@ -10,27 +10,27 @@ import views.html.*;
 
 public class Application extends Controller {
 
-    public static Result index() {
-        return ok(index.render(""));
+    public static Result index(){
+        return ok(index.render());
     }
     public static Result addTitle(){
-    	return ok(addTitle.render(""));
+    	return ok(addTitle.render());
     }
 
     public static Result addMusic(){
-    	return ok(addMusic.render(""));
+    	return ok(addMusic.render());
     }
     public static Result addBook(){
-    	return ok(addBook.render(""));
+    	return ok(addBook.render());
     }
     public static Result addHQ(){
-    	return ok(addHQ.render(""));
+    	return ok(addHQ.render());
     }
     public static Result addMovie(){
-    	return ok(addMovie.render(""));
+    	return ok(addMovie.render());
     }
     public static Result addSeries(){
-    	return ok(addSeries.render(""));
+    	return ok(addSeries.render());
     }
 
 
@@ -57,11 +57,10 @@ public class Application extends Controller {
     	public String password;
 
     	public String validate() {
-	    if (Client.authenticate(email, password) == null) {
-	    	return "Invalid user or password";
-	    }
-	    return null;
-	}
-
+	    	if (Client.authenticate(email, password) == null) {
+	    		return "Invalid user or password";
+	    	}
+	    	return null;
+		}
 	}
 }
