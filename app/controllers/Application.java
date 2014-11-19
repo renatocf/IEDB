@@ -25,6 +25,8 @@ public class Application extends Controller {
     public static Result index(){
         return ok(index.render());
     }
+
+    //@Security.Authenticated(Secured.class)
     public static Result addTitle(){
     	return ok(addTitle.render());
     }
