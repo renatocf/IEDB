@@ -8,12 +8,12 @@ import models.Client;
 
 // Views
 import views.html.index;
-import views.html.addTitle;
-import views.html.addMusic;
-import views.html.addBook;
-import views.html.addComic;
-import views.html.addMovie;
-import views.html.addSeries;
+import views.html.add_title;
+import views.html.add_music;
+import views.html.add_book;
+import views.html.add_comic;
+import views.html.add_movie;
+import views.html.add_series;
 
 // Play
 import play.data.Form;
@@ -28,26 +28,26 @@ public class Application extends Controller {
 
     //@Security.Authenticated(Secured.class)
     public static Result addTitle() {
-    	return ok(addTitle.render());
+    	return ok(add_title.render());
     }
 
     public static Result addMusic() {
-    	return ok(addMusic.render());
+    	return ok(add_music.render());
     }
     
     public static Result addBook() {
-    	return ok(addBook.render());
+    	return ok(add_book.render());
     }
     
     public static Result addComic() {
-    	return ok(addComic.render());
+    	return ok(add_comic.render());
     }
     
     public static Result addMovie() {
-    	return ok(addMovie.render());
+    	return ok(add_movie.render());
     }
     
     public static Result addSeries() {
-    	return ok(addSeries.render());
+    	return ok(add_series.render());
     }
 }
