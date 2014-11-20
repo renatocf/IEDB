@@ -17,7 +17,7 @@
 package integration;
 
 // Tested class
-import models.MovieDAO;
+import models.ComicDAO;
 
 // JUnit
 import org.junit.Before;
@@ -29,15 +29,15 @@ import static org.junit.Assert.*;
 import static play.test.Helpers.running;
 import static play.test.Helpers.fakeApplication;
 
-public class MovieDAOTest {
+public class ComicDAOTest {
     
-    private MovieDAO dao;
+    private ComicDAO dao;
 
     @Before
     public void setUp() throws Exception {
         running(fakeApplication(), new Runnable() {
             public void run() {
-                dao = new MovieDAO();
+                dao = new ComicDAO();
             }
         });
     }
@@ -49,17 +49,14 @@ public class MovieDAOTest {
 
     @Test
     public void getByName() {
-        assertEquals(1, dao.getByName("Lord").size());
-        assertEquals("The Lord of the Rings: The Fellowship of the Ring", 
-            dao.getByName("Lord").get(0).getName());
+        assertEquals(1, dao.getByName("Superman").size());
+        assertEquals("Superman", 
+            dao.getByName("Superman").get(0).getName());
     }
     
     @Test
     public void getAll() {
-        assertEquals(2, dao.getAll().size());
-        assertEquals("The Lord of the Rings: The Fellowship of the Ring", 
-            dao.getAll().get(0).getName());
-        assertEquals("Matrix", dao.getAll().get(1).getName());
+        assertEquals(1, dao.getAll().size());
+        assertEquals("Superman", dao.getAll().get(0).getName());
     }
-    
 }
