@@ -23,10 +23,10 @@
     
     @if(title.isInstanceOf[Written]){
 
-        @if(title.isInstanceOf[Hq]){
-            <h3> Hq shit </h3>
-            @title.asInstanceOf[Hq].getNum
-            @title.asInstanceOf[Hq].getArc
+        @if(title.isInstanceOf[Comic]){
+            <h3> Comic shit </h3>
+            @title.asInstanceOf[Comic].getNum
+            @title.asInstanceOf[Comic].getArc
         }else{
             <h3> Book shit </h3>
             @title.asInstanceOf[Book].getNumEditions

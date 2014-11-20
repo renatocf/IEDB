@@ -16,7 +16,7 @@
 /**********************************************************************/
 package models;
 
-public class Hq extends Written {
+public class Comic extends Written {
 
     protected int num;
     protected String arc;

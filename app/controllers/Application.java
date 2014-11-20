@@ -11,7 +11,7 @@ import views.html.index;
 import views.html.addTitle;
 import views.html.addMusic;
 import views.html.addBook;
-import views.html.addHQ;
+import views.html.addComic;
 import views.html.addMovie;
 import views.html.addSeries;
 
@@ -38,8 +38,8 @@ public class Application extends Controller {
     public static Result addBook(){
     	return ok(addBook.render());
     }
-    public static Result addHQ(){
-    	return ok(addHQ.render());
+    public static Result addComic(){
+    	return ok(addComic.render());
     }
     public static Result addMovie(){
     	return ok(addMovie.render());

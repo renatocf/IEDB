@@ -20,7 +20,7 @@ POST    /signup         controllers.Register.addClient()
 GET     /addTitle                   controllers.Application.addTitle()
 GET     /addTitle/music             controllers.Application.addMusic()
 GET     /addTitle/book              controllers.Application.addBook()
-GET     /addTitle/hq                controllers.Application.addHQ()
+GET     /addTitle/comic             controllers.Application.addComic()
 GET     /addTitle/movie             controllers.Application.addMovie()
 GET     /addTitle/series            controllers.Application.addSeries()
 

@@ -55,7 +55,7 @@ SELECT grant_reviewer_permission('ruan0408');
 SELECT create_movie('The Lord of the Rings: The Fellowship of the Ring', 'A meek hobbit of the Shire and eight companions set out on a journey to Mount Doom to destroy the One Ring and the dark lord Sauron.', 'Adventure', 178, 'USA', 'G');
 SELECT create_movie('Matrix', 'A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.', 'Action', 136, 'USA', 'G');
 
-SELECT create_hq(_name := 'Superman', _genre := 'Action', _num := 423);
+SELECT create_comic(_name := 'Superman', _genre := 'Action', _num := 423);
 SELECT create_music(_name := 'Lucy in the sky with diamonds', _genre := 'Rock', _duration := 3);
 SELECT create_series(_name := 'Friends', _genre := 'Comedy', _date_init := '1994-09-22', _date_end := '2004-05-06', _num_seasons := 10);
 SELECT create_book(_name := 'Harry Potter and the Philosopher''s Stone', _genre := 'Adventure', _num_editions := 1);

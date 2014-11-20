@@ -31,10 +31,10 @@ CREATE OR REPLACE VIEW IEDB.Complete_book AS
 SELECT *, calculate_rate(id) AS rate
 FROM IEDB.Title NATURAL JOIN IEDB.Written NATURAL JOIN IEDB.Book;
 
--- @view Complete_hq
-CREATE OR REPLACE VIEW IEDB.Complete_hq AS
+-- @view Complete_comic
+CREATE OR REPLACE VIEW IEDB.Complete_comic AS
 SELECT *, calculate_rate(id) AS rate
-FROM   IEDB.Title NATURAL JOIN IEDB.Written NATURAL JOIN IEDB.HQ;
+FROM   IEDB.Title NATURAL JOIN IEDB.Written NATURAL JOIN IEDB.Comic;
 
 -- @view Complete_movie
 CREATE OR REPLACE VIEW IEDB.Complete_movie AS

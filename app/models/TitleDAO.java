@@ -77,7 +77,7 @@ public class TitleDAO extends ViewerDAO<Title> {
     private ViewerDAO<? extends Title> getDAO(String type) {
         switch(type.toLowerCase()) {
             case "music":  return new MusicDAO  (this.connection);
-            case "hq":     return new HqDAO     (this.connection);
+            case "comic":  return new ComicDAO  (this.connection);
             case "book":   return new BookDAO   (this.connection);
             case "movie":  return new MovieDAO  (this.connection);
             case "series": return new SeriesDAO (this.connection);

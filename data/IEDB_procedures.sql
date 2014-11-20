@@ -108,9 +108,9 @@ BEGIN
         WHEN _type = 'book' THEN      
             INSERT INTO IEDB.Written (id) VALUES(_id);
             INSERT INTO IEDB.Book    (id) VALUES(_id);
-        WHEN _type = 'hq' THEN                    
+        WHEN _type = 'comic' THEN                    
             INSERT INTO IEDB.Written (id) VALUES(_id);
-            INSERT INTO IEDB.HQ      (id) VALUES(_id);
+            INSERT INTO IEDB.Comic   (id) VALUES(_id);
         WHEN _type = 'movie' THEN                   
             INSERT INTO IEDB.Visual  (id) VALUES(_id);
             INSERT INTO IEDB.movie   (id)  VALUES(_id);
@@ -207,10 +207,10 @@ END;
 $$ LANGUAGE plpgsql;
 
 ------------------------------------------------------------------------
---                         Hq management                           --
+--                         Comic management                           --
 ------------------------------------------------------------------------
--- @procedure create_hq
-CREATE OR REPLACE FUNCTION create_hq(
+-- @procedure create_comic
+CREATE OR REPLACE FUNCTION create_comic(
     _name          TYPE_NAME,
     _description   TEXT                 DEFAULT NULL,
     _genre         varchar(30)          DEFAULT 'Other',
@@ -223,13 +223,13 @@ DECLARE
     _id INTEGER;
 BEGIN
     INSERT INTO IEDB.Title(name, type, date_creation, description)
-    VALUES(_name, 'hq', current_date, _description) 
+    VALUES(_name, 'comic', current_date, _description) 
     RETURNING id INTO _id;
 
     INSERT INTO IEDB.Written(id, genre) 
     VALUES(_id, _genre);
     
-    INSERT INTO IEDB.Hq(id, arc, num)
+    INSERT INTO IEDB.Comic(id, arc, num)
     VALUES(_id, _arc, _num);
 END;
 $$ LANGUAGE plpgsql;

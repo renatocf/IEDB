@@ -9,15 +9,15 @@ import models.*;
 import static play.test.Helpers.*;
 import static org.junit.Assert.*;
 
-public class HqDAOTest {
+public class ComicDAOTest {
     
-    private HqDAO dao;
+    private ComicDAO dao;
 
     @Before
     public void setUp() throws Exception{
         running(fakeApplication(), new Runnable() {
             public void run() {
-                dao = new HqDAO();
+                dao = new ComicDAO();
             }
         });
     }
