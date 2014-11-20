@@ -16,7 +16,12 @@
 /**********************************************************************/
 package integration;
 
+// Java Util
+import java.util.List;
+import java.util.Arrays;
+
 // Tested class
+import models.Title;
 import models.TitleDAO;
 
 // JUnit
@@ -49,10 +54,20 @@ public class TitleDAOTest {
 
     @Test
     public void getAll() {
-        assertEquals(2, dao.getAll().size());
-        assertEquals("The Lord of the Rings: The Fellowship of the Ring", 
-            dao.getAll().get(0).getName());
-        assertEquals("Matrix", dao.getAll().get(1).getName());
+        List<? extends Title> titles = dao.getAll();
+        
+        List<String> names = Arrays.asList(
+            "The Lord of the Rings: The Fellowship of the Ring", 
+            "Matrix",
+            "Superman",
+            "Lucy in the sky with diamonds",
+            "Friends",
+            "Harry Potter and the Philosopher's Stone"
+        );
+        
+        assertEquals(6, titles.size());
+        for(int i = 0; i < titles.size(); i++)
+            assertEquals(titles.get(i).getName(), names.get(i));
     }
 
     @Test
