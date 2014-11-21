@@ -30,24 +30,4 @@ public class Application extends Controller {
     public static Result addTitle() {
     	return ok(add_title.render());
     }
-
-    public static Result addMusic() {
-    	return ok(add_music.render());
-    }
-    
-    public static Result addBook() {
-    	return ok(add_book.render());
-    }
-    
-    public static Result addComic() {
-    	return ok(add_comic.render());
-    }
-    
-    public static Result addMovie() {
-    	return ok(add_movie.render());
-    }
-    
-    public static Result addSeries() {
-    	return ok(add_series.render());
-    }
 }
