@@ -21,18 +21,34 @@ import play.db.DB;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.PreparedStatement;
 
 import java.util.Date;
 import java.util.List;
 
 public class MusicDAO extends ViewerDAO<Music> {
 
-    public MusicDAO() {
-        super("IEDB.Complete_music", DB.getConnection());
-    }
-
     public MusicDAO(Connection connection) {
         super("IEDB.Complete_music", connection);
+    }
+
+    public MusicDAO() {
+        this(DB.getConnection());
+    }
+
+    public void add(final Music music) {
+        this.persistFromQuery(
+            "SELECT IEDB.create_music(?,?,?,?)",
+            new StatementConfigurator() {
+                public void configureStatement(PreparedStatement stmt) 
+                    throws SQLException {
+                    stmt.setString (1, music.getName());
+                    stmt.setString (2, music.getDescription());
+                    stmt.setString (3, music.getGenre());
+                    stmt.setInt    (4, music.getDuration());
+                }
+            }
+        );
     }
     
     @Override
