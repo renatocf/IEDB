@@ -42,4 +42,11 @@ public class RegisterTitles extends Controller {
     public static Result addSeries() {
     	return ok(add_series.render());
     }
+
+    public static Result addNewMusic(){
+        Music music = Form.form(Music.class).bindFromRequest().get();
+        MusicDAO dao = new MusicDAO();
+        dao.add(music);
+        return redirect(controllers.routes.Application.index());
+    }
 }
