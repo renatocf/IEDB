@@ -108,7 +108,11 @@ CREATE TABLE IF NOT EXISTS IEDB.Person
 (
     name        TYPE_NAME PRIMARY KEY,
     birthday    DATE,
-    nationality TYPE_NATIONALITY
+    nationality TYPE_NATIONALITY,
+    is_author   BOOLEAN,
+    is_actor    BOOLEAN,
+    is_director BOOLEAN,
+    is_musician BOOLEAN
 );
 
 CREATE TABLE IF NOT EXISTS IEDB.Author
