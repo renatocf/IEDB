@@ -18,24 +18,24 @@ package models;
 
 public class Visual extends Title
 {
-    protected Genre_visual genre;
-    protected Censorship_visual censorship;
+    protected String genre;
+    protected String censorship;
 
     // Getters
-    public Genre_visual getGenre() {
+    public String getGenre() {
         return this.genre;
     }
     
-    public Censorship_visual getCensorship() {
+    public String getCensorship() {
         return this.censorship;
     }
     
     // Setters
-    public void setGenre(Genre_visual genre) {
+    public void setGenre(String genre) {
         this.genre = genre;
     }
     
-    public void setCensorship(Censorship_visual censorship) {
+    public void setCensorship(String censorship) {
         this.censorship = censorship;
     }
 }

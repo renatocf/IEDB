@@ -18,15 +18,15 @@ package models;
 
 public class Written extends Title
 {
-    protected Genre_written genre;
+    protected String genre;
 
     // Getters
-    public Genre_written getGenre() {
+    public String getGenre() {
         return this.genre;
     }
     
     // Setters
-    public void setGenre(Genre_written genre) {
+    public void setGenre(String genre) {
         this.genre = genre;
     }
     
