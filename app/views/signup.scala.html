@@ -1,22 +1,31 @@
+@(form: Form[Register.NewClient])
+
+@formInput(itype: String, attr: String, label: String, reuse: Boolean) = {
+      <dl class="input_item" id="@("input_"+attr)">
+        <dt><label for="@attr">@label</label></dt>
+        <dd><input type="@itype" name="@attr" id="@("input_"+attr)"
+                   value="@if(reuse){@form(attr).value}"></dd>
+        @if(!form(attr).errors.isEmpty) {<dd class="error">
+          @for(error <- form(attr).errors) {<div>@error.message</div>}
+        </dd>}
+      </dl>
+}
+
 <html>
   <head>
     <title>IEDB - Signup</title>
   </head>
   <body>
-    <form method="post" action="@routes.Register.addClient()">
-      Sign up:<br>
-      <div>
-        <input type="text" name="username" placeholder="username">
-      </div>
-      <div>
-        <input type="email" name="email" placeholder="email">
-      </div>
-      <div>
-        <input type="password" name="password" placeholder="password">
-      </div>
-      <div>
-        <button type="submit">Sign up</input>
-      </div>
+    <header>
+      <h1>IEDB</h1>
+    </header>
+    <form action="@routes.Register.addClient" method="POST">
+      <h1>Sign up</h1>
+      @formInput("text",     "username",      "Username",        true)
+      @formInput("email",    "email",         "Email",           true)
+      @formInput("password", "password",      "Password",        false)
+      @formInput("password", "password_conf", "Repeat password", false)
+      <div><button type="submit">Sign up</input></div>
     </form>
   </body>
 </html>
