@@ -29,15 +29,15 @@ import java.util.ArrayList;
 
 public class CharacterDAO extends ViewerDAO<Character> {
 
-    public CharacterDAO() {
-        super("IEDB.Character", DB.getConnection());
-    }
-
     public CharacterDAO(Connection connection) {
         super("IEDB.Character", connection);
     }
 
-    public List<Character> getAllCharactersFromTitle(final Title title){
+    public CharacterDAO() {
+        this(DB.getConnection());
+    }
+
+    public List<Character> getAllCharactersFromTitle(final Title title) {
         List<Character> characters
         = this.retrieveAllFromQuery(
             "SELECT character_name FROM IEDB.rel_has WHERE title_id = ?",
@@ -52,14 +52,11 @@ public class CharacterDAO extends ViewerDAO<Character> {
     }
     
     @Override
-    protected Character buildFromResultSet(ResultSet rs) throws SQLException {
+    protected Character buildFromResultSet(ResultSet rs) 
+        throws SQLException {
 
         Character character = new Character();
         character.setName         (rs.getString ("name"));
         return character;
     }
-
-    
-         
-    
 }
