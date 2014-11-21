@@ -21,6 +21,7 @@ import play.db.DB;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.PreparedStatement;
 
 import java.util.Date;
 import java.util.List;
@@ -84,35 +85,22 @@ public class TitleDAO extends ViewerDAO<Title> {
             default: throw new RuntimeException("Invalid type " + type);
         }
     }
-    
-    /*
-    private List<Title> getAllReferences(Title title) {
+     
+    public List<Title> getAllReferences(final Title title) {
 
-        String sql = "SELECT refered_title_id"+
-                      "FROM IEDB.rel_references"+
-                      "WHERE referencer_title_id = ?";
-        
-        try {
-            List<Title> references = new ArrayList<Title>();
-            PreparedStatement stmt 
-                = this.connection.prepareStatement(sql);
-            stmt.setString(1, title.getId()+"");
-            
-            ResultSet rs = stmt.executeQuery();
-            
-            while (rs.next()) {
-                Title title_ref = new Title();
-                
-                title_ref.setId(rs.getInt("id"));
-                references.add(title_ref);
+        List<Title> titles
+        = this.retrieveAllFromQuery(
+            "SELECT id, type, name, date_creation, description "+
+            "FROM   IEDB.rel_references, IEDB.Title "+
+            "WHERE  referencer_title_id = ? AND "+
+                    "refered_title_id = id",
+            new StatementConfigurator() {
+                public void configureStatement(PreparedStatement stmt) 
+                    throws SQLException {
+                    stmt.setInt(1, title.getId());
+                }
             }
-            
-            rs.close();
-            stmt.close();
-            return references;
-            
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }   
-    }*/
+        );
+        return titles;
+    }
 }

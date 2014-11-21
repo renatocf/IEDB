@@ -23,6 +23,10 @@ public class Person
     private String name;
     private String nationality;
     private Date birthday;
+    private boolean isAuthor;
+    private boolean isActor;
+    private boolean isDirector;
+    private boolean isMusician;
 
     // Getters
     public String getName() {
@@ -36,6 +40,22 @@ public class Person
     public Date getBirthday() {
         return this.birthday;
     }
+
+    public boolean isAuthor(){
+        return this.isAuthor;
+    }
+
+    public boolean isActor(){
+        return this.isActor;
+    }
+
+    public boolean isDirector(){
+        return this.isDirector;
+    }
+
+    public boolean isMusician(){
+        return this.isMusician;
+    }
     
     // Setters
     public void setName(String name) {
@@ -48,5 +68,21 @@ public class Person
     
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
+    }
+
+    public void setIsAuthor(boolean isAuthor){
+        this.isAuthor = isAuthor;
+    }
+
+    public void setIsActor(boolean isActor){
+        this.isActor = isActor;
+    }
+
+    public void setIsDirector(boolean isDirector){
+        this.isDirector = isDirector;
+    }
+
+    public void setIsMusician(boolean isMusician){
+        this.isMusician = isMusician;
     }
 }
