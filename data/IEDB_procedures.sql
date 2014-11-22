@@ -255,6 +255,22 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+
+------------------------------------------------------------------------
+--                           References                               --
+------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION create_ref_title_title(
+    _referencer_title_id     INTEGER,
+    _refered_title_id        INTEGER)
+RETURN void AS $$
+BEGIN
+    INSERT INTO IEDB.rel_references(referencer_title_id, refered_title_id)
+    VALUES(_referencer_title_id, _refered_title_id)
+END;
+$$ LANGUAGE plpgsql;
+
+
+
 ------------------------------------------------------------------------
 --                          Calculate rate                            --
 ------------------------------------------------------------------------
