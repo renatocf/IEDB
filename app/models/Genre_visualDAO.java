@@ -28,19 +28,17 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Genre_visualDAO extends DAO<Genre_visual> {
-
-	public Genre_visualDAO() {
-        super(DB.getConnection());
-    }
     
     public Genre_visualDAO(Connection connection) {
         super(connection);
     }
 
-	public List<? extends Genre_visual> getByGenre() {
-    
-        List<Genre_visual> genres 
-        = this.retrieveAllFromQuery(
+	public Genre_visualDAO() {
+        super(DB.getConnection());
+    }
+
+	public List<Genre_visual> getByGenre() {
+        return this.retrieveAllFromQuery(
             "SELECT * FROM IEDB.Genre_visual",
             new StatementConfigurator() {
                 public void configureStatement(PreparedStatement stmt) 
@@ -48,13 +46,14 @@ public class Genre_visualDAO extends DAO<Genre_visual> {
                 }
             }
         );
-        return genres;
     }
 
     @Override
-    protected Genre_visual buildFromResultSet(ResultSet rs) throws SQLException {
+    protected Genre_visual buildFromResultSet(ResultSet rs) 
+        throws SQLException {
+        
         Genre_visual genre = new Genre_visual();
-        genre.setGenre  (rs.getString  ("name"));
+        genre.setGenre(rs.getString("name"));
         return genre;
     }
 }

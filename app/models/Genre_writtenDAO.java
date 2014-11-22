@@ -28,19 +28,17 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Genre_writtenDAO extends DAO<Genre_written> {
-
-	public Genre_writtenDAO() {
-        super(DB.getConnection());
-    }
     
     public Genre_writtenDAO(Connection connection) {
         super(connection);
     }
 
-	public List<? extends Genre_written> getByGenre() {
-    
-        List<Genre_written> genres 
-        = this.retrieveAllFromQuery(
+	public Genre_writtenDAO() {
+        this(DB.getConnection());
+    }
+
+	public List<Genre_written> getByGenre() {
+        return this.retrieveAllFromQuery(
             "SELECT * FROM IEDB.Genre_written",
             new StatementConfigurator() {
                 public void configureStatement(PreparedStatement stmt) 
@@ -48,13 +46,14 @@ public class Genre_writtenDAO extends DAO<Genre_written> {
                 }
             }
         );
-        return genres;
     }
 
     @Override
-    protected Genre_written buildFromResultSet(ResultSet rs) throws SQLException {
+    protected Genre_written buildFromResultSet(ResultSet rs) 
+        throws SQLException {
+        
         Genre_written genre = new Genre_written();
-        genre.setGenre  (rs.getString  ("name"));
+        genre.setGenre(rs.getString("name"));
         return genre;
     }
 }

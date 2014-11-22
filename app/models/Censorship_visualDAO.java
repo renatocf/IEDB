@@ -26,10 +26,10 @@ import java.sql.PreparedStatement;
 import java.util.Date;
 import java.util.List;
 
-public class Censorship_visualDAO extends ViewerDAO<Censorship_visual> {
+public class Censorship_visualDAO extends DAO<Censorship_visual> {
 
     public Censorship_visualDAO(Connection connection) {
-        super("IEDB.Complete_Censorship_visual", connection);
+        super(connection);
     }
 
     public Censorship_visualDAO() {
@@ -38,8 +38,7 @@ public class Censorship_visualDAO extends ViewerDAO<Censorship_visual> {
 
     public List<? extends Censorship_visual> getByRating() {
     
-        List<Censorship_visual> ratings 
-        = this.retrieveAllFromQuery(
+        return this.retrieveAllFromQuery(
             "SELECT * FROM IEDB.Censorship_visual",
             new StatementConfigurator() {
                 public void configureStatement(PreparedStatement stmt) 
@@ -47,14 +46,14 @@ public class Censorship_visualDAO extends ViewerDAO<Censorship_visual> {
                 }
             }
         );
-        return ratings;
     }
     
     @Override
-    protected Censorship_visual buildFromResultSet(ResultSet rs) throws SQLException {
+    protected Censorship_visual buildFromResultSet(ResultSet rs) 
+        throws SQLException {
         
         Censorship_visual censorship = new Censorship_visual();
-        censorship.setCensorship           (rs.getString    ("rating"));
+        censorship.setCensorship(rs.getString("rating"));
         return censorship;
     }
 }

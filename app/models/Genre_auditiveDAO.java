@@ -28,19 +28,17 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Genre_auditiveDAO extends DAO<Genre_auditive> {
-
-	public Genre_auditiveDAO() {
-        super(DB.getConnection());
-    }
     
     public Genre_auditiveDAO(Connection connection) {
         super(connection);
     }
 
-	public List<? extends Genre_auditive> getByGenre() {
-    
-        List<Genre_auditive> genres 
-        = this.retrieveAllFromQuery(
+	public Genre_auditiveDAO() {
+        super(DB.getConnection());
+    }
+
+	public List<Genre_auditive> getByGenre() {
+        return this.retrieveAllFromQuery(
             "SELECT * FROM IEDB.Genre_auditive",
             new StatementConfigurator() {
                 public void configureStatement(PreparedStatement stmt) 
@@ -48,13 +46,14 @@ public class Genre_auditiveDAO extends DAO<Genre_auditive> {
                 }
             }
         );
-        return genres;
     }
 
     @Override
-    protected Genre_auditive buildFromResultSet(ResultSet rs) throws SQLException {
+    protected Genre_auditive buildFromResultSet(ResultSet rs) 
+        throws SQLException {
+        
         Genre_auditive genre = new Genre_auditive();
-        genre.setGenre  (rs.getString  ("name"));
+        genre.setGenre(rs.getString("name"));
         return genre;
     }
 }
