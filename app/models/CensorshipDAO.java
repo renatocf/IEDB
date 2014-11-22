@@ -26,34 +26,38 @@ import java.sql.PreparedStatement;
 import java.util.Date;
 import java.util.List;
 
-public class Censorship_visualDAO extends DAO<Censorship_visual> {
+public class CensorshipDAO extends DAO<Censorship> {
 
-    public Censorship_visualDAO(Connection connection) {
+    public CensorshipDAO(Connection connection) {
         super(connection);
     }
 
-    public Censorship_visualDAO() {
+    public CensorshipDAO() {
         this(DB.getConnection());
     }
+    
+	public List<Censorship> getAllVisual() {
+        return this.getAllByType("visual");
+    }
+    
+    @Override
+    protected Censorship buildFromResultSet(ResultSet rs) 
+        throws SQLException {
+        
+        Censorship censorship = new Censorship();
+        censorship.setCensorship(rs.getString("rating"));
+        return censorship;
+    }
 
-    public List<? extends Censorship_visual> getByRating() {
+    private List<Censorship> getAllByType(String type) {
     
         return this.retrieveAllFromQuery(
-            "SELECT * FROM IEDB.Censorship_visual",
+            "SELECT * FROM IEDB.Censorship_" + type,
             new StatementConfigurator() {
                 public void configureStatement(PreparedStatement stmt) 
                     throws SQLException {
                 }
             }
         );
-    }
-    
-    @Override
-    protected Censorship_visual buildFromResultSet(ResultSet rs) 
-        throws SQLException {
-        
-        Censorship_visual censorship = new Censorship_visual();
-        censorship.setCensorship(rs.getString("rating"));
-        return censorship;
     }
 }

@@ -16,7 +16,7 @@
 /**********************************************************************/
 package models;
 
-public class Censorship_visual
+public class Censorship
 {
     protected String censorship;
 

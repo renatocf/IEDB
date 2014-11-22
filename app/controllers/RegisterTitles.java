@@ -20,8 +20,8 @@ import models.MovieDAO;
 import models.Series;
 import models.SeriesDAO;
 import models.GenreDAO;
-import models.Censorship_visual;
-import models.Censorship_visualDAO;
+import models.Censorship;
+import models.CensorshipDAO;
 
 // Views
 import views.html.index;
@@ -44,8 +44,7 @@ public class RegisterTitles extends Controller {
     static private TitleDAO daoTitle = new TitleDAO();
     static private GenreDAO daoGenre = new GenreDAO();
 
-    static private Censorship_visualDAO daoCensorship 
-        = new Censorship_visualDAO();
+    static private CensorshipDAO daoCensorship = new CensorshipDAO();
 
     public static Result addMusic() {
     	return ok(add_music.render(daoGenre.getAllAuditive()));
@@ -61,13 +60,13 @@ public class RegisterTitles extends Controller {
 
     public static Result addMovie() {
     	return ok(add_movie.render(
-            daoGenre.getAllVisual(), daoCensorship.getByRating())
+            daoGenre.getAllVisual(), daoCensorship.getAllVisual())
         );
     }
 
     public static Result addSeries() {
     	return ok(add_series.render(
-            daoGenre.getAllVisual(), daoCensorship.getByRating())
+            daoGenre.getAllVisual(), daoCensorship.getAllVisual())
         );
     }
 
