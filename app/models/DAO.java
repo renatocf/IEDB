@@ -89,6 +89,10 @@ abstract class DAO<T> {
         });
     }
     
+    protected java.sql.Date toSQLDate(java.util.Date date) {
+        return new java.sql.Date(date.getTime());
+    }
+    
     private List<T> retrieveAllFromStatement(PreparedStatement stmt) 
         throws SQLException {
         

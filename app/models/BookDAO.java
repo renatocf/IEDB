@@ -21,19 +21,35 @@ import play.db.DB;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.PreparedStatement;
 
 import java.util.Date;
 
 public class BookDAO extends ViewerDAO<Book> {
 
-    public BookDAO() {
-        super("IEDB.Complete_book", DB.getConnection());
-    }
-
     public BookDAO(Connection connection) {
         super("IEDB.Complete_book", connection);
     }
 
+    public BookDAO() {
+        this(DB.getConnection());
+    }
+
+    public void add(final Book book) {
+        this.persistFromQuery(
+            "SELECT IEDB.create_book(?,?,?,?)",
+            new StatementConfigurator() {
+                public void configureStatement(PreparedStatement stmt) 
+                    throws SQLException {
+                    stmt.setString (1, book.getName());
+                    stmt.setString (2, book.getDescription());
+                    stmt.setString (3, book.getGenre());
+                    stmt.setInt    (4, book.getNumEditions());
+                }
+            }
+        );
+    }
+    
     @Override
     protected Book buildFromResultSet(ResultSet rs) throws SQLException {
         Book book = new Book();

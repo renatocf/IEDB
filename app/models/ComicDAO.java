@@ -21,18 +21,35 @@ import play.db.DB;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.PreparedStatement;
 
 import java.util.Date;
 import java.util.List;
 
 public class ComicDAO extends ViewerDAO<Comic> {
 
-    public ComicDAO() {
-        super("IEDB.Complete_comic", DB.getConnection());
-    }
-
     public ComicDAO(Connection connection) {
         super("IEDB.Complete_comic", connection);
+    }
+
+    public ComicDAO() {
+        this(DB.getConnection());
+    }
+
+    public void add(final Comic comic) {
+        this.persistFromQuery(
+            "SELECT IEDB.create_comic(?,?,?,?,?)",
+            new StatementConfigurator() {
+                public void configureStatement(PreparedStatement stmt) 
+                    throws SQLException {
+                    stmt.setString (1, comic.getName());
+                    stmt.setString (2, comic.getDescription());
+                    stmt.setString (3, comic.getGenre());
+                    stmt.setString (4, comic.getArc());
+                    stmt.setInt    (5, comic.getNum());
+                }
+            }
+        );
     }
     
     @Override

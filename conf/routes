@@ -18,11 +18,13 @@ POST    /signup         controllers.Register.addClient()
 
 # New Title
 GET     /addTitle                   controllers.Application.addTitle()
-GET     /addTitle/music             controllers.Application.addMusic()
-GET     /addTitle/book              controllers.Application.addBook()
-GET     /addTitle/comic             controllers.Application.addComic()
-GET     /addTitle/movie             controllers.Application.addMovie()
-GET     /addTitle/series            controllers.Application.addSeries()
+GET     /addTitle/music             controllers.RegisterTitles.addMusic()
+GET     /addTitle/book              controllers.RegisterTitles.addBook()
+GET     /addTitle/comic             controllers.RegisterTitles.addComic()
+GET     /addTitle/movie             controllers.RegisterTitles.addMovie()
+GET     /addTitle/series            controllers.RegisterTitles.addSeries()
+
+POST    /addTitle/music             controllers.RegisterTitles.addNewMusic()
 
 # Title pages
 GET     /:type/$name<([^\s-]+[-])*[^\s-.]+> controllers.Viewer.showTitle(type, name)

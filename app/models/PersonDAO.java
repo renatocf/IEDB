@@ -29,23 +29,13 @@ import java.util.ArrayList;
 
 public class PersonDAO extends ViewerDAO<Person> {
 
-    public PersonDAO() {
-        super("IEDB.Person", DB.getConnection());
-    }
-
     public PersonDAO(Connection connection) {
         super("IEDB.Person", connection);
     }
-    
-    /*@Override
-    public List<? extends Title> getAll() {
-        return this.buildCompleteFromTitle(super.getAll());
-    }
 
-    @Override
-    public List<? extends Title> getByName(final String name) {
-        return this.buildCompleteFromTitle(super.getByName(name));
-    }*/
+    public PersonDAO() {
+        this(DB.getConnection());
+    }
 
     @Override
     protected Person buildFromResultSet(ResultSet rs) throws SQLException {
@@ -60,26 +50,4 @@ public class PersonDAO extends ViewerDAO<Person> {
         person.setIsMusician     (rs.getBoolean("is_musician"));
         return person;
     }
-    
-    /*private List<? extends Title> 
-    buildCompleteFromPerson(List<? extends Title> partial) {
-        
-        List<Title> complete = new ArrayList<Title>();
-        for(Title title: partial)
-            complete.addAll(
-                this.getByTypeAndName(title.getType(), title.getName())
-            );
-        return complete;
-    }
-    
-    private ViewerDAO<? extends Title> getDAO(String type) {
-        switch(type.toLowerCase()) {
-            case "music":  return new MusicDAO  (this.connection);
-            case "comic":  return new ComicDAO  (this.connection);
-            case "book":   return new BookDAO   (this.connection);
-            case "movie":  return new MovieDAO  (this.connection);
-            case "series": return new SeriesDAO (this.connection);
-            default: throw new RuntimeException("Invalid type " + type);
-        }
-    }*/
 }

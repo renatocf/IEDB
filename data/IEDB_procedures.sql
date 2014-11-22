@@ -125,28 +125,53 @@ END;
 $$ LANGUAGE plpgsql;
 
 ------------------------------------------------------------------------
---                         Music management                           --
+--                         Book management                           --
 ------------------------------------------------------------------------
--- @procedure create_music
-CREATE OR REPLACE FUNCTION create_music(
-    _name           TYPE_NAME,
-    _description    TEXT                    DEFAULT NULL,
-    _genre          varchar(30)             DEFAULT 'Other',
-    _duration       INTEGER                 DEFAULT NULL,
-    _nationality    TYPE_NATIONALITY        DEFAULT NULL)
+-- @procedure create_book
+CREATE OR REPLACE FUNCTION create_book(
+    _name          TYPE_NAME,
+    _description   TEXT                 DEFAULT NULL,
+    _genre         varchar(30)          DEFAULT 'Other',
+    _num_editions  INT                  DEFAULT NULL)
 RETURNS void AS $$
 DECLARE
     _id INTEGER;
 BEGIN
     INSERT INTO IEDB.Title(name, type, date_creation, description)
-    VALUES(_name, 'music', current_date, _description) 
+    VALUES(_name, 'book', current_date, _description) 
     RETURNING id INTO _id;
 
-    INSERT INTO IEDB.Auditive(id, genre) 
+    INSERT INTO IEDB.Written(id, genre) 
     VALUES(_id, _genre);
     
-    INSERT INTO IEDB.Music(id, duration)
-    VALUES(_id, _duration);
+    INSERT INTO IEDB.Book(id, num_editions)
+    VALUES(_id, _num_editions);
+END;
+$$ LANGUAGE plpgsql;
+
+------------------------------------------------------------------------
+--                         Comic management                           --
+------------------------------------------------------------------------
+-- @procedure create_comic
+CREATE OR REPLACE FUNCTION create_comic(
+    _name          TYPE_NAME,
+    _description   TEXT                 DEFAULT NULL,
+    _genre         varchar(30)          DEFAULT 'Other',
+    _arc           TYPE_NAME            DEFAULT NULL,
+    _num           INT                  DEFAULT NULL)
+RETURNS void AS $$
+DECLARE
+    _id INTEGER;
+BEGIN
+    INSERT INTO IEDB.Title(name, type, date_creation, description)
+    VALUES(_name, 'comic', current_date, _description) 
+    RETURNING id INTO _id;
+
+    INSERT INTO IEDB.Written(id, genre) 
+    VALUES(_id, _genre);
+    
+    INSERT INTO IEDB.Comic(id, arc, num)
+    VALUES(_id, _arc, _num);
 END;
 $$ LANGUAGE plpgsql;
 
@@ -178,6 +203,31 @@ END;
 $$ LANGUAGE plpgsql;
 
 ------------------------------------------------------------------------
+--                         Music management                           --
+------------------------------------------------------------------------
+-- @procedure create_music
+CREATE OR REPLACE FUNCTION create_music(
+    _name           TYPE_NAME,
+    _description    TEXT                    DEFAULT NULL,
+    _genre          varchar(30)             DEFAULT 'Other',
+    _duration       INTEGER                 DEFAULT NULL)
+RETURNS void AS $$
+DECLARE
+    _id INTEGER;
+BEGIN
+    INSERT INTO IEDB.Title(name, type, date_creation, description)
+    VALUES(_name, 'music', current_date, _description) 
+    RETURNING id INTO _id;
+
+    INSERT INTO IEDB.Auditive(id, genre) 
+    VALUES(_id, _genre);
+    
+    INSERT INTO IEDB.Music(id, duration)
+    VALUES(_id, _duration);
+END;
+$$ LANGUAGE plpgsql;
+
+------------------------------------------------------------------------
 --                         Series management                           --
 ------------------------------------------------------------------------
 -- @procedure create_series
@@ -185,7 +235,6 @@ CREATE OR REPLACE FUNCTION create_series(
     _name        TYPE_NAME,
     _description TEXT           DEFAULT NULL,
     _genre       varchar(30)    DEFAULT 'Other',
-    _duration    INTEGER        DEFAULT NULL,
     _date_init   DATE           DEFAULT NULL,
     _date_end    DATE           DEFAULT NULL,
     _num_seasons INT            DEFAULT NULL,
@@ -203,61 +252,6 @@ BEGIN
     
     INSERT INTO IEDB.Series(id, date_init, date_end, num_seasons)
     VALUES(_id, _date_init, _date_end, _num_seasons);
-END;
-$$ LANGUAGE plpgsql;
-
-------------------------------------------------------------------------
---                         Comic management                           --
-------------------------------------------------------------------------
--- @procedure create_comic
-CREATE OR REPLACE FUNCTION create_comic(
-    _name          TYPE_NAME,
-    _description   TEXT                 DEFAULT NULL,
-    _genre         varchar(30)          DEFAULT 'Other',
-    _duration      INT                  DEFAULT NULL,
-    _nationality   TYPE_NATIONALITY     DEFAULT NULL,
-    _arc           TYPE_NAME            DEFAULT NULL,
-    _num           INT                  DEFAULT NULL)
-RETURNS void AS $$
-DECLARE
-    _id INTEGER;
-BEGIN
-    INSERT INTO IEDB.Title(name, type, date_creation, description)
-    VALUES(_name, 'comic', current_date, _description) 
-    RETURNING id INTO _id;
-
-    INSERT INTO IEDB.Written(id, genre) 
-    VALUES(_id, _genre);
-    
-    INSERT INTO IEDB.Comic(id, arc, num)
-    VALUES(_id, _arc, _num);
-END;
-$$ LANGUAGE plpgsql;
-
-------------------------------------------------------------------------
---                         Book management                           --
-------------------------------------------------------------------------
--- @procedure create_book
-CREATE OR REPLACE FUNCTION create_book(
-    _name          TYPE_NAME,
-    _description   TEXT                 DEFAULT NULL,
-    _genre         varchar(30)          DEFAULT 'Other',
-    _duration      INT                  DEFAULT NULL,
-    _nationality   TYPE_NATIONALITY     DEFAULT NULL,
-    _num_editions  INT                  DEFAULT NULL)
-RETURNS void AS $$
-DECLARE
-    _id INTEGER;
-BEGIN
-    INSERT INTO IEDB.Title(name, type, date_creation, description)
-    VALUES(_name, 'book', current_date, _description) 
-    RETURNING id INTO _id;
-
-    INSERT INTO IEDB.Written(id, genre) 
-    VALUES(_id, _genre);
-    
-    INSERT INTO IEDB.Book(id, num_editions)
-    VALUES(_id, _num_editions);
 END;
 $$ LANGUAGE plpgsql;
 

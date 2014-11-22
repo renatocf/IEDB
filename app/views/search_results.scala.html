@@ -3,18 +3,14 @@
 <!DOCTYPE html>
 
 <html>
-    <head>
-        <title>Search Results</title>
-    </head>
-    <body>
-        <ul> 
-            @results.map { result =>
-            <li>
-            
-                <a href="/@(result.getType.toLowerCase)/@(result.getName.toLowerCase.replace
-                    (' ','-'))">@(result.getName)</a>
-            </li>
-            }
-        </ul>
-    </body>
+  <head>
+    <title>Search Results</title>
+  </head>
+  <body>
+    <ul> 
+      @results.map { result =>
+      <li><a href="/@(result.getType.toLowerCase)/@(result.getName.toLowerCase.replace(' ','-'))">@(result.getName)</a></li>
+      }
+    </ul>
+  </body>
 </html>

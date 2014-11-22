@@ -48,6 +48,44 @@ public class ClientDAO extends DAO<Client> {
             }
         );
     }
+    
+    public boolean existsUsername(String username) {
+        return this.getByUsername(username) != null;
+    }
+    
+    public boolean existsEmail(String email) {
+        return this.getByEmail(email) != null;
+    }
+
+    public Client getByUsername(final String username) {
+    
+        List<Client> clients 
+        = this.retrieveAllFromQuery(
+            "SELECT * FROM IEDB.Client WHERE username = ?",
+            new StatementConfigurator() {
+                public void configureStatement(PreparedStatement stmt) 
+                    throws SQLException {
+                    stmt.setString(1, username);
+                }
+            }
+        );
+        return clients.size() > 0 ? clients.get(0) : null;
+    }
+
+    public Client getByEmail(final String email) {
+    
+        List<Client> clients 
+        = this.retrieveAllFromQuery(
+            "SELECT * FROM IEDB.Client WHERE email = ?",
+            new StatementConfigurator() {
+                public void configureStatement(PreparedStatement stmt) 
+                    throws SQLException {
+                    stmt.setString(1, email);
+                }
+            }
+        );
+        return clients.size() > 0 ? clients.get(0) : null;
+    }
 
     public Client find(final String email, final String password) {
 

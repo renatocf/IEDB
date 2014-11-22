@@ -18,16 +18,15 @@ package models;
 
 public class Auditive extends Title
 {
-    protected Genre_auditive genre;
+    protected String genre;
 
     // Getters
-    public Genre_auditive getGenre() {
+    public String getGenre() {
         return this.genre;
     }
     
     // Setters
-    public void setGenre(Genre_auditive genre) {
+    public void setGenre(String genre) {
         this.genre = genre;
     }
-    
 }

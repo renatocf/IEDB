@@ -21,18 +21,37 @@ import play.db.DB;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.PreparedStatement;
 
 import java.util.Date;
 import java.util.List;
 
 public class SeriesDAO extends ViewerDAO<Series> {
 
-    public SeriesDAO() {
-        super("IEDB.Complete_series", DB.getConnection());
-    }
-
     public SeriesDAO(Connection connection) {
         super("IEDB.Complete_series", connection);
+    }
+
+    public SeriesDAO() {
+        this(DB.getConnection());
+    }
+
+    public void add(final Series series) {
+        this.persistFromQuery(
+            "SELECT IEDB.create_series(?,?,?,?,?,?,?)",
+            new StatementConfigurator() {
+                public void configureStatement(PreparedStatement stmt) 
+                    throws SQLException {
+                    stmt.setString (1, series.getName());
+                    stmt.setString (2, series.getDescription());
+                    stmt.setString (3, series.getGenre());
+                    stmt.setDate   (4, toSQLDate(series.getDateInit()));
+                    stmt.setDate   (5, toSQLDate(series.getDateEnd()));
+                    stmt.setInt    (6, series.getNumSeasons());
+                    stmt.setString (7, series.getCensorship());
+                }
+            }
+        );
     }
     
     @Override
