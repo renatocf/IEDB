@@ -38,15 +38,15 @@ public class GenreDAO extends DAO<Genre> {
     }
 
 	public List<Genre> getAllAuditive() {
-        return this.getAllFromType("auditive");
+        return this.getAllByType("auditive");
     }
 
 	public List<Genre> getAllVisual() {
-        return this.getAllFromType("visual");
+        return this.getAllByType("visual");
     }
 
 	public List<Genre> getAllWritten() {
-        return this.getAllFromType("written");
+        return this.getAllByType("written");
     }
 
     @Override
@@ -57,7 +57,7 @@ public class GenreDAO extends DAO<Genre> {
         return genre;
     }
 
-	private List<Genre> getAllFromType(String type) {
+	private List<Genre> getAllByType(String type) {
         return this.retrieveAllFromQuery(
             "SELECT * FROM IEDB.Genre_" + type,
             new StatementConfigurator() {
