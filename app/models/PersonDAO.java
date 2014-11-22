@@ -44,6 +44,10 @@ public class PersonDAO extends ViewerDAO<Person> {
         person.setName           (rs.getString ("name"));
         person.setBirthday       (rs.getDate   ("birhday"));
         person.setNationality    (rs.getString ("nationality"));
+        person.setIsAuthor       (rs.getBoolean("is_author"));
+        person.setIsActor        (rs.getBoolean("is_actor"));
+        person.setIsDirector     (rs.getBoolean("is_director"));
+        person.setIsMusician     (rs.getBoolean("is_musician"));
         return person;
     }
 }

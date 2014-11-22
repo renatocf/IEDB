@@ -45,4 +45,10 @@ public class Viewer extends Controller {
             Viewer.dao.getByTypeAndName(type, name.replace('-',' ')).get(0)
         ));
     }
+
+    /*public static Result editTitle(String type, String name){
+        return ok(edit_title.render(
+            Viewer.dao.getByTypeAndName(type, name.replace('-',' ')).get(0)
+        ));   
+    }*/
 }

@@ -32,3 +32,6 @@ GET     /:type/$name<([^\s-]+[-])*[^\s-.]+> controllers.Viewer.showTitle(type, n
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file   controllers.Assets.at(path="/public", file)
 
+# Edit a title
+#GET     /:type/$name<([^\s-]+[-])*[^\s-.]+>/edit controllers.Viewer.editTitle(type, name)
+
