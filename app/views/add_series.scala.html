@@ -1,11 +1,41 @@
+@(results: List[_ <: Genre_visual])
+
 <html>
   <head>
-    <title>IEDB</title>
+    <title>IEDB - Add Series</title>
   </head>
   <body>
-    <form method="post">
-      SERIES
+    <form method="post" action="@routes.RegisterTitles.addNewComic()">
+    	<font size="5">Add Series:</font> <br><br>
 
+      Name: <br>
+      <input type="text" name="name"> <br><br>
+      	
+      Description: <br>
+      <input type="text" name="description"> <br><br>
+      	
+      Genre: <br>
+      <select name="genre">
+      	<ul> 
+      		@results.map { result =>		
+      			<option value=@(result.getGenre)>@(result.getGenre)</option>
+      		}
+    		</ul>
+    	</select> <br><br>
+      
+      Date Init: <br>
+      <input type="date" name="dateInit"> <br><br>
+      
+      Date End: <br>
+      <input type="date" name="dateEnd"> <br><br>
+      
+      Seasons: <br>
+      <input type="text" name="seasons"> <br><br>
+      
+      Censorship: <br>
+      <input type="text" name="censorship"> <br><br> <br>
+      
+      <input type="submit" value="Finish"> <br><br>	
     </form>
   </body>
 </html>

@@ -1,11 +1,32 @@
+@(results: List[_ <: Genre_written])
+
 <html>
   <head>
-    <title>IEDB</title>
+    <title>IEDB - Add Book</title>
   </head>
   <body>
-    <form method="post">
-      BOOK
+    <form method="post" action="@routes.RegisterTitles.addNewBook()">
+      <font size="5">Add Book:</font><br><br>
 
+      Name: <br>
+      <input type="text" name="name"> <br><br>
+      
+      Description: <br>
+      <input type="text" name="description"> <br><br>
+      
+      Genre: <br>
+      <select name="genre">
+      	<ul> 
+      		@results.map { result =>		
+      		  <option value=@(result.getGenre)>@(result.getGenre)</option>
+      		}
+    		</ul>
+    	</select> <br><br>
+      
+      Number of Editions: <br>
+      <input type="number" name="numEditions"> <br><br> <br>
+
+      <input type="submit" value="Finish">      	
     </form>
   </body>
 </html>

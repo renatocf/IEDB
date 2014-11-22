@@ -6,17 +6,14 @@
   </head>
   <body>
     <form method="post" action="@routes.RegisterTitles.addNewMusic()">
-
-    
-
-    	Add Music:<br>
-      	Name:
-      	<input type="text" name="name">
-      	<br>
-      	Description:
-      	<input type="text" name="description">
-      	<br>
-      	Genre:
+    	<font size="5">Add Music:</font> <br><br>
+      	Name: <br>
+      	<input type="text" name="name"> <br><br>
+      	
+      	Description: <br>
+      	<input type="text" name="description"> <br><br>
+      	
+      	Genre: <br>
       	<select name="genre">
       		<ul> 
       			@results.map { result =>
@@ -24,16 +21,12 @@
       			<option value=@(result.getGenre)>@(result.getGenre)</option>
       			}
     		</ul>
-    	</select>
-      	<br>
-      	Duration:
-      	<input type="number" name="duration">
-      	<br>
- 
-      	<br>
-      	<input type="submit" value="Finish">
-      	<br>
+    	</select> <br><br>
       	
+      	Duration: <br>
+      	<input type="number" name="duration"> <br><br> <br>
+ 
+      	<input type="submit" value="Finish">     	
     </form>
   </body>
 </html>

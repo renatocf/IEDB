@@ -25,6 +25,10 @@ GET     /addTitle/movie             controllers.RegisterTitles.addMovie()
 GET     /addTitle/series            controllers.RegisterTitles.addSeries()
 
 POST    /addTitle/music             controllers.RegisterTitles.addNewMusic()
+POST    /addTitle/book              controllers.RegisterTitles.addNewBook()
+POST    /addTitle/comic             controllers.RegisterTitles.addNewComic()
+POST    /addTitle/movie             controllers.RegisterTitles.addNewMovie()
+POST    /addTitle/series            controllers.RegisterTitles.addNewSeries()
 
 # Title pages
 GET     /:type/$name<([^\s-]+[-])*[^\s-.]+> controllers.Viewer.showTitle(type, name)
