@@ -27,33 +27,44 @@ import views.html.signin;
 import play.data.Form;
 import play.mvc.Result;
 import play.mvc.Controller;
+import play.data.validation.ValidationError;
+
+// Java Util
+import java.util.List;
+import java.util.ArrayList;
 
 public class Login extends Controller {
 
+    final private static ClientDAO dao = new ClientDAO();
+
 	public static Result signin() {
-	    return ok(signin.render(Form.form(Signin.class)));
+	    return ok(signin.render(Form.form(PossibleClient.class)));
 	}
 
 	public static Result authenticate() {
-    	Form<Signin> signinForm = Form.form(Signin.class).bindFromRequest();
-    	if (signinForm.hasErrors()) {
-    	 	return badRequest(signin.render(signinForm));
-    	} 
-    	else {
-	      	session().clear();
-	        session("email", signinForm.get().email);
-	        return redirect(routes.Application.index());
-	    }
+    	Form<PossibleClient> clientForm 
+            = Form.form(PossibleClient.class).bindFromRequest();
+
+    	if (clientForm.hasErrors())
+    	 	return badRequest(signin.render(clientForm));
+
+        session().clear();
+        session("email", clientForm.get().getEmail());
+        return redirect(routes.Application.index());
 	}
 
-	public static class Signin {
+	public static class PossibleClient extends Client {
 
-    	public String email;
-    	public String password;
-
-    	public String validate() {
-            if (Client.authenticate(email, password) == null) {
-                return "Invalid user or password";
+    	public List<ValidationError> validate() {
+            
+            List<ValidationError> errors = new ArrayList<>();
+            if (Login.dao.existsUsername(this.getUsername())) {
+                errors.add(new ValidationError(
+                    "username", "Invalid username!"));
+            }
+            if (Login.dao.find(this.getEmail(), this.getPassword()) == null) {
+                errors.add(new ValidationError(
+                    "password", "Invalid password!"));
             }
             return null;
         }
