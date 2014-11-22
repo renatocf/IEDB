@@ -27,21 +27,21 @@ import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
 
-public class Genre_auditiveDAO extends DAO<Genre_auditive> {
+public class Genre_visualDAO extends DAO<Genre_visual> {
 
-	public Genre_auditiveDAO() {
+	public Genre_visualDAO() {
         super(DB.getConnection());
     }
     
-    public Genre_auditiveDAO(Connection connection) {
+    public Genre_visualDAO(Connection connection) {
         super(connection);
     }
 
-	public List<? extends Genre_auditive> getByGenre() {
+	public List<? extends Genre_visual> getByGenre() {
     
-        List<Genre_auditive> genres 
+        List<Genre_visual> genres 
         = this.retrieveAllFromQuery(
-            "SELECT * FROM IEDB.Genre_auditive",
+            "SELECT * FROM IEDB.Genre_visual",
             new StatementConfigurator() {
                 public void configureStatement(PreparedStatement stmt) 
                     throws SQLException {
@@ -52,8 +52,8 @@ public class Genre_auditiveDAO extends DAO<Genre_auditive> {
     }
 
     @Override
-    protected Genre_auditive buildFromResultSet(ResultSet rs) throws SQLException {
-        Genre_auditive genre = new Genre_auditive();
+    protected Genre_visual buildFromResultSet(ResultSet rs) throws SQLException {
+        Genre_visual genre = new Genre_visual();
         genre.setGenre  (rs.getString  ("name"));
         return genre;
     }
