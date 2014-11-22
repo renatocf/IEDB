@@ -60,15 +60,15 @@ public class Register extends Controller {
     	public List<ValidationError> validate() {
             
             List<ValidationError> errors = new ArrayList<>();
-            if(Register.dao.existsUsername(this.getUsername())) {
+            if (Register.dao.existsUsername(this.getUsername())) {
                 errors.add(new ValidationError(
                     "username", "Username already exists!"));
             }
-            if(Register.dao.existsEmail(this.getEmail())) {
+            if (Register.dao.existsEmail(this.getEmail())) {
                 errors.add(new ValidationError(
                     "email", "Email already registered!"));
             }
-            if(this.getPassword().equals(this.password_conf)) {
+            if (this.getPassword().equals(this.password_conf)) {
                 errors.add(new ValidationError(
                     "password_conf", "Confirmation doesn't match!"));
             }
