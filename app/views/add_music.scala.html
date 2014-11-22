@@ -1,3 +1,5 @@
+@(results: List[_ <: Genre_auditive])
+
 <html>
   <head>
     <title>IEDB - Add Music</title>
@@ -7,28 +9,31 @@
 
     
 
-      Add Music:<br>
-      Name:
-      <input type="text" name="name">
-      <br>
-      Description:
-      <input type="text" name="description">
-      <br>
-      Genre:
-      <input type="text" name="genre">
-      <select name="genddfre">
-        <option value="0" selected>(please select:)</option>
-        <option value="1">one</option>
-        <option value="2">two</option>
-        <option value="3">three</option>
-      </select>
-      <br>
-      Duration:
-      <input type="number" name="duration">
-      <br>
+    	Add Music:<br>
+      	Name:
+      	<input type="text" name="name">
+      	<br>
+      	Description:
+      	<input type="text" name="description">
+      	<br>
+      	Genre:
+      	<select name="genre">
+      		<ul> 
+      			@results.map { result =>
+      			
+      			<option value=@(result.getGenre)>@(result.getGenre)</option>
+      			}
+    		</ul>
+    	</select>
+      	<br>
+      	Duration:
+      	<input type="number" name="duration">
+      	<br>
  
-      <br>
-      <input type="submit" value="Finish">
+      	<br>
+      	<input type="submit" value="Finish">
+      	<br>
+      	
     </form>
   </body>
 </html>

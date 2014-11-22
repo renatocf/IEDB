@@ -7,6 +7,8 @@ import static play.data.Form.*;
 import models.Client;
 import models.Music;
 import models.MusicDAO;
+import models.Genre_auditiveDAO;
+import models.Genre_auditive;
 
 // Views
 import views.html.index;
@@ -23,8 +25,13 @@ import play.mvc.Result;
 import play.mvc.Controller;
 
 public class RegisterTitles extends Controller {
+
+    static private Genre_auditiveDAO dao = new Genre_auditiveDAO();
+
     public static Result addMusic() {
-    	return ok(add_music.render());
+        //return ok(add_music.render());
+
+    	return ok(add_music.render(RegisterTitles.dao.getByGenre()));
     }
     
     public static Result addBook() {
