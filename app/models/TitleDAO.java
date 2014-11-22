@@ -36,6 +36,22 @@ public class TitleDAO extends ViewerDAO<Title> {
     public TitleDAO(Connection connection) {
         super("IEDB.Title", connection);
     }
+
+    public Boolean thisNameExists(final String name, final String type) {
+    
+        List<Title> titles
+        = this.retrieveAllFromQuery(
+            "SELECT * FROM IEDB.Title WHERE (name = ?) and (type = ?)",
+            new StatementConfigurator() {
+                public void configureStatement(PreparedStatement stmt) 
+                    throws SQLException {
+                    stmt.setString(1, name);
+                    stmt.setString(2, type);
+                }
+            }
+        );
+        return titles.size() > 0 ? true : false;
+    }
     
     @Override
     public List<? extends Title> getAll() {
