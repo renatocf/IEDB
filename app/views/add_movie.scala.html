@@ -1,4 +1,4 @@
-@(results: List[_ <: Genre_visual])
+@(results: List[_ <: Genre_visual], censorships: List[_ <: Censorship_visual])
 
 <html>
   <head>
@@ -30,8 +30,13 @@
       <input type="text" name="nationality"> <br><br>
       
       Censorship: <br>
-      <input type="text" name="censorship"> <br><br> <br>
-      
+      <select name="censorship">
+        <ul> 
+          @censorships.map { censorship =>      
+            <option value=@(censorship.getCensorship)>@(censorship.getCensorship)</option>
+          }
+        </ul>
+      </select> <br><br><br>
      	<input type="submit" value="Finish">      	
     </form>
   </body>
