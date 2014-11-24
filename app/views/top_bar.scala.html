@@ -1,6 +1,14 @@
+
+
 IEDB - Internet Entertainment Data Base
 
 <div>
+	@if(session().get("email") != null){
+		<div>
+			@session().get("email")
+		</div>
+	}
+
 	<button id="signin-button" class="submit-button">Sign in</button>
 	<button id="signup-button" class="submit-button">Sign up</button>
 	<button id="signout-button" class="submit-button">Sign out</button>
