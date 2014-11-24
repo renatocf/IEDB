@@ -49,4 +49,8 @@ abstract class ViewerDAO<T> extends DAO<T> {
             }
         );
     }
+    
+    public boolean existsName(String name) {
+        return !this.getByName(name).isEmpty();
+    }
 }
