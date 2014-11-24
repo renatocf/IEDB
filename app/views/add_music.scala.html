@@ -1,11 +1,11 @@
-@(results: List[Genre])
+@(form: Form[MusicCreator.NewMusic], results: List[Genre])
 
 <html>
   <head>
     <title>IEDB - Add Music</title>
   </head>
   <body>
-    <form method="post" action="@routes.RegisterTitles.addNewMusic()">
+    <form method="post" action="@routes.MusicCreator.store()">
     	<font size="5">Add Music:</font> <br><br>
 
       Name: <br>

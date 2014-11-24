@@ -6,7 +6,6 @@ import play.data.*;
 import static play.data.Form.*;
 
 // Model
-import models.Client;
 import models.TitleDAO;
 import models.Title;
 import models.Music;
@@ -32,8 +31,6 @@ import views.html.add_comic;
 import views.html.add_movie;
 import views.html.add_series;
 
-/* import javax.swing.JOptionPane; */
-
 // Play
 import play.data.Form;
 import play.mvc.Result;
@@ -41,14 +38,13 @@ import play.mvc.Controller;
 
 public class RegisterTitles extends Controller {
 
-    static private TitleDAO daoTitle = new TitleDAO();
-    static private GenreDAO daoGenre = new GenreDAO();
-
+    static private TitleDAO      daoTitle      = new TitleDAO();
+    static private GenreDAO      daoGenre      = new GenreDAO();
     static private CensorshipDAO daoCensorship = new CensorshipDAO();
 
-    public static Result addMusic() {
-    	return ok(add_music.render(daoGenre.getAllAuditive()));
-    }
+    // public static Result addMusic() {
+    // 	return ok(add_music.render(daoGenre.getAllAuditive()));
+    // }
 
     public static Result addBook() {
     	return ok(add_book.render(daoGenre.getAllWritten()));
@@ -70,69 +66,45 @@ public class RegisterTitles extends Controller {
         );
     }
 
-    public static Result addNewMusic() {
-        Music music = Form.form(Music.class).bindFromRequest().get();
+    // public static Result addNewMusic() {
+    //     Music music = Form.form(Music.class).bindFromRequest().get();
 
-        MusicDAO dao = new MusicDAO();
-        if (!daoTitle.thisNameExists(music.getName(), "music")) {
-            dao.add(music);
-            /* JOptionPane.showMessageDialog(null, "The music '" + music.getName() + "' was added succesfully!"); */
-        }
-        else {
-            /* JOptionPane.showMessageDialog(null, "A music named '" + music.getName() + "' already exists!"); */
-        }
-        return redirect(controllers.routes.Application.index());
-    }
+    //     MusicDAO dao = new MusicDAO();
+    //     if (!daoTitle.thisNameExists(music.getName(), "music"))
+    //         dao.add(music);
+    //     return redirect(controllers.routes.Application.index());
+    // }
 
     public static Result addNewBook() {
         Book book = Form.form(Book.class).bindFromRequest().get();
+        
         BookDAO dao = new BookDAO();
-        if (!daoTitle.thisNameExists(book.getName(), "book")) {
+        if (!daoTitle.thisNameExists(book.getName(), "book"))
             dao.add(book);
-            /* JOptionPane.showMessageDialog(null, "The book '" + book.getName() + "' was added succesfully!"); */
-        }
-        else {
-            /* JOptionPane.showMessageDialog(null, "A book named '" + book.getName() + "' already exists!"); */
-        }
         return redirect(controllers.routes.Application.index());
     }
 
     public static Result addNewComic() {
         Comic comic = Form.form(Comic.class).bindFromRequest().get();
         ComicDAO dao = new ComicDAO();
-        if (!daoTitle.thisNameExists(comic.getName(), "comic")) {
+        if (!daoTitle.thisNameExists(comic.getName(), "comic"))
             dao.add(comic);
-            /* JOptionPane.showMessageDialog(null, "The comic '" + comic.getName() + "' was added succesfully!"); */
-        }
-        else {
-            /* JOptionPane.showMessageDialog(null, "A comic named '" + comic.getName() + "' already exists!"); */
-        }
         return redirect(controllers.routes.Application.index());
     }
 
     public static Result addNewMovie() {
         Movie movie = Form.form(Movie.class).bindFromRequest().get();
         MovieDAO dao = new MovieDAO();
-        if (!daoTitle.thisNameExists(movie.getName(), "movie")) {
+        if (!daoTitle.thisNameExists(movie.getName(), "movie"))
             dao.add(movie);
-            /* JOptionPane.showMessageDialog(null, "The movie '" + movie.getName() + "' was added succesfully!"); */
-        }
-        else {
-            /* JOptionPane.showMessageDialog(null, "A movie named '" + movie.getName() + "' already exists!"); */
-        }
         return redirect(controllers.routes.Application.index());
     }
-
+    
     public static Result addNewSeries() {
         Series series = Form.form(Series.class).bindFromRequest().get();
         SeriesDAO dao = new SeriesDAO();
-        if (!daoTitle.thisNameExists(series.getName(), "series")) {
+        if (!daoTitle.thisNameExists(series.getName(), "series"))
             dao.add(series);
-            /* JOptionPane.showMessageDialog(null, "The series '" + series.getName() + "' was added succesfully!"); */
-        }
-        else {
-            /* JOptionPane.showMessageDialog(null, "A series named '" + series.getName() + "' already exists!"); */
-        }  
         return redirect(controllers.routes.Application.index());
     }
 }

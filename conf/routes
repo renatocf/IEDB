@@ -15,16 +15,15 @@ POST    /signin         controllers.Login.authenticate()
 GET     /signup         controllers.Register.signup()
 POST    /signup         controllers.Register.addClient()
 
-
 # New Title
 GET     /addTitle                   controllers.Application.addTitle()
-GET     /addTitle/music             controllers.RegisterTitles.addMusic()
+GET     /addTitle/music             controllers.MusicCreator.build()
 GET     /addTitle/book              controllers.RegisterTitles.addBook()
 GET     /addTitle/comic             controllers.RegisterTitles.addComic()
 GET     /addTitle/movie             controllers.RegisterTitles.addMovie()
 GET     /addTitle/series            controllers.RegisterTitles.addSeries()
 
-POST    /addTitle/music             controllers.RegisterTitles.addNewMusic()
+POST    /addTitle/music             controllers.MusicCreator.store()
 POST    /addTitle/book              controllers.RegisterTitles.addNewBook()
 POST    /addTitle/comic             controllers.RegisterTitles.addNewComic()
 POST    /addTitle/movie             controllers.RegisterTitles.addNewMovie()
