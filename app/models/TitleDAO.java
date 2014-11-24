@@ -104,12 +104,10 @@ public class TitleDAO extends ViewerDAO<Title> {
      
     public List<Title> getAllReferences(final Title title) {
 
-        List<Title> titles
-        = this.retrieveAllFromQuery(
-            "SELECT id, type, name, date_creation, description "+
-            "FROM   IEDB.rel_references, IEDB.Title "+
-            "WHERE  referencer_title_id = ? AND "+
-                    "refered_title_id = id",
+        return this.retrieveAllFromQuery(
+            "SELECT id, type, name, date_creation, description " +
+            "FROM   IEDB.rel_references, IEDB.Title " +
+            "WHERE  referencer_title_id = ? AND refered_title_id = id",
             new StatementConfigurator() {
                 public void configureStatement(PreparedStatement stmt) 
                     throws SQLException {
@@ -117,6 +115,5 @@ public class TitleDAO extends ViewerDAO<Title> {
                 }
             }
         );
-        return titles;
     }
 }

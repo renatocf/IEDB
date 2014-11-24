@@ -36,9 +36,6 @@ public class MusicDAO extends ViewerDAO<Music> {
         this(DB.getConnection());
     }
 
-
-
-
     public void add(final Music music) {
         this.persistFromQuery(
             "SELECT IEDB.create_music(?,?,?,?)",
