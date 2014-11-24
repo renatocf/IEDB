@@ -8,6 +8,7 @@
     <div>
       <button id="signin-button" class="submit-button">Sign in</button>
       <button id="signup-button" class="submit-button">Sign up</button>
+      <button id="signout-button" class="submit-button">Sign out</button>
     </div>
 
     <form method="post" action="@routes.Viewer.search()">
@@ -27,6 +28,9 @@
       };
       document.getElementById("add-title").onclick = function() {
         location.href = "@routes.Application.addTitle()";
+      };
+      document.getElementById("signout-button").onclick = function() {
+        location.href = "@routes.Login.signout()";
       };
     </script>
 

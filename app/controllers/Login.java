@@ -41,6 +41,14 @@ public class Login extends Controller {
 	    return ok(signin.render(Form.form(PossibleClient.class)));
 	}
 
+    public static Result signout() {
+        session().clear();
+        flash("success", "You've been logged out");
+        return redirect(
+            routes.Application.index()
+        );
+    }
+
 	public static Result authenticate() {
     	Form<PossibleClient> clientForm 
             = Form.form(PossibleClient.class).bindFromRequest();
