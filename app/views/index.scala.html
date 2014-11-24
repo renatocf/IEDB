@@ -5,13 +5,6 @@
   </head>
 
   <body>
-    
-    @*<div>
-      <button id="signin-button" class="submit-button">Sign in</button>
-      <button id="signup-button" class="submit-button">Sign up</button>
-      <button id="signout-button" class="submit-button">Sign out</button>
-    </div>*@
-
     <form method="post" action="@routes.Viewer.search()">
       Find on IEDB:<br>
       <input type="text" name="name">
@@ -21,15 +14,6 @@
     <button id="add-title" class="add-title">Add Title</button>
 
     <script type="text/javascript">
-    @*  document.getElementById("signin-button").onclick = function() {
-        location.href = "@routes.Login.signin()";
-      };
-      document.getElementById("signup-button").onclick = function() {
-        location.href = "@routes.Register.signup()";
-      };
-      document.getElementById("signout-button").onclick = function() {
-        location.href = "@routes.Login.signout()";
-      }; *@
       document.getElementById("add-title").onclick = function() {
         location.href = "@routes.Application.addTitle()";
       };

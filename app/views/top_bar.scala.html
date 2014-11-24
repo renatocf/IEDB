@@ -1,21 +1,26 @@
 IEDB - Internet Entertainment Data Base
+
 <div>
-	@if(request.username() == null){
-		<button id="signin-button" class="submit-button">Sign in</button>
-  		<button id="signup-button" class="submit-button">Sign up</button>
-	}else{
-		<button id="signout-button" class="submit-button">Sign out</button>
-	}
+	<button id="signin-button" class="submit-button">Sign in</button>
+	<button id="signup-button" class="submit-button">Sign up</button>
+	<button id="signout-button" class="submit-button">Sign out</button>
 </div>
 
 <script type="text/javascript">
-  document.getElementById("signin-button").onclick = function() {
-    location.href = "@routes.Login.signin()";
-  };
-  document.getElementById("signup-button").onclick = function() {
-    location.href = "@routes.Register.signup()";
-  };
-  document.getElementById("signout-button").onclick = function() {
-    location.href = "@routes.Login.signout()";
-  };
+	@if(session().get("email") == null){
+		document.getElementById('signout-button').style.visibility='hidden';
+	}else{
+		document.getElementById('signin-button').style.visibility='hidden';
+		document.getElementById('signup-button').style.visibility='hidden';
+	}
+
+  	document.getElementById("signout-button").onclick = function() {
+   		location.href = "@routes.Login.signout()";
+  	};
+  	document.getElementById("signin-button").onclick = function() {
+    	location.href = "@routes.Login.signin()";
+  	};
+    document.getElementById("signup-button").onclick = function() {
+    	location.href = "@routes.Register.signup()";
+  	};
 </script>
