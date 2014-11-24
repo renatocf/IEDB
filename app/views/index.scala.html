@@ -1,6 +1,11 @@
+<!DOCTYPE html>
 <html>
   <head>
     <title>IEDB</title>
+    <link rel="stylesheet" type="text/css" media="screen" 
+      href="@routes.Assets.at("stylesheets/bootstrap.min.css")">
+
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/bootstrap.min.js")"></script>
     @top_bar()
   </head>
 
@@ -11,7 +16,7 @@
       <input type="submit" value="Search" action="@routes.Viewer.search()">
     </form>
 
-    <button id="add-title" class="add-title">Add Title</button>
+    <button id="add-title" class="btn btn-default">Add Title</button>
 
     <script type="text/javascript">
       document.getElementById("add-title").onclick = function() {
