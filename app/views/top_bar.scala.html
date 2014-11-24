@@ -1,5 +1,3 @@
-
-
 IEDB - Internet Entertainment Data Base
 
 <div>
@@ -7,28 +5,9 @@ IEDB - Internet Entertainment Data Base
 		<div>
 			@session().get("email")
 		</div>
-	}
-
-	<button id="signin-button" class="submit-button">Sign in</button>
-	<button id="signup-button" class="submit-button">Sign up</button>
-	<button id="signout-button" class="submit-button">Sign out</button>
-</div>
-
-<script type="text/javascript">
-	@if(session().get("email") == null){
-		document.getElementById('signout-button').style.visibility='hidden';
+		<a href='@routes.Login.signout()'>Sign out</a>
 	}else{
-		document.getElementById('signin-button').style.visibility='hidden';
-		document.getElementById('signup-button').style.visibility='hidden';
+		<a href='@routes.Login.signin()'>Sign in</a>
+		<a href='@routes.Register.signup()'>Sign up</a>
 	}
-
-  	document.getElementById("signout-button").onclick = function() {
-   		location.href = "@routes.Login.signout()";
-  	};
-  	document.getElementById("signin-button").onclick = function() {
-    	location.href = "@routes.Login.signin()";
-  	};
-    document.getElementById("signup-button").onclick = function() {
-    	location.href = "@routes.Register.signup()";
-  	};
-</script>
+</div>
