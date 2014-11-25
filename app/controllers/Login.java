@@ -44,9 +44,7 @@ public class Login extends Controller {
     public static Result signout() {
         session().clear();
         flash("success", "You've been logged out");
-        return redirect(
-            routes.Application.index()
-        );
+        return redirect(routes.Application.index());
     }
 
 	public static Result authenticate() {

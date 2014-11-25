@@ -1,21 +1,21 @@
-IEDB - Internet Entertainment Data Base
-<div>
-	@if(request.username() == null){
-		<button id="signin-button" class="submit-button">Sign in</button>
-  		<button id="signup-button" class="submit-button">Sign up</button>
-	}else{
-		<button id="signout-button" class="submit-button">Sign out</button>
-	}
-</div>
-
-<script type="text/javascript">
-  document.getElementById("signin-button").onclick = function() {
-    location.href = "@routes.Login.signin()";
-  };
-  document.getElementById("signup-button").onclick = function() {
-    location.href = "@routes.Register.signup()";
-  };
-  document.getElementById("signout-button").onclick = function() {
-    location.href = "@routes.Login.signout()";
-  };
-</script>
+<nav class="navbar navbar-default" role="navigation">
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>    
+  </div>
+  <a class="navbar-brand" href="@routes.Application.index">IEDB - Internet Entertainment Database</a>
+  <div class="navbar-collapse collapse">
+    <ul class="nav navbar-nav navbar-right">
+		@if(session().get("email") != null){
+			<li>@session().get("email")</li>
+			<li><a href='@routes.Login.signout()'>Sign out</a></li>
+		}else{
+			<li><a href='@routes.Login.signin()'>Sign in</a></li>
+			<li><a href='@routes.Register.signup()'>Sign up</a></li>
+		}
+    </ul>
+  </div>
+</nav>
