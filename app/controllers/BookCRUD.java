@@ -16,40 +16,47 @@
 /**********************************************************************/
 package controllers;
 
-// Play
-import play.mvc.Result;
-import play.mvc.Controller;
+// Model
+import models.Book;
+import models.BookDAO;
 
-abstract public class Manager extends Controller {
+// Views
+import views.html.index;
+import views.html.title;
+import views.html.add_book;
+
+// Play
+import play.data.Form;
+import play.mvc.Result;
+import play.twirl.api.Content;
+
+public class BookCRUD extends CRUD<Book> {
     
-    public static Result create(String type) {
-        return getCRUD(type).create();
+    final private static BookCRUD self = new BookCRUD();
+    final private static BookDAO dao = new BookDAO();
+    
+    public static BookCRUD getInstance() { return self; }
+    
+    public static Result build() { return self.create(); }
+    public static Result store() { return self.add();  }
+    
+    protected Book find(String name) {
+        return dao.getByName(name.replace('-',' ')).get(0);
     }
     
-    public static Result read(String type, String name) {
-        return getCRUD(type).read(name);
+    protected void store(Form<Book> form) { 
+        dao.add(form.get());
     }
     
-    public static Result update(String type, String name) {
-        return getCRUD(type).update(name);
+    protected Content renderUpdate(Form<Book> form) {
+        return add_book.render(form, daoGenre.getAllWritten());
     }
     
-    public static Result add(String type) {
-        return getCRUD(type).add();
+    protected Content renderRead(Form<Book> form) {
+        return title.render(form.get());
     }
     
-    public static Result amend(String type, String name) {
-        return getCRUD(type).add();
-    }
-    
-    private static CRUD getCRUD(String type) {
-        switch(type.toLowerCase()) {
-            case "book":   return BookCRUD.getInstance();
-            case "comic":  return ComicCRUD.getInstance();
-            case "movie":  return MovieCRUD.getInstance();
-            case "music":  return MusicCRUD.getInstance();
-            case "series": return SeriesCRUD.getInstance();
-        }
-        throw new RuntimeException("Invalid type on CRUD");
+    private BookCRUD() {
+        super(Book.class);
     }
 }

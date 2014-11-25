@@ -1,11 +1,11 @@
-@(results: List[Genre])
+@(form: Form[Book], results: List[Genre])
 
 <html>
   <head>
     <title>IEDB - Add Book</title>
   </head>
   <body>
-    <form method="post" action="@routes.RegisterTitles.addNewBook()">
+    <form method="post" action='@routes.Manager.add("book")'>
       <font size="5">Add Book:</font><br><br>
 
       Name: <br>

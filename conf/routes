@@ -6,7 +6,6 @@
 GET     /                           controllers.Application.index()
 POST    /                           controllers.Viewer.search()
 
-
 # Login page
 GET     /signin         controllers.Login.signin()
 POST    /signin         controllers.Login.authenticate()
@@ -18,7 +17,6 @@ GET     /logout         controllers.Login.signout()
 GET     /signup         controllers.Register.signup()
 POST    /signup         controllers.Register.addClient()
 
-# ###################################################
 # Create
 GET     /create         controllers.Application.addTitle()
 GET     /create/:type   controllers.Manager.create(type)
@@ -30,24 +28,6 @@ GET     /view/:type/$name<([^\s-]+[-])*[^\s-.]+> controllers.Manager.read(type, 
 # Update
 GET     /update/:type/$name<([^\s-]+[-])*[^\s-.]+> controllers.Manager.update(type, name)
 POST    /update/:type/$name<([^\s-]+[-])*[^\s-.]+> controllers.Manager.amend(type, name)
-
-# ###################################################
-# New Title
-GET     /addTitle                   controllers.Application.addTitle()
-GET     /addTitle/music             controllers.MusicCRUD.build()
-GET     /addTitle/book              controllers.RegisterTitles.addBook()
-GET     /addTitle/comic             controllers.RegisterTitles.addComic()
-GET     /addTitle/movie             controllers.RegisterTitles.addMovie()
-GET     /addTitle/series            controllers.RegisterTitles.addSeries()
-
-POST    /addTitle/music             controllers.MusicCRUD.store()
-POST    /addTitle/book              controllers.RegisterTitles.addNewBook()
-POST    /addTitle/comic             controllers.RegisterTitles.addNewComic()
-POST    /addTitle/movie             controllers.RegisterTitles.addNewMovie()
-POST    /addTitle/series            controllers.RegisterTitles.addNewSeries()
-
-# Title pages
-GET     /:type/$name<([^\s-]+[-])*[^\s-.]+> controllers.Viewer.showTitle(type, name)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file   controllers.Assets.at(path="/public", file)

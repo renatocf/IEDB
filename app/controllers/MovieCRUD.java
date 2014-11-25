@@ -16,40 +16,49 @@
 /**********************************************************************/
 package controllers;
 
-// Play
-import play.mvc.Result;
-import play.mvc.Controller;
+// Model
+import models.Movie;
+import models.MovieDAO;
 
-abstract public class Manager extends Controller {
+// Views
+import views.html.index;
+import views.html.title;
+import views.html.add_movie;
+
+// Play
+import play.data.Form;
+import play.mvc.Result;
+import play.twirl.api.Content;
+
+public class MovieCRUD extends CRUD<Movie> {
     
-    public static Result create(String type) {
-        return getCRUD(type).create();
+    final private static MovieCRUD self = new MovieCRUD();
+    final private static MovieDAO dao = new MovieDAO();
+    
+    public static MovieCRUD getInstance() { return self; }
+    
+    public static Result build() { return self.create(); }
+    public static Result store() { return self.add();  }
+    
+    protected Movie find(String name) {
+        return dao.getByName(name.replace('-',' ')).get(0);
     }
     
-    public static Result read(String type, String name) {
-        return getCRUD(type).read(name);
+    protected void store(Form<Movie> form) { 
+        dao.add(form.get());
     }
     
-    public static Result update(String type, String name) {
-        return getCRUD(type).update(name);
+    protected Content renderUpdate(Form<Movie> form) {
+        return add_movie.render(
+            form, daoGenre.getAllVisual(), daoCensorship.getAllVisual()
+        );
     }
     
-    public static Result add(String type) {
-        return getCRUD(type).add();
+    protected Content renderRead(Form<Movie> form) {
+        return title.render(form.get());
     }
     
-    public static Result amend(String type, String name) {
-        return getCRUD(type).add();
-    }
-    
-    private static CRUD getCRUD(String type) {
-        switch(type.toLowerCase()) {
-            case "book":   return BookCRUD.getInstance();
-            case "comic":  return ComicCRUD.getInstance();
-            case "movie":  return MovieCRUD.getInstance();
-            case "music":  return MusicCRUD.getInstance();
-            case "series": return SeriesCRUD.getInstance();
-        }
-        throw new RuntimeException("Invalid type on CRUD");
+    private MovieCRUD() {
+        super(Movie.class);
     }
 }
