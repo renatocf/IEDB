@@ -16,6 +16,13 @@
 /**********************************************************************/
 package models;
 
+// Play
+import play.data.validation.ValidationError;
+
+// Java Util
+import java.util.List;
+import java.util.ArrayList;
+
 public class Book extends Written {
 
     protected int numEditions;
@@ -28,5 +35,16 @@ public class Book extends Written {
     // Setters
     public void setNumEditions(int numEditions) {
         this.numEditions = numEditions;
+    }
+
+    // Validation
+    public List<ValidationError> validate() {
+        BookDAO dao = new BookDAO();
+        List<ValidationError> errors = new ArrayList<>();
+        if (dao.existsName(this.getName())) {
+            errors.add(new ValidationError(
+                "name", "Music already exists!"));
+        }
+        return errors.isEmpty() ? null : errors;
     }
 }

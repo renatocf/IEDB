@@ -16,6 +16,13 @@
 /**********************************************************************/
 package models;
 
+// Play
+import play.data.validation.ValidationError;
+
+// Java Util
+import java.util.List;
+import java.util.ArrayList;
+
 public class Movie extends Visual {
 
     protected int duration;
@@ -37,5 +44,16 @@ public class Movie extends Visual {
     
     public void setNationality(String nationality) {
         this.nationality = nationality;
+    }
+
+    // Validation
+    public List<ValidationError> validate() {
+        MovieDAO dao = new MovieDAO();
+        List<ValidationError> errors = new ArrayList<>();
+        if (dao.existsName(this.getName())) {
+            errors.add(new ValidationError(
+                "name", "Music already exists!"));
+        }
+        return errors.isEmpty() ? null : errors;
     }
 }
