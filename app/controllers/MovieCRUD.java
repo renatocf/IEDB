@@ -14,37 +14,51 @@
 /* See the License for the specific language governing permissions    */
 /* and limitations under the License.                                 */
 /**********************************************************************/
-package models;
+package controllers;
+
+// Model
+import models.Movie;
+import models.MovieDAO;
+
+// Views
+import views.html.index;
+import views.html.title;
+import views.html.add_movie;
 
 // Play
-import play.data.validation.ValidationError;
+import play.data.Form;
+import play.mvc.Result;
+import play.twirl.api.Content;
 
-// Java Util
-import java.util.List;
-import java.util.ArrayList;
-
-public class Book extends Written {
-
-    protected int numEditions;
-
-    // Getters
-    public int getNumEditions() {
-        return this.numEditions;
+public class MovieCRUD extends CRUD<Movie> {
+    
+    final private static MovieCRUD self = new MovieCRUD();
+    final private static MovieDAO dao = new MovieDAO();
+    
+    public static MovieCRUD getInstance() { return self; }
+    
+    public static Result build() { return self.create(); }
+    public static Result store() { return self.add();  }
+    
+    protected Movie find(String name) {
+        return dao.getByName(name.replace('-',' ')).get(0);
     }
     
-    // Setters
-    public void setNumEditions(int numEditions) {
-        this.numEditions = numEditions;
+    protected void store(Form<Movie> form) { 
+        dao.add(form.get());
     }
-
-    // Validation
-    public List<ValidationError> validate() {
-        BookDAO dao = new BookDAO();
-        List<ValidationError> errors = new ArrayList<>();
-        if (dao.existsName(this.getName())) {
-            errors.add(new ValidationError(
-                "name", "Music already exists!"));
-        }
-        return errors.isEmpty() ? null : errors;
+    
+    protected Content renderUpdate(Form<Movie> form) {
+        return add_movie.render(
+            form, daoGenre.getAllVisual(), daoCensorship.getAllVisual()
+        );
+    }
+    
+    protected Content renderRead(Form<Movie> form) {
+        return title.render(form.get());
+    }
+    
+    private MovieCRUD() {
+        super(Movie.class);
     }
 }

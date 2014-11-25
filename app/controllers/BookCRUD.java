@@ -17,51 +17,46 @@
 package controllers;
 
 // Model
-import models.Music;
-import models.MusicDAO;
+import models.Book;
+import models.BookDAO;
 
 // Views
 import views.html.index;
-import views.html.add_music;
+import views.html.title;
+import views.html.add_book;
 
 // Play
 import play.data.Form;
 import play.mvc.Result;
 import play.twirl.api.Content;
-import play.data.validation.ValidationError;
 
-// Java Util
-import java.util.List;
-import java.util.ArrayList;
-
-public class MusicCreator extends Creator<MusicCreator.NewMusic> {
+public class BookCRUD extends CRUD<Book> {
     
-    final private static MusicCreator self = new MusicCreator();
-    final private static MusicDAO dao = new MusicDAO();
+    final private static BookCRUD self = new BookCRUD();
+    final private static BookDAO dao = new BookDAO();
     
-    public static Result build() { return self.show(); }
+    public static BookCRUD getInstance() { return self; }
+    
+    public static Result build() { return self.create(); }
     public static Result store() { return self.add();  }
-
-    public static class NewMusic extends Music {
-    	public List<ValidationError> validate() {
-            List<ValidationError> errors = new ArrayList<>();
-            if (dao.existsName(this.getName())) {
-                errors.add(new ValidationError(
-                    "name", "Title already exists!"));
-            }
-            return errors.isEmpty() ? null : errors;
-        }
+    
+    protected Book find(String name) {
+        return dao.getByName(name.replace('-',' ')).get(0);
     }
     
-    protected void store(Form<NewMusic> form) { 
+    protected void store(Form<Book> form) { 
         dao.add(form.get());
     }
     
-    protected Content render(Form<NewMusic> form) {
-        return add_music.render(form, daoGenre.getAllAuditive());
+    protected Content renderUpdate(Form<Book> form) {
+        return add_book.render(form, daoGenre.getAllWritten());
     }
     
-    private MusicCreator() {
-        super(NewMusic.class);
+    protected Content renderRead(Form<Book> form) {
+        return title.render(form.get());
+    }
+    
+    private BookCRUD() {
+        super(Book.class);
     }
 }

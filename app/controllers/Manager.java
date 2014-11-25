@@ -14,37 +14,42 @@
 /* See the License for the specific language governing permissions    */
 /* and limitations under the License.                                 */
 /**********************************************************************/
-package models;
+package controllers;
 
 // Play
-import play.data.validation.ValidationError;
+import play.mvc.Result;
+import play.mvc.Controller;
 
-// Java Util
-import java.util.List;
-import java.util.ArrayList;
-
-public class Book extends Written {
-
-    protected int numEditions;
-
-    // Getters
-    public int getNumEditions() {
-        return this.numEditions;
+abstract public class Manager extends Controller {
+    
+    public static Result create(String type) {
+        return getCRUD(type).create();
     }
     
-    // Setters
-    public void setNumEditions(int numEditions) {
-        this.numEditions = numEditions;
+    public static Result read(String type, String name) {
+        return getCRUD(type).read(name);
     }
-
-    // Validation
-    public List<ValidationError> validate() {
-        BookDAO dao = new BookDAO();
-        List<ValidationError> errors = new ArrayList<>();
-        if (dao.existsName(this.getName())) {
-            errors.add(new ValidationError(
-                "name", "Music already exists!"));
+    
+    public static Result update(String type, String name) {
+        return getCRUD(type).update(name);
+    }
+    
+    public static Result add(String type) {
+        return getCRUD(type).add();
+    }
+    
+    public static Result amend(String type, String name) {
+        return getCRUD(type).add();
+    }
+    
+    private static CRUD getCRUD(String type) {
+        switch(type.toLowerCase()) {
+            case "book":   return BookCRUD.getInstance();
+            case "comic":  return ComicCRUD.getInstance();
+            case "movie":  return MovieCRUD.getInstance();
+            case "music":  return MusicCRUD.getInstance();
+            case "series": return SeriesCRUD.getInstance();
         }
-        return errors.isEmpty() ? null : errors;
+        throw new RuntimeException("Invalid type on CRUD");
     }
 }

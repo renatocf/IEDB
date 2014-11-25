@@ -16,6 +16,13 @@
 /**********************************************************************/
 package models;
 
+// Play
+import play.data.validation.ValidationError;
+
+// Java Util
+import java.util.List;
+import java.util.ArrayList;
+
 import java.util.Date;
 public class Series extends Visual {
 
@@ -47,5 +54,16 @@ public class Series extends Visual {
 
     public void setNumSeasons(int numSeasons){
         this.numSeasons = numSeasons;
+    }
+
+    // Validation
+    public List<ValidationError> validate() {
+        SeriesDAO dao = new SeriesDAO();
+        List<ValidationError> errors = new ArrayList<>();
+        if (dao.existsName(this.getName())) {
+            errors.add(new ValidationError(
+                "name", "Music already exists!"));
+        }
+        return errors.isEmpty() ? null : errors;
     }
 }

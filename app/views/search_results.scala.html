@@ -9,7 +9,7 @@
   <body>
     <ul> 
       @results.map { result =>
-      <li><a href="/@(result.getType.toLowerCase)/@(result.getName.toLowerCase.replace(' ','-'))">@(result.getName)</a></li>
+      <li><a href="/view/@(result.getType.toLowerCase)/@(result.getName.toLowerCase.replace(' ','-'))">@(result.getName)</a></li>
       }
     </ul>
   </body>

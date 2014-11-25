@@ -14,37 +14,49 @@
 /* See the License for the specific language governing permissions    */
 /* and limitations under the License.                                 */
 /**********************************************************************/
-package models;
+package controllers;
+
+// Model
+import models.Comic;
+import models.ComicDAO;
+
+// Views
+import views.html.index;
+import views.html.title;
+import views.html.add_comic;
 
 // Play
-import play.data.validation.ValidationError;
+import play.data.Form;
+import play.mvc.Result;
+import play.twirl.api.Content;
 
-// Java Util
-import java.util.List;
-import java.util.ArrayList;
-
-public class Book extends Written {
-
-    protected int numEditions;
-
-    // Getters
-    public int getNumEditions() {
-        return this.numEditions;
+public class ComicCRUD extends CRUD<Comic> {
+    
+    final private static ComicCRUD self = new ComicCRUD();
+    final private static ComicDAO dao = new ComicDAO();
+    
+    public static ComicCRUD getInstance() { return self; }
+    
+    public static Result build() { return self.create(); }
+    public static Result store() { return self.add();  }
+    
+    protected Comic find(String name) {
+        return dao.getByName(name.replace('-',' ')).get(0);
     }
     
-    // Setters
-    public void setNumEditions(int numEditions) {
-        this.numEditions = numEditions;
+    protected void store(Form<Comic> form) { 
+        dao.add(form.get());
     }
-
-    // Validation
-    public List<ValidationError> validate() {
-        BookDAO dao = new BookDAO();
-        List<ValidationError> errors = new ArrayList<>();
-        if (dao.existsName(this.getName())) {
-            errors.add(new ValidationError(
-                "name", "Music already exists!"));
-        }
-        return errors.isEmpty() ? null : errors;
+    
+    protected Content renderUpdate(Form<Comic> form) {
+        return add_comic.render(form, daoGenre.getAllWritten());
+    }
+    
+    protected Content renderRead(Form<Comic> form) {
+        return title.render(form.get());
+    }
+    
+    private ComicCRUD() {
+        super(Comic.class);
     }
 }

@@ -16,6 +16,13 @@
 /**********************************************************************/
 package models;
 
+// Play
+import play.data.validation.ValidationError;
+
+// Java Util
+import java.util.List;
+import java.util.ArrayList;
+
 public class Comic extends Written {
 
     protected int num;
@@ -37,5 +44,16 @@ public class Comic extends Written {
 
     public void setArc(String arc){
     	this.arc = arc;
+    }
+
+    // Validation
+    public List<ValidationError> validate() {
+        ComicDAO dao = new ComicDAO();
+        List<ValidationError> errors = new ArrayList<>();
+        if (dao.existsName(this.getName())) {
+            errors.add(new ValidationError(
+                "name", "Music already exists!"));
+        }
+        return errors.isEmpty() ? null : errors;
     }
 }

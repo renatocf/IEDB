@@ -1,11 +1,11 @@
-@(results: List[Genre], censorships: List[Censorship])
+@(form: Form[Movie], results: List[Genre], censorships: List[Censorship])
 
 <html>
   <head>
     <title>IEDB - Add Movie</title>
   </head>
   <body>
-    <form method="post" action="@routes.RegisterTitles.addNewMovie()">
+    <form method="post" action='@routes.Manager.add("movie")'>
       <font size="5">Add Movie:</font><br><br>
 
       Name: <br>

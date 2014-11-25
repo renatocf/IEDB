@@ -16,6 +16,13 @@
 /**********************************************************************/
 package models;
 
+// Play
+import play.data.validation.ValidationError;
+
+// Java Util
+import java.util.List;
+import java.util.ArrayList;
+
 public class Music extends Auditive {
 
     protected int duration;
@@ -28,5 +35,16 @@ public class Music extends Auditive {
     // Setters
     public void setDuration(int duration) {
         this.duration = duration;
+    }
+    
+    // Validation
+    public List<ValidationError> validate() {
+        MusicDAO dao = new MusicDAO();
+        List<ValidationError> errors = new ArrayList<>();
+        if (dao.existsName(this.getName())) {
+            errors.add(new ValidationError(
+                "name", "Music already exists!"));
+        }
+        return errors.isEmpty() ? null : errors;
     }
 }

@@ -14,37 +14,51 @@
 /* See the License for the specific language governing permissions    */
 /* and limitations under the License.                                 */
 /**********************************************************************/
-package models;
+package controllers;
+
+// Model
+import models.Series;
+import models.SeriesDAO;
+
+// Views
+import views.html.index;
+import views.html.title;
+import views.html.add_series;
 
 // Play
-import play.data.validation.ValidationError;
+import play.data.Form;
+import play.mvc.Result;
+import play.twirl.api.Content;
 
-// Java Util
-import java.util.List;
-import java.util.ArrayList;
-
-public class Book extends Written {
-
-    protected int numEditions;
-
-    // Getters
-    public int getNumEditions() {
-        return this.numEditions;
+public class SeriesCRUD extends CRUD<Series> {
+    
+    final private static SeriesCRUD self = new SeriesCRUD();
+    final private static SeriesDAO dao = new SeriesDAO();
+    
+    public static SeriesCRUD getInstance() { return self; }
+    
+    public static Result build() { return self.create(); }
+    public static Result store() { return self.add();  }
+    
+    protected Series find(String name) {
+        return dao.getByName(name.replace('-',' ')).get(0);
     }
     
-    // Setters
-    public void setNumEditions(int numEditions) {
-        this.numEditions = numEditions;
+    protected void store(Form<Series> form) { 
+        dao.add(form.get());
     }
-
-    // Validation
-    public List<ValidationError> validate() {
-        BookDAO dao = new BookDAO();
-        List<ValidationError> errors = new ArrayList<>();
-        if (dao.existsName(this.getName())) {
-            errors.add(new ValidationError(
-                "name", "Music already exists!"));
-        }
-        return errors.isEmpty() ? null : errors;
+    
+    protected Content renderUpdate(Form<Series> form) {
+        return add_series.render(
+            form, daoGenre.getAllVisual(), daoCensorship.getAllVisual()
+        );
+    }
+    
+    protected Content renderRead(Form<Series> form) {
+        return title.render(form.get());
+    }
+    
+    private SeriesCRUD() {
+        super(Series.class);
     }
 }
