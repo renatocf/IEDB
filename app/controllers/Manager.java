@@ -16,52 +16,36 @@
 /**********************************************************************/
 package controllers;
 
-// Model
-import models.Music;
-import models.MusicDAO;
-
-// Views
-import views.html.index;
-import views.html.add_music;
-
 // Play
-import play.data.Form;
 import play.mvc.Result;
-import play.twirl.api.Content;
-import play.data.validation.ValidationError;
+import play.mvc.Controller;
 
-// Java Util
-import java.util.List;
-import java.util.ArrayList;
-
-public class MusicCreator extends Creator<MusicCreator.NewMusic> {
+abstract public class Manager extends Controller {
     
-    final private static MusicCreator self = new MusicCreator();
-    final private static MusicDAO dao = new MusicDAO();
+    public static Result create(String type) {
+        return getCRUD(type).create();
+    }
     
-    public static Result build() { return self.show(); }
-    public static Result store() { return self.add();  }
-
-    public static class NewMusic extends Music {
-    	public List<ValidationError> validate() {
-            List<ValidationError> errors = new ArrayList<>();
-            if (dao.existsName(this.getName())) {
-                errors.add(new ValidationError(
-                    "name", "Title already exists!"));
-            }
-            return errors.isEmpty() ? null : errors;
+    public static Result read(String type, String name) {
+        return getCRUD(type).read(name);
+    }
+    
+    public static Result update(String type, String name) {
+        return getCRUD(type).update(name);
+    }
+    
+    public static Result add(String type) {
+        return getCRUD(type).add();
+    }
+    
+    public static Result amend(String type, String name) {
+        return getCRUD(type).add();
+    }
+    
+    private static CRUD getCRUD(String type) {
+        switch(type.toLowerCase()) {
+            case "music": return MusicCRUD.getInstance();
         }
-    }
-    
-    protected void store(Form<NewMusic> form) { 
-        dao.add(form.get());
-    }
-    
-    protected Content render(Form<NewMusic> form) {
-        return add_music.render(form, daoGenre.getAllAuditive());
-    }
-    
-    private MusicCreator() {
-        super(NewMusic.class);
+        return null;
     }
 }

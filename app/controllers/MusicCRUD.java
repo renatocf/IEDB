@@ -14,37 +14,49 @@
 /* See the License for the specific language governing permissions    */
 /* and limitations under the License.                                 */
 /**********************************************************************/
-package models;
+package controllers;
+
+// Model
+import models.Music;
+import models.MusicDAO;
+
+// Views
+import views.html.index;
+import views.html.title;
+import views.html.add_music;
 
 // Play
-import play.data.validation.ValidationError;
+import play.data.Form;
+import play.mvc.Result;
+import play.twirl.api.Content;
 
-// Java Util
-import java.util.List;
-import java.util.ArrayList;
-
-public class Music extends Auditive {
-
-    protected int duration;
-
-    // Getters
-    public int getDuration() {
-        return this.duration;
+public class MusicCRUD extends CRUD<Music> {
+    
+    final private static MusicCRUD self = new MusicCRUD();
+    final private static MusicDAO dao = new MusicDAO();
+    
+    public static MusicCRUD getInstance() { return self; }
+    
+    public static Result build() { return self.create(); }
+    public static Result store() { return self.add();  }
+    
+    protected Music find(String name) {
+        return dao.getByName(name.replace('-',' ')).get(0);
     }
     
-    // Setters
-    public void setDuration(int duration) {
-        this.duration = duration;
+    protected void store(Form<Music> form) { 
+        dao.add(form.get());
     }
     
-    // Validation
-    public List<ValidationError> validate() {
-        MusicDAO dao = new MusicDAO();
-        List<ValidationError> errors = new ArrayList<>();
-        if (dao.existsName(this.getName())) {
-            errors.add(new ValidationError(
-                "name", "Music already exists!"));
-        }
-        return errors.isEmpty() ? null : errors;
+    protected Content renderUpdate(Form<Music> form) {
+        return add_music.render(form, daoGenre.getAllAuditive());
+    }
+    
+    protected Content renderRead(Form<Music> form) {
+        return title.render(form.get());
+    }
+    
+    private MusicCRUD() {
+        super(Music.class);
     }
 }
