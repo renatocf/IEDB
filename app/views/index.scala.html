@@ -2,27 +2,13 @@
 <html>
   <head>
     <title>IEDB</title>
-    <link rel="stylesheet" type="text/css" media="screen" 
-      href="@routes.Assets.at("stylesheets/bootstrap.min.css")">
-
-    <script type="text/javascript" src="@routes.Assets.at("javascripts/bootstrap.min.js")"></script>
-    @top_bar()
+    @header()
   </head>
-
   <body>
-    <form method="post" action="@routes.Viewer.search()">
-      Find on IEDB:<br>
-      <input type="text" placeholder="Search" name="name">
-      <input type="submit" value="Search" action="@routes.Viewer.search()">
+    @top_bar()
+    <form id="search_form" method="post" action="@routes.Viewer.search()">
+      <input id="search_input" type="text" placeholder="Search" name="name">
+      <input id="search_submit" type="submit" value="Search" action="@routes.Viewer.search()">
     </form>
-
-    <button id="add-title" class="btn btn-default">Add Title</button>
-
-    <script type="text/javascript">
-      document.getElementById("add-title").onclick = function() {
-        location.href = "@routes.Application.addTitle()";
-      };
-    </script>
-
   </body>
 </html>

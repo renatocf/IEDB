@@ -4,7 +4,7 @@
       <dl class="input_item" id="@("input_"+attr)">
         <dt><label for="@attr">@label</label></dt>
         <dd><input type="@itype" name="@attr" id="@("input_"+attr)"
-                   value="@if(reuse){@form(attr).value}"></dd>
+                   value="@if(reuse){@form(attr).value}" class="form-control"></dd>
         @if(!form(attr).errors.isEmpty) {<dd class="error">
           @for(error <- form(attr).errors) {<div>@error.message</div>}
         </dd>}
@@ -14,18 +14,19 @@
 <html>
   <head>
     <title>IEDB - Signup</title>
+    @header()
   </head>
   <body>
     <header>
-      <h1>IEDB</h1>
+      @top_bar()
     </header>
-    <form action="@routes.Register.addClient" method="POST">
+    <form action="@routes.Register.addClient" method="POST" class="form-signup" role="form">
       <h1>Sign up</h1>
       @formInput("text",     "username",      "Username",        true)
       @formInput("email",    "email",         "Email",           true)
       @formInput("password", "password",      "Password",        false)
       @formInput("password", "password_conf", "Repeat password", false)
-      <div><button type="submit">Sign up</input></div>
+      <div><button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button></div>
     </form>
   </body>
 </html>

@@ -6,11 +6,14 @@
       <span class="icon-bar"></span>
     </button>    
   </div>
-  <a class="navbar-brand" href="@routes.Application.index">IEDB - Internet Entertainment Database</a>
+  <a class="navbar-brand" href="@routes.Application.index">IEDB - International Entertainment Database</a>
   <div class="navbar-collapse collapse">
+  	<ul class="nav navbar-nav navbar-left">
+        <li><a href='@routes.Application.addTitle()'>Add Title</a></li>
+    </ul>
     <ul class="nav navbar-nav navbar-right">
 		@if(session().get("email") != null){
-			<li>@session().get("email")</li>
+			<li style="vertical-align: middle">@session().get("email")</li>
 			<li><a href='@routes.Login.signout()'>Sign out</a></li>
 		}else{
 			<li><a href='@routes.Login.signin()'>Sign in</a></li>
