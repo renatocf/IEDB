@@ -7,37 +7,32 @@
     <body>
     
     <h3> Informaçoes gerais </h3>
-    @title.getName <br>
-    @title.getDescription <br>
+    <h2>@title.getName</h2><br>
+    <p>Description: @title.getDescription</p>
 
     @*<!-- Do not move the '}else{' structure, otherwise scala wont understand-->*@
     @if(title.isInstanceOf[Auditive]) {
-        <h3> Music shit </h3>
-        @title.asInstanceOf[Music].getDuration
+        <p>Duration: @title.asInstanceOf[Music].getDuration min</p>
     }
     
     @if(title.isInstanceOf[Written]) {
 
         @if(title.isInstanceOf[Comic]) {
-            <h3> Comic shit </h3>
-            @title.asInstanceOf[Comic].getNum
-            @title.asInstanceOf[Comic].getArc
+            <p>Number: @title.asInstanceOf[Comic].getNum</p>
+            <p>Arc: @title.asInstanceOf[Comic].getArc</p>
         } else {
-            <h3> Book shit </h3>
-            @title.asInstanceOf[Book].getNumEditions
+            <p>Number of editions: @title.asInstanceOf[Book].getNumEditions</p>
         }
     }
 
     @if(title.isInstanceOf[Visual]) {
         @if(title.isInstanceOf[Movie]) {
-            <h3> Movie shit </h3>
-            @title.asInstanceOf[Movie].getDuration <br>
-            @title.asInstanceOf[Movie].getNationality <br>
+            <p>Duration: @title.asInstanceOf[Movie].getDuration</p>
+            <p>Nationality: @title.asInstanceOf[Movie].getNationality</p>
         } else {
-            <h3> Series shit </h3>
-            @title.asInstanceOf[Series].getDateInit <br>
-            @title.asInstanceOf[Series].getDateEnd <br>
-            @title.asInstanceOf[Series].getNumSeasons <br>
+            <p>Start date: @title.asInstanceOf[Series].getDateInit</p>
+            <p>End date: @title.asInstanceOf[Series].getDateEnd</p>
+            <p>Number of seasons: @title.asInstanceOf[Series].getNumSeasons</p>
         }
     }
 
