@@ -4,12 +4,15 @@
       <dl class="input_item" id="@("input_"+attr)">
         <dt><label for="@attr">@label</label></dt>
         <dd><input type="@itype" name="@attr" id="@("input_"+attr)"
-                   value="@if(reuse){@form(attr).value}" class="form-control"></dd>
+            value="@if(reuse){@form(attr).value}" 
+            class="form-control" required></dd>
         @if(!form(attr).errors.isEmpty) {<dd class="error">
           @for(error <- form(attr).errors) {<div>@error.message</div>}
         </dd>}
       </dl>
 }
+
+<!DOCTYPE html>
 
 <html>
   <head>
@@ -20,13 +23,15 @@
     <header>
       @top_bar()
     </header>
-    <form action="@routes.Register.addClient" method="POST" class="form-signup" role="form">
+    <form action="@routes.Register.addClient" method="POST" 
+          class="form-signup" role="form">
       <h1>Sign up</h1>
       @formInput("text",     "username",      "Username",        true)
       @formInput("email",    "email",         "Email",           true)
       @formInput("password", "password",      "Password",        false)
       @formInput("password", "password_conf", "Repeat password", false)
-      <div><button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button></div>
+      <div><button class="btn btn-lg btn-primary btn-block" 
+                   type="submit">Sign up</button></div>
     </form>
   </body>
 </html>

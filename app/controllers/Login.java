@@ -62,17 +62,21 @@ public class Login extends Controller {
 	public static class PossibleClient extends Client {
 
     	public List<ValidationError> validate() {
-            
+
             List<ValidationError> errors = new ArrayList<>();
-            if (Login.dao.existsUsername(this.getUsername())) {
+
+            System.err.println("USERNAME ===> " + this.getUsername());
+            System.err.println("PASSWORD ===> " + this.getPassword());
+            Client client = Login.dao.getByUsername(this.getUsername());
+            if (client == null) {
                 errors.add(new ValidationError(
                     "username", "Invalid username!"));
             }
-            if (Login.dao.find(this.getEmail(), this.getPassword()) == null) {
+            else if (client.getPassword() != this.getPassword()) {
                 errors.add(new ValidationError(
                     "password", "Invalid password!"));
             }
-            return null;
+            return errors.isEmpty() ? null : errors;
         }
 	}
 }

@@ -1,21 +1,36 @@
 @(form: Form[Login.PossibleClient])
 
+@formInput(itype: String, attr: String, label: String, reuse: Boolean) = {
+      <dl class="input_item" id="@("input_"+attr)">
+        <dt><label for="@attr">@label</label></dt>
+        <dd><input type="@itype" name="@attr" id="@("input_"+attr)"
+            value="@if(reuse){@form(attr).value}" 
+            class="form-control" required></dd>
+        @if(!form(attr).errors.isEmpty) {<dd class="error">
+          @for(error <- form(attr).errors) {<div>@error.message</div>}
+        </dd>}
+      </dl>
+}
+
 <!DOCTYPE html>
+
 <html>
   <head>
     <title>IEDB - Signin</title>
     @header()
   </head>
   <body>
-    @top_bar()
+    <header>
+      @top_bar()
+    </header>
     <div class="container">
-      <form class="form-signin" role="form" action="@routes.Login.authenticate" method="POST">
+      <form action="@routes.Login.authenticate" method="POST"
+            class="form-signin" role="form">
         <h1>Sign in</h1>
-        <input type="email" id="inputEmail" name="email" class="form-control"
-          placeholder="Email address" value="@form("email").value" required autofocus>
-        <input type="password" id="inputPassword" name="password" class="form-control" 
-          placeholder="Password"required>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        @formInput("email",    "email",    "Email",    true)
+        @formInput("password", "password", "Password", false)
+        <div><button class="btn btn-lg btn-primary btn-block" 
+                     type="submit">Sign in</button></div>
       </form>
     </div> <!-- /container -->
   </body>
