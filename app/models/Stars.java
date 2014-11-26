@@ -14,49 +14,38 @@
 /* See the License for the specific language governing permissions    */
 /* and limitations under the License.                                 */
 /**********************************************************************/
-package controllers;
+package models;
 
-// Model
-import models.Book;
-import models.BookDAO;
+public class Stars
+{
+    protected String client_name;
+    protected int title_id;
+    protected int rate;
 
-// Views
-import views.html.index;
-import views.html.title;
-import views.html.add_book;
+    // Getters
+    public String getClientName() {
+        return this.client_name;
+    }
 
-// Play
-import play.data.Form;
-import play.mvc.Result;
-import play.twirl.api.Content;
+    public int getTitleId(){
+    	return this.title_id;
+    }
 
-public class BookCRUD extends CRUD<Book> {
-    
-    final private static BookCRUD self = new BookCRUD();
-    final private static BookDAO dao = new BookDAO();
-    
-    public static BookCRUD getInstance() { return self; }
-    
-    public static Result build() { return self.create(); }
-    public static Result store() { return self.add();  }
-    
-    protected Book find(String name) {
-        return dao.getByName(name.replace('-',' ')).get(0);
+    public int getRate(){
+    	return this.rate;
     }
     
-    protected void store(Form<Book> form) { 
-        dao.add(form.get());
+    // Setters
+    public void setClientName(String name) {
+        this.client_name = name;
     }
-    
-    protected Content renderUpdate(Form<Book> form) {
-        return add_book.render(form, daoGenre.getAllWritten());
+
+    public void setTitleId(int title){
+    	this.title_id = title;
     }
-    
-    protected Content renderRead(Form<Book> form) {
-        return title.render(form.get());
+
+    public void setRate(int stars){
+    	this.rate = stars;
     }
-    
-    private BookCRUD() {
-        super(Book.class);
-    }
+
 }

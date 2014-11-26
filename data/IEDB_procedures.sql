@@ -230,6 +230,8 @@ $$ LANGUAGE plpgsql;
 ------------------------------------------------------------------------
 --                         Series management                           --
 ------------------------------------------------------------------------
+
+
 -- @procedure create_series
 CREATE OR REPLACE FUNCTION create_series(
     _name        TYPE_NAME,
@@ -274,6 +276,18 @@ $$ LANGUAGE plpgsql;
 ------------------------------------------------------------------------
 --                          Calculate rate                            --
 ------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION create_stars(
+    _client_name       TYPE_USERNAME,
+    _title_id          INTEGER,
+    _rate              TYPE_RATE
+    )
+RETURNS void AS $$
+BEGIN
+    INSERT INTO IEDB.rel_stars(client_name, title_id, rate)
+    VALUE(_client_name, _title_id, _rate)
+END;
+$$ LANGUAGE plpgsql;
+
 
 -- @procedure calculate_rate
 CREATE OR REPLACE FUNCTION calculate_rate(_title_id INTEGER)

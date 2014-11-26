@@ -14,49 +14,47 @@
 /* See the License for the specific language governing permissions    */
 /* and limitations under the License.                                 */
 /**********************************************************************/
-package controllers;
+package models;
 
-// Model
-import models.Book;
-import models.BookDAO;
+import play.db.DB;
 
-// Views
-import views.html.index;
-import views.html.title;
-import views.html.add_book;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-// Play
-import play.data.Form;
-import play.mvc.Result;
-import play.twirl.api.Content;
+import java.util.List;
 
-public class BookCRUD extends CRUD<Book> {
+public class StarsDAO extends DAO<Stars> {
     
-    final private static BookCRUD self = new BookCRUD();
-    final private static BookDAO dao = new BookDAO();
-    
-    public static BookCRUD getInstance() { return self; }
-    
-    public static Result build() { return self.create(); }
-    public static Result store() { return self.add();  }
-    
-    protected Book find(String name) {
-        return dao.getByName(name.replace('-',' ')).get(0);
+    public StarsDAO() {
+        super(DB.getConnection());
     }
     
-    protected void store(Form<Book> form) { 
-        dao.add(form.get());
+    public StarsDAO(Connection connection) {
+        super(connection);
     }
     
-    protected Content renderUpdate(Form<Book> form) {
-        return add_book.render(form, daoGenre.getAllWritten());
+    public void add(final Stars stars) {
+        this.persistFromQuery(
+            "SELECT IEDB.create_stars(?, ?, ?)",
+            new StatementConfigurator() {
+                public void configureStatement(PreparedStatement stmt) 
+                    throws SQLException {
+                    stmt.setString(1, stars.getClientName());
+                    stmt.setInt(2, stars.getTitleId());
+                    stmt.setInt(3, stars.getRate());
+                }
+            }
+        );
     }
-    
-    protected Content renderRead(Form<Book> form) {
-        return title.render(form.get());
-    }
-    
-    private BookCRUD() {
-        super(Book.class);
+
+    @Override
+    protected Stars buildFromResultSet(ResultSet rs) throws SQLException {
+        Stars stars = new Stars();
+        stars.setClientName   (rs.getString  ("client_name"));
+        stars.setTitleId      (rs.getInt     ("title_id"));
+        stars.setRate         (rs.getInt     ("rate"));
+        return stars;
     }
 }
