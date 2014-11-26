@@ -65,14 +65,13 @@ public class Login extends Controller {
 
             List<ValidationError> errors = new ArrayList<>();
 
-            System.err.println("USERNAME ===> " + this.getUsername());
-            System.err.println("PASSWORD ===> " + this.getPassword());
-            Client client = Login.dao.getByUsername(this.getUsername());
+            Client client = Login.dao.getByEmail(this.getEmail());
             if (client == null) {
                 errors.add(new ValidationError(
-                    "username", "Invalid username!"));
+                    "email", "Invalid email!"));
             }
-            else if (client.getPassword() != this.getPassword()) {
+            else if (!client.getPassword().equals(this.getPassword())) {
+                System.err.println("clientPass : " + client.getPassword() + "thisPass : " + this.getPassword()); 
                 errors.add(new ValidationError(
                     "password", "Invalid password!"));
             }
