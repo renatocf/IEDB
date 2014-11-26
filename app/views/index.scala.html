@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>IEDB</title>
-    @header()
-  </head>
+  @head("IEDB - Home")
   <body>
     @top_bar()
     <form id="search_form" method="post" action="@routes.Viewer.search()">

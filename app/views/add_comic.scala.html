@@ -1,10 +1,10 @@
 @(form: Form[Comic], results: List[Genre])
 
+<!DOCTYPE html>
 <html>
-  <head>
-    <title>IEDB - Add Comic</title>
-  </head>
+  @head("IEDB - Add Comic")
   <body>
+    @top_bar()
     <form method="post" action='@routes.Manager.add("comic")'>
     	<font size="5">Add Comic:</font><br><br>
 

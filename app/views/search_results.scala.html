@@ -1,11 +1,8 @@
 @(results: List[_ <: Title])
 
 <!DOCTYPE html>
-
 <html>
-  <head>
-    <title>Search Results</title>
-  </head>
+  @head("IEDB - Search Results")
   <body>
     <ul> 
       @results.map { result =>

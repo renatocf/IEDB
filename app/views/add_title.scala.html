@@ -1,9 +1,10 @@
-<html>
-  <head>
-    <title>IEDB - New Title</title>
-  </head>
 
+
+<!DOCTYPE html>
+<html>
+  @head("IEDB - New Title")
   <body>
+    @top_bar()
     <form method="post" action="@routes.Viewer.search()">
       Select the type of the new Title:
       <br>

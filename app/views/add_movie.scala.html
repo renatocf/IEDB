@@ -1,10 +1,10 @@
 @(form: Form[Movie], results: List[Genre], censorships: List[Censorship])
 
+<!DOCTYPE html>
 <html>
-  <head>
-    <title>IEDB - Add Movie</title>
-  </head>
+  @head("IEDB - Add Movie")
   <body>
+    @top_bar()
     <form method="post" action='@routes.Manager.add("movie")'>
       <font size="5">Add Movie:</font><br><br>
 

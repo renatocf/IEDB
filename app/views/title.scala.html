@@ -1,14 +1,8 @@
 @(title: Title)
 
 <!DOCTYPE html>
-
 <html>
-    <head>
-        <title>IEDB - @title.getName</title>
-        <!-- <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")"> -->
-        <!-- <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")"> -->
-        <!-- <script src="@routes.Assets.at("javascripts/hello.js")" type="text/javascript"></script> -->
-    </head>
+    @head("IEDB - " + title.getName)
     <body>
     
     <h3> Informaçoes gerais </h3>
@@ -16,29 +10,29 @@
     @title.getDescription <br>
 
     @*<!-- Do not move the '}else{' structure, otherwise scala wont understand-->*@
-    @if(title.isInstanceOf[Auditive]){
+    @if(title.isInstanceOf[Auditive]) {
         <h3> Music shit </h3>
         @title.asInstanceOf[Music].getDuration
     }
     
-    @if(title.isInstanceOf[Written]){
+    @if(title.isInstanceOf[Written]) {
 
-        @if(title.isInstanceOf[Comic]){
+        @if(title.isInstanceOf[Comic]) {
             <h3> Comic shit </h3>
             @title.asInstanceOf[Comic].getNum
             @title.asInstanceOf[Comic].getArc
-        }else{
+        } else {
             <h3> Book shit </h3>
             @title.asInstanceOf[Book].getNumEditions
         }
     }
 
-    @if(title.isInstanceOf[Visual]){
-        @if(title.isInstanceOf[Movie]){
+    @if(title.isInstanceOf[Visual]) {
+        @if(title.isInstanceOf[Movie]) {
             <h3> Movie shit </h3>
             @title.asInstanceOf[Movie].getDuration <br>
             @title.asInstanceOf[Movie].getNationality <br>
-        }else{
+        } else {
             <h3> Series shit </h3>
             @title.asInstanceOf[Series].getDateInit <br>
             @title.asInstanceOf[Series].getDateEnd <br>

@@ -1,9 +1,8 @@
 @(form: Form[Book], results: List[Genre])
 
+<!DOCTYPE html>
 <html>
-  <head>
-    <title>IEDB - Add Book</title>
-  </head>
+  @head("IEDB - Add Book")
   <body>
     <form method="post" action='@routes.Manager.add("book")'>
       <font size="5">Add Book:</font><br><br>

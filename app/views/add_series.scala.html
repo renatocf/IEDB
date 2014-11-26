@@ -1,10 +1,10 @@
 @(form: Form[Series], results: List[Genre], censorships: List[Censorship])
 
+<!DOCTYPE html>
 <html>
-  <head>
-    <title>IEDB - Add Series</title>
-  </head>
+  @head("IEDB - Add Series")
   <body>
+    @top_bar()
     <form method="post" action='@routes.Manager.add("series")'>
     	<font size="5">Add Series:</font> <br><br>
 
