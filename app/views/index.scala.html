@@ -3,9 +3,11 @@
   @head("IEDB - Home")
   <body>
     @top_bar()
-    <form id="search_form" method="post" action="@routes.Viewer.search()">
-      <input id="search_input" type="text" placeholder="Search" name="name">
-      <input id="search_submit" type="submit" value="Search" action="@routes.Viewer.search()">
-    </form>
+    <div id="search-wrapper">
+      <form id="search_form" method="post" action="@routes.Viewer.search()">
+        <input id="search_input" type="text" placeholder="Search" name="name">
+        <input id="search_submit" type="submit" value="Search" action="@routes.Viewer.search()">
+      </form>
+    </div>  
   </body>
 </html>
