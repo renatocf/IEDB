@@ -3,9 +3,9 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index()
-POST    /                           controllers.Viewer.search()
-POST    /a               			controllers.StarsController.addNewStars()
+GET     /               controllers.Application.index()
+POST    /               controllers.Viewer.search()
+POST    /a              controllers.StarsController.addNewStars()
 
 # Login page
 GET     /signin         controllers.Login.signin()
