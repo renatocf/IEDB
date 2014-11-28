@@ -5,6 +5,7 @@
     @top_bar()
     <div id="search-wrapper">
       <form id="search_form" method="post" action="@routes.Viewer.search()">
+        <h3> Search for a Title </h3>
         <input id="search_input" type="text" placeholder="Search" name="name">
         <input id="search_submit" type="submit" value="Search" action="@routes.Viewer.search()">
       </form>

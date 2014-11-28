@@ -5,42 +5,44 @@
   @head("IEDB - Add Series")
   <body>
     @top_bar()
-    <form method="post" action='@routes.Manager.add("series")'>
-    	<font size="5">Add Series:</font> <br><br>
+    <div class="add-wrapper">
+      <form method="post" action='@routes.Manager.add("series")'>
+      	<font size="5">Add Series:</font> <br><br>
 
-      Name: <br>
-      <input type="text" name="name" required/> <br><br>
-      	
-      Description: <br>
-      <input type="text" name="description"> <br><br>
-      	
-      Genre: <br>
-      <select name="genre">
-      	<ul> 
-      		@results.map { result =>		
-      			<option value=@(result.getGenre)>@(result.getGenre)</option>
-      		}
-    		</ul>
-    	</select> <br><br>
-      
-      Date Init: <br>
-      <input type="date" value="2006-01-02" name="dateInit"> <br><br>
-      
-      Date End: <br>
-      <input type="date" name="dateEnd"> <br><br>
-      
-      Seasons: <br>
-      <input type="number" value="0" min="0" name="numSeasons"> <br><br>
-      
-      Censorship: <br>
-      <select name="censorship">
-        <ul> 
-          @censorships.map { censorship =>      
-            <option value=@(censorship.getCensorship)>@(censorship.getCensorship)</option>
-          }
-        </ul>
-      </select> <br><br><br>
-      <input type="submit" value="Finish"> <br><br>	
-    </form>
+        Name: <br>
+        <input type="text" name="name" required/> <br><br>
+        	
+        Description: <br>
+        <input type="text" name="description"> <br><br>
+        	
+        Genre: <br>
+        <select name="genre">
+        	<ul> 
+        		@results.map { result =>		
+        			<option value=@(result.getGenre)>@(result.getGenre)</option>
+        		}
+      		</ul>
+      	</select> <br><br>
+        
+        Date Init: <br>
+        <input type="date" value="2006-01-02" name="dateInit"> <br><br>
+        
+        Date End: <br>
+        <input type="date" name="dateEnd"> <br><br>
+        
+        Seasons: <br>
+        <input type="number" value="0" min="0" name="numSeasons"> <br><br>
+        
+        Censorship: <br>
+        <select name="censorship">
+          <ul> 
+            @censorships.map { censorship =>      
+              <option value=@(censorship.getCensorship)>@(censorship.getCensorship)</option>
+            }
+          </ul>
+        </select> <br><br><br>
+        <input type="submit" value="Finish"> <br><br>	
+      </form>
+    </div>
   </body>
 </html>

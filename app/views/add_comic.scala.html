@@ -5,32 +5,34 @@
   @head("IEDB - Add Comic")
   <body>
     @top_bar()
-    <form method="post" action='@routes.Manager.add("comic")'>
-    	<font size="5">Add Comic:</font><br><br>
+    <div class="add-wrapper">
+      <form method="post" action='@routes.Manager.add("comic")'>
+      	<font size="5">Add Comic:</font><br><br>
 
-      Name: <br>
-      <input type="text" name="name" required/> <br><br>
+        Name: <br>
+        <input type="text" name="name" required/> <br><br>
 
-      Description: <br>
-      <input type="text" name="description"> <br><br>
+        Description: <br>
+        <input type="text" name="description"> <br><br>
 
-      Genre: <br>
-      <select name="genre">
-      	<ul> 
-      		@results.map { result =>	
-      		  <option value=@(result.getGenre)>@(result.getGenre)</option>
-      		}
-    		</ul>
-    	</select> <br><br>
+        Genre: <br>
+        <select name="genre">
+        	<ul> 
+        		@results.map { result =>	
+        		  <option value=@(result.getGenre)>@(result.getGenre)</option>
+        		}
+      		</ul>
+      	</select> <br><br>
 
-      Arc:<br>
-      <input type="text" name="arc"> <br><br>
-      
-      Edition: <br>
-      <input type="number" value="0" min="0" name="num"> <br><br><br>
-     
-      <input type="submit" value="Finish">
-      	
-    </form>
+        Arc:<br>
+        <input type="text" name="arc"> <br><br>
+        
+        Edition: <br>
+        <input type="number" value="0" min="0" name="num"> <br><br><br>
+       
+        <input type="submit" value="Finish">
+        	
+      </form>
+    </div>
   </body>
 </html>

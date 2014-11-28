@@ -5,39 +5,41 @@
   @head("IEDB - Add Movie")
   <body>
     @top_bar()
-    <form method="post" action='@routes.Manager.add("movie")'>
-      <font size="5">Add Movie:</font><br><br>
+    <div class="add-wrapper">
+      <form method="post" action='@routes.Manager.add("movie")'>
+        <font size="5">Add Movie:</font><br><br>
 
-      Name: <br>
-      <input type="text" name="name" required/> <br><br>
-      
-      Description: <br>
-      <input type="text" name="description"> <br><br>
-      
-      Genre: <br>
-      <select name="genre">
-      	<ul> 
-      		@results.map { result =>			
-      			<option value=@(result.getGenre)>@(result.getGenre)</option>
-      		}
-    		</ul>
-    	</select> <br><br>
-      
-      Duration: <br>
-      <input type="number"  value="0" min="0" name="duration"> minutes<br><br>
-      
-      Nationality: <br>
-      <input type="text" name="nationality"> <br><br>
-      
-      Censorship: <br>
-      <select name="censorship">
-        <ul> 
-          @censorships.map { censorship =>      
-            <option value=@(censorship.getCensorship)>@(censorship.getCensorship)</option>
-          }
-        </ul>
-      </select> <br><br><br>
-     	<input type="submit" value="Finish">      	
-    </form>
+        Name: <br>
+        <input type="text" name="name" required/> <br><br>
+        
+        Description: <br>
+        <input type="text" name="description"> <br><br>
+        
+        Genre: <br>
+        <select name="genre">
+        	<ul> 
+        		@results.map { result =>			
+        			<option value=@(result.getGenre)>@(result.getGenre)</option>
+        		}
+      		</ul>
+      	</select> <br><br>
+        
+        Duration: <br>
+        <input type="number"  value="0" min="0" name="duration"> minutes<br><br>
+        
+        Nationality: <br>
+        <input type="text" name="nationality"> <br><br>
+        
+        Censorship: <br>
+        <select name="censorship">
+          <ul> 
+            @censorships.map { censorship =>      
+              <option value=@(censorship.getCensorship)>@(censorship.getCensorship)</option>
+            }
+          </ul>
+        </select> <br><br><br>
+       	<input type="submit" value="Finish">      	
+      </form>
+    </div>
   </body>
 </html>
