@@ -34,7 +34,61 @@
             <p>Number of seasons: @title.asInstanceOf[Series].getNumSeasons</p>
         }
     }
+    <br><br><br>
+        How many stars "@title.getName" deserves?
+        <form method="post" action="@routes.StarsController.addNewStars()">
 
-    Stars
+            <input type="checkbox" id="1" onclick="checkStars(1);">
+            <input type="checkbox" id="2" onclick="checkStars(2);">
+            <input type="checkbox" id="3" onclick="checkStars(3);">
+            <input type="checkbox" id="4" onclick="checkStars(4);">
+            <input type="checkbox" id="5" onclick="checkStars(5);">
+            <br>
+            <input type="submit" value="Vote">
+        </form>
+
+    <script>
+      function checkStars(x){
+        if(x==1){
+            document.getElementById('1').checked=true;
+
+            document.getElementById('2').checked=false;
+            document.getElementById('3').checked=false;
+            document.getElementById('4').checked=false;
+            document.getElementById('5').checked=false;
+        }
+        else if(x==2){
+            document.getElementById('1').checked=true;
+            document.getElementById('2').checked=true;
+
+            document.getElementById('3').checked=false;
+            document.getElementById('4').checked=false;
+            document.getElementById('5').checked=false;
+        }
+        else if(x==3){
+            document.getElementById('1').checked=true;
+            document.getElementById('2').checked=true;
+            document.getElementById('3').checked=true;
+
+            document.getElementById('4').checked=false;
+            document.getElementById('5').checked=false;
+        }
+        else if(x==4){
+            document.getElementById('1').checked=true;
+            document.getElementById('2').checked=true;
+            document.getElementById('3').checked=true;
+            document.getElementById('4').checked=true;
+
+            document.getElementById('5').checked=false;
+        }
+        else if(x==5){
+            document.getElementById('1').checked=true;
+            document.getElementById('2').checked=true;
+            document.getElementById('3').checked=true;
+            document.getElementById('4').checked=true;
+            document.getElementById('5').checked=true;
+        }
+      }
+    </script>
     </body>
 </html>

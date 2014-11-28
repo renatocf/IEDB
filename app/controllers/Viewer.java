@@ -31,6 +31,7 @@ import play.mvc.Controller;
 
 public class Viewer extends Controller {
 
+    
     static private TitleDAO dao = new TitleDAO();
 
     public static Result search() {

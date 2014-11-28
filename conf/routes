@@ -5,6 +5,7 @@
 # Home page
 GET     /                           controllers.Application.index()
 POST    /                           controllers.Viewer.search()
+POST    /a               			controllers.StarsController.addNewStars()
 
 # Login page
 GET     /signin         controllers.Login.signin()
@@ -21,6 +22,8 @@ POST    /signup         controllers.Register.addClient()
 GET     /create         controllers.Application.addTitle()
 GET     /create/:type   controllers.Manager.create(type)
 POST    /create/:type   controllers.Manager.add(type)
+
+
 
 # Read
 GET     /view/:type/$name<([^\s-]+[-])*[^\s-.]+> controllers.Manager.read(type, name)
