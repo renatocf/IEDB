@@ -264,10 +264,10 @@ $$ LANGUAGE plpgsql;
 CREATE OR REPLACE FUNCTION create_ref_title_title(
     _referencer_title_id     INTEGER,
     _refered_title_id        INTEGER)
-RETURN void AS $$
+RETURNS void AS $$
 BEGIN
     INSERT INTO IEDB.rel_references(referencer_title_id, refered_title_id)
-    VALUES(_referencer_title_id, _refered_title_id)
+    VALUES(_referencer_title_id, _refered_title_id);
 END;
 $$ LANGUAGE plpgsql;
 
@@ -284,7 +284,7 @@ CREATE OR REPLACE FUNCTION create_stars(
 RETURNS void AS $$
 BEGIN
     INSERT INTO IEDB.rel_stars(client_name, title_id, rate)
-    VALUE(_client_name, _title_id, _rate)
+    VALUES(_client_name, _title_id, _rate);
 END;
 $$ LANGUAGE plpgsql;
 

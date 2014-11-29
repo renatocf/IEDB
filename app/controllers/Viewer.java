@@ -23,6 +23,7 @@ import models.TitleDAO;
 // Views
 import views.html.title;
 import views.html.search_results;
+import views.html.index;
 
 // Play
 import play.data.Form;
@@ -36,6 +37,9 @@ public class Viewer extends Controller {
 
     public static Result search() {
         Title title = Form.form(Title.class).bindFromRequest().get();
+        if(title.getName().equals(""))
+            return ok(index.render());
+
         return ok(search_results.render(
             Viewer.dao.getByName(title.getName())
         ));
