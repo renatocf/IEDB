@@ -57,11 +57,13 @@ public class SeriesDAO extends ViewerDAO<Series> {
     @Override
     protected Series buildFromResultSet(ResultSet rs) throws SQLException {
         Series series = new Series();
+        TitleDAO daoTitle = new TitleDAO();
         series.setId           (rs.getInt    ("id"));
         series.setName         (rs.getString ("name"));
         series.setType         (rs.getString ("type"));
         series.setDateCreation (rs.getDate   ("date_creation"));
         series.setDescription  (rs.getString ("description"));
+        series.setReferences   (daoTitle.getAllReferences(series));
         /* series.setCensorship  (rs.getString  ("censorship")); */
         /* series.setGenre       (rs.getString  ("genre")); */
         series.setDateInit     (rs.getDate   ("date_init"));

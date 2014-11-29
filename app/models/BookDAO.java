@@ -53,11 +53,13 @@ public class BookDAO extends ViewerDAO<Book> {
     @Override
     protected Book buildFromResultSet(ResultSet rs) throws SQLException {
         Book book = new Book();
+        TitleDAO daoTitle = new TitleDAO();
         book.setId           (rs.getInt    ("id"));
         book.setName         (rs.getString ("name"));
         book.setType         (rs.getString ("type"));
         book.setDateCreation (rs.getDate   ("date_creation"));
         book.setDescription  (rs.getString ("description"));
+        book.setReferences   (daoTitle.getAllReferences(book));
         /* book.setGenre        (rs.getString ("genre")); */
         book.setNumEditions  (rs.getInt    ("num_editions"));
         /* book.setRate         (rs.getInt    ("rate")); */

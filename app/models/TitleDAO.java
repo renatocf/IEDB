@@ -77,6 +77,7 @@ public class TitleDAO extends ViewerDAO<Title> {
         title.setName         (rs.getString ("name"));
         title.setDateCreation (rs.getDate   ("date_creation"));
         title.setDescription  (rs.getString ("description"));
+        title.setReferences   (this.getAllReferences(title));
         return title;
     }
     

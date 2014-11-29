@@ -34,6 +34,15 @@
             <p>Number of seasons: @title.asInstanceOf[Series].getNumSeasons</p>
         }
     }
+
+    @if(!title.getReferences.isEmpty){
+    <h4> Refers to</h4>
+        <ul> 
+            @for(title_ref <- title.getReferences){
+                <li><a href="/view/@(title_ref.getType.toLowerCase)/@(title_ref.getName.toLowerCase.replace(' ','-'))">@(title_ref.getName)</a></li>
+            }
+        </ul>
+    }
     <br><br><br>
         How many stars "@title.getName" deserves?
         <form method="post" action="@routes.StarsController.addNewStars()">

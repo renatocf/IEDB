@@ -56,11 +56,13 @@ public class MovieDAO extends ViewerDAO<Movie> {
     @Override
     protected Movie buildFromResultSet(ResultSet rs) throws SQLException {
         Movie movie = new Movie();
+        TitleDAO daoTitle = new TitleDAO();
         movie.setId           (rs.getInt    ("id"));
         movie.setName         (rs.getString ("name"));
         movie.setType         (rs.getString ("type"));
         movie.setDateCreation (rs.getDate   ("date_creation"));
         movie.setDescription  (rs.getString ("description"));
+        movie.setReferences   (daoTitle.getAllReferences(movie));
         /* movie.setCensorship   (rs.getString ("censorship")); */
         /* movie.setGenre        (rs.getString ("genre")); */
         movie.setDuration     (rs.getInt    ("duration"));

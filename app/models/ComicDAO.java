@@ -56,11 +56,13 @@ public class ComicDAO extends ViewerDAO<Comic> {
     protected Comic buildFromResultSet(ResultSet rs) throws SQLException {
         
         Comic comic = new Comic();
+        TitleDAO daoTitle = new TitleDAO();
         comic.setId           (rs.getInt    ("id"));
         comic.setName         (rs.getString ("name"));
         comic.setType         (rs.getString ("type"));
         comic.setDateCreation (rs.getDate   ("date_creation"));
         comic.setDescription  (rs.getString ("description"));
+        comic.setReferences   (daoTitle.getAllReferences(comic));
         /* comic.setGenre       (rs.getString  ("genre")); */
         comic.setNum          (rs.getInt    ("num"));
         comic.setArc          (rs.getString ("arc"));

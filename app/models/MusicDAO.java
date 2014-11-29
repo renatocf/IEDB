@@ -54,11 +54,13 @@ public class MusicDAO extends ViewerDAO<Music> {
     @Override
     protected Music buildFromResultSet(ResultSet rs) throws SQLException {
         Music music = new Music();
+        TitleDAO daoTitle = new TitleDAO();
         music.setId           (rs.getInt    ("id"));
         music.setName         (rs.getString ("name"));
         music.setType         (rs.getString ("type"));
         music.setDateCreation (rs.getDate   ("date_creation"));
         music.setDescription  (rs.getString ("description"));
+        music.setReferences   (daoTitle.getAllReferences(music));
         /* music.setGenre       (rs.getString  ("genre")); */
         music.setDuration     (rs.getInt    ("duration"));
         /* music.setRate        (rs.getInt     ("rate")); */
