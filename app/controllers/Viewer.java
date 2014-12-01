@@ -37,7 +37,7 @@ public class Viewer extends Controller {
 
     public static Result search() {
         Title title = Form.form(Title.class).bindFromRequest().get();
-        if(title.getName().equals(""))
+        if(title.getName().trim().length() == 0)
             return ok(index.render());
 
         return ok(search_results.render(

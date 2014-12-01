@@ -33,7 +33,7 @@ public class SeriesDAOTest {
     
     private SeriesDAO dao;
 
-    @Before
+    /*@Before
     public void setUp() throws Exception{
         running(fakeApplication(), new Runnable() {
             public void run() {
@@ -45,17 +45,27 @@ public class SeriesDAOTest {
     @After
     public void tearDown() throws Exception{
         dao = null;
-    }
+    }*/
 
     @Test
     public void getByName() {
-        assertEquals(1, dao.getByName("Friends").size());
-        assertEquals("Friends", dao.getByName("Friends").get(0).getName());
+        running(fakeApplication(), new Runnable(){
+            public void run(){
+                dao = new SeriesDAO();
+                assertEquals(1, dao.getByName("Friends").size());
+                assertEquals("Friends", dao.getByName("Friends").get(0).getName());
+            }
+        });
     }
     
     @Test
     public void getAll() {
-        assertEquals(1, dao.getAll().size());
-        assertEquals("Friends", dao.getAll().get(0).getName());
+        running(fakeApplication(), new Runnable(){
+            public void run(){
+                dao = new SeriesDAO();
+                assertEquals(1, dao.getAll().size());
+                assertEquals("Friends", dao.getAll().get(0).getName());
+            }
+        });
     }
 }
