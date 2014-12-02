@@ -15,7 +15,7 @@
 	  
 	    @results.map { result =>
 	    <tr>
-	      <td><a href="/view/@(result.getType.toLowerCase)/@(result.getName.toLowerCase.replace(' ','-'))">@(result.getName)</a></td>
+	      <td><a href="@routes.Manager.read(result.getType, result.getName)">@(result.getName)</a></td>
 	      <td>@(result.getType)</td>
 	      <td>@(result.getDateCreation)</td>
 	    </tr>
