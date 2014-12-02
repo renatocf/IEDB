@@ -25,4 +25,20 @@ public class IndexPageTest extends WithApplication{
 	        }
 	    });
 	}
+
+	@Test
+	public void visualizeTitleStartingAtIndex() {
+	    running(testServer(3333), HTMLUNIT, new Callback<TestBrowser>() {
+	        public void invoke(TestBrowser browser) {
+	            browser.goTo("http://localhost:3333");
+	            
+	            //assertThat(, isEqualTo();
+	            browser.$("#search_input").get(0).text("lord");
+	            browser.$("#search_submit").click();
+	            assertEquals("IEDB - Search Results", browser.$("#title").getText());
+	            //assertEquals(browser.url(), "http://localhost:3333/login");
+	            //assertThat(, isEqualTo());
+	        }
+	    });
+	}
 }
