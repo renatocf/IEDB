@@ -45,11 +45,14 @@
       <br><br><br>
           How many stars "@title.getName" deserves?
           <form method="post" action="@routes.StarsController.addNewStars()">
-              <input type="checkbox" id="1" onclick="checkStars(1);">
-              <input type="checkbox" id="2" onclick="checkStars(2);">
-              <input type="checkbox" id="3" onclick="checkStars(3);">
-              <input type="checkbox" id="4" onclick="checkStars(4);">
-              <input type="checkbox" id="5" onclick="checkStars(5);">
+              <input type="hidden" name = "client" value='karinaawoki'>
+              <input type="hidden" name = "title" value=@(title.getId)>
+
+              <input type="checkbox" name= "rate" value="1" id="1" onclick="checkStars(1);">
+              <input type="checkbox" name= "rate" value="2" id="2" onclick="checkStars(2);">
+              <input type="checkbox" name= "rate" value="3" id="3" onclick="checkStars(3);">
+              <input type="checkbox" name= "rate" value="4" id="4" onclick="checkStars(4);">
+              <input type="checkbox" name= "rate" value="5" id="5" onclick="checkStars(5);">
               <br>
               <input type="submit" value="Vote">
           </form>

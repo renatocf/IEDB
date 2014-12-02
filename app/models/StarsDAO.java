@@ -36,13 +36,16 @@ public class StarsDAO extends DAO<Stars> {
     }
     
     public void add(final Stars stars) {
+
+
+
         this.persistFromQuery(
             "SELECT IEDB.create_stars(?, ?, ?)",
             new StatementConfigurator() {
                 public void configureStatement(PreparedStatement stmt) 
                     throws SQLException {
-                    stmt.setString(1, stars.getClient().getUsername());
-                    stmt.setInt(2, stars.getTitle().getId());
+                    stmt.setString(1, stars.getClient());
+                    stmt.setInt(2, stars.getTitle());
                     stmt.setInt(3, stars.getRate());
                 }
             }
@@ -52,6 +55,12 @@ public class StarsDAO extends DAO<Stars> {
     @Override
     protected Stars buildFromResultSet(ResultSet rs) throws SQLException {
         Stars stars = new Stars();
+        String client_name;
+        int title;
+        client_name = (rs.getString  ("client_name"));
+        title = (rs.getInt     ("title_id"));
+        //ClientDao client = new ClientDAO();
+
         //stars.setClient       (rs.getString  ("client_name"));
         //stars.setTitleId      (rs.getInt     ("title_id"));
         stars.setRate         (rs.getInt     ("rate"));
