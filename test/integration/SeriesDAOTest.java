@@ -26,46 +26,32 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 // Fake application
-import static play.test.Helpers.running;
-import static play.test.Helpers.fakeApplication;
+import play.test.*;
+import static play.test.Helpers.*;
 
-public class SeriesDAOTest {
+public class SeriesDAOTest extends WithApplication{
     
     private SeriesDAO dao;
 
-    /*@Before
+    @Before
     public void setUp() throws Exception{
-        running(fakeApplication(), new Runnable() {
-            public void run() {
-                dao = new SeriesDAO();
-            }
-        });
+        dao = new SeriesDAO();
     }
 
     @After
     public void tearDown() throws Exception{
         dao = null;
-    }*/
+    }
 
     @Test
     public void getByName() {
-        running(fakeApplication(), new Runnable(){
-            public void run(){
-                dao = new SeriesDAO();
-                assertEquals(1, dao.getByName("Friends").size());
-                assertEquals("Friends", dao.getByName("Friends").get(0).getName());
-            }
-        });
+        assertEquals(1, dao.getByName("Friends").size());
+        assertEquals("Friends", dao.getByName("Friends").get(0).getName());
     }
     
     @Test
     public void getAll() {
-        running(fakeApplication(), new Runnable(){
-            public void run(){
-                dao = new SeriesDAO();
-                assertEquals(1, dao.getAll().size());
-                assertEquals("Friends", dao.getAll().get(0).getName());
-            }
-        });
+        assertEquals(1, dao.getAll().size());
+        assertEquals("Friends", dao.getAll().get(0).getName());
     }
 }

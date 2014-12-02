@@ -28,30 +28,20 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 // Fake application
-import static play.test.Helpers.running;
-import static play.test.Helpers.fakeApplication;
+import play.test.*;
+import static play.test.Helpers.*;
 
-public class DBTest {
+public class DBTest extends WithApplication {
 
     @Test
     public void testGetDataSource() {
-        running(fakeApplication(), new Runnable() {
-            @Override
-            public void run() {
-                DataSource ds = DB.getDataSource();
-                assertNotNull(ds);
-            }
-        });
+        DataSource ds = DB.getDataSource();
+        assertNotNull(ds);
     }
 
     @Test
     public void testGetConnection() {
-        running(fakeApplication(), new Runnable() {
-            @Override
-            public void run() {
-                Connection conn = DB.getConnection();
-                assertNotNull(conn);
-            }
-        });
+        Connection conn = DB.getConnection();
+        assertNotNull(conn);
     }
 }
