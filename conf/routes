@@ -23,8 +23,6 @@ GET     /create         controllers.Application.addTitle()
 GET     /create/:type   controllers.Manager.create(type)
 POST    /create/:type   controllers.Manager.add(type)
 
-
-
 # Read
 GET     /view/:type/$name<([^\s-]+[-])*[^\s-.]+> controllers.Manager.read(type, name)
 
