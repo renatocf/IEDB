@@ -64,6 +64,10 @@ public class Register extends Controller {
                 errors.add(new ValidationError(
                     "username", "Username already exists!"));
             }
+            if (this.getPassword().length() < 8) {
+                errors.add(new ValidationError(
+                    "password", "Your password should have at least 8 characters"));
+            }
             if (Register.dao.existsEmail(this.getEmail())) {
                 errors.add(new ValidationError(
                     "email", "Email already registered!"));
