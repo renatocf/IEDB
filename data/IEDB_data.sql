@@ -42,7 +42,7 @@ INSERT INTO IEDB.Censorship_visual VALUES ('NC-17');
 SELECT create_account
     ('renatocf', 'renato.cordeiro.ferreira@usp.br', '14159265');
 SELECT create_account
-    ('ruan0408', 'ruan.costa@usp.br', '7990929');
+    ('ruan0408', 'ruan.costa@usp.br', 'ruanruan');
 SELECT create_account
     ('tuiuiu', 'lucas.dario@usp.br', '38462643');
 SELECT create_account
