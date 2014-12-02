@@ -474,3 +474,14 @@ FOR EACH ROW
 
 -- @index title_name
 CREATE INDEX title_name_idx ON IEDB.Title(name);
+
+/*
+////////////////////////////////////////////////////////////////////////
+-----------------------------------------------------------------------
+                              PRIVILEGES
+-----------------------------------------------------------------------
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+*/
+
+GRANT SELECT ON ALL TABLES IN SCHEMA IEDB TO u7990940;/*views estao inclusas*/
+GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA IEDB TO u7990940;

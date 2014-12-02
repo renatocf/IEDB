@@ -26,20 +26,16 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 // Fake application
-import static play.test.Helpers.running;
-import static play.test.Helpers.fakeApplication;
+import play.test.*;
+import static play.test.Helpers.*;
 
-public class MusicDAOTest {
+public class MusicDAOTest extends WithApplication{
     
     private MusicDAO dao;
 
     @Before
     public void setUp() throws Exception {
-        running(fakeApplication(), new Runnable() {
-            public void run() {
-                dao = new MusicDAO();
-            }
-        });
+        dao = new MusicDAO();
     }
 
     @After

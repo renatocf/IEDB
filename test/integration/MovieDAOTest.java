@@ -26,20 +26,16 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 // Fake application
-import static play.test.Helpers.running;
-import static play.test.Helpers.fakeApplication;
+import play.test.*;
+import static play.test.Helpers.*;
 
-public class MovieDAOTest {
+public class MovieDAOTest extends WithApplication{
     
     private MovieDAO dao;
 
     @Before
-    public void setUp() throws Exception {
-        running(fakeApplication(), new Runnable() {
-            public void run() {
-                dao = new MovieDAO();
-            }
-        });
+    public void setUp(){
+        dao = new MovieDAO();
     }
 
     @After
@@ -60,6 +56,5 @@ public class MovieDAOTest {
         assertEquals("The Lord of the Rings: The Fellowship of the Ring", 
             dao.getAll().get(0).getName());
         assertEquals("Matrix", dao.getAll().get(1).getName());
-    }
-    
+    }       
 }

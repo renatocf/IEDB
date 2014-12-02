@@ -31,20 +31,16 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 // Fake application
-import static play.test.Helpers.running;
-import static play.test.Helpers.fakeApplication;
+import play.test.*;
+import static play.test.Helpers.*;
 
-public class TitleDAOTest {
+public class TitleDAOTest extends WithApplication{
 
     private TitleDAO dao;
 
     @Before
     public void setUp() throws Exception {
-        running(fakeApplication(), new Runnable() {
-            public void run() {
-                dao = new TitleDAO();
-            }
-        });
+        dao = new TitleDAO();
     }
 
     @After

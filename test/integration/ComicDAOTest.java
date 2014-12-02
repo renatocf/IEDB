@@ -26,20 +26,16 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 // Fake application
-import static play.test.Helpers.running;
-import static play.test.Helpers.fakeApplication;
+import play.test.*;
+import static play.test.Helpers.*;
 
-public class ComicDAOTest {
+public class ComicDAOTest extends WithApplication{
     
     private ComicDAO dao;
 
     @Before
     public void setUp() throws Exception {
-        running(fakeApplication(), new Runnable() {
-            public void run() {
-                dao = new ComicDAO();
-            }
-        });
+        dao = new ComicDAO();
     }
 
     @After
@@ -55,7 +51,7 @@ public class ComicDAOTest {
     }
     
     @Test
-    public void getAll() {
+    public void getAll() {    
         assertEquals(1, dao.getAll().size());
         assertEquals("Superman", dao.getAll().get(0).getName());
     }

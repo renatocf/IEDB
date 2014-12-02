@@ -26,20 +26,16 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 // Fake application
-import static play.test.Helpers.running;
-import static play.test.Helpers.fakeApplication;
+import play.test.*;
+import static play.test.Helpers.*;
 
-public class BookDAOTest {
+public class BookDAOTest extends WithApplication{
 
     private BookDAO dao;
 
     @Before
     public void setUp() throws Exception {
-        running(fakeApplication(), new Runnable() {
-            public void run() {
-                dao = new BookDAO();
-            }
-        });
+        dao = new BookDAO();
     }
 
     @After
@@ -48,7 +44,7 @@ public class BookDAOTest {
     }
 
     @Test
-    public void getByName() {
+    public void getByName() {        
         assertEquals(1, dao.getByName("Potter").size());
         assertEquals("Harry Potter and the Philosopher's Stone", 
             dao.getByName("Potter").get(0).getName());
