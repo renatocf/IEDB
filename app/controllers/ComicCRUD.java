@@ -41,7 +41,7 @@ public class ComicCRUD extends CRUD<Comic> {
     public static Result store() { return self.add();  }
     
     protected Comic find(String name) {
-        return dao.getByName(name.replace('-',' ')).get(0);
+        return dao.getByName(name).get(0);
     }
     
     protected void store(Form<Comic> form) { 

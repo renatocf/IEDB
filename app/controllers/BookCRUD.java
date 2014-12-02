@@ -41,7 +41,7 @@ public class BookCRUD extends CRUD<Book> {
     public static Result store() { return self.add();  }
     
     protected Book find(String name) {
-        return dao.getByName(name.replace('-',' ')).get(0);
+        return dao.getByName(name).get(0);
     }
     
     protected void store(Form<Book> form) { 

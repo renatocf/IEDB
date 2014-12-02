@@ -20,6 +20,10 @@ package controllers;
 import play.mvc.Result;
 import play.mvc.Controller;
 
+// Java Net
+import java.net.URLDecoder;
+import java.io.UnsupportedEncodingException;
+
 abstract public class Manager extends Controller {
     
     public static Result create(String type) {
@@ -27,11 +31,11 @@ abstract public class Manager extends Controller {
     }
     
     public static Result read(String type, String name) {
-        return getCRUD(type).read(name);
+        return getCRUD(type).read(Manager.toDBName(name));
     }
     
     public static Result update(String type, String name) {
-        return getCRUD(type).update(name);
+        return getCRUD(type).update(Manager.toDBName(name));
     }
     
     public static Result add(String type) {
@@ -51,5 +55,15 @@ abstract public class Manager extends Controller {
             case "series": return SeriesCRUD.getInstance();
         }
         throw new RuntimeException("Invalid type on CRUD");
+    }
+
+    private static String toDBName(String name) {
+        try {
+            return URLDecoder.decode(
+                name.replace('-',' '), "UTF-8"
+            );
+        } catch(UnsupportedEncodingException e) {
+            return "";
+        }
     }
 }

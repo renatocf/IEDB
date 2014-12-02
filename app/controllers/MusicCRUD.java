@@ -41,7 +41,7 @@ public class MusicCRUD extends CRUD<Music> {
     public static Result store() { return self.add();  }
     
     protected Music find(String name) {
-        return dao.getByName(name.replace('-',' ')).get(0);
+        return dao.getByName(name).get(0);
     }
     
     protected void store(Form<Music> form) { 

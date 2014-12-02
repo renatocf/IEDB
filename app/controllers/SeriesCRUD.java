@@ -41,7 +41,7 @@ public class SeriesCRUD extends CRUD<Series> {
     public static Result store() { return self.add();  }
     
     protected Series find(String name) {
-        return dao.getByName(name.replace('-',' ')).get(0);
+        return dao.getByName(name).get(0);
     }
     
     protected void store(Form<Series> form) { 
