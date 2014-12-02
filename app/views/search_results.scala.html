@@ -4,10 +4,23 @@
 <html>
   @head("IEDB - Search Results")
   <body>
-    <ul> 
-      @results.map { result =>
-      <li><a href="/view/@(result.getType.toLowerCase)/@(result.getName.toLowerCase.replace(' ','-'))">@(result.getName)</a></li>
-      }
-    </ul>
+  	@top_bar()
+  	<div class="table-responsive">
+  	  <table class="table">
+  	  	<tr>
+  	  	  <th>Title Name</th>
+  	  	  <th>Type</th>
+  	  	  <th>Date of Creation</th>
+  	  	</tr>
+	  
+	    @results.map { result =>
+	    <tr>
+	      <td><a href="/view/@(result.getType.toLowerCase)/@(result.getName.toLowerCase.replace(' ','-'))">@(result.getName)</a></td>
+	      <td>@(result.getType)</td>
+	      <td>@(result.getDateCreation)</td>
+	    </tr>
+	    }
+	  </table>
+    </div>
   </body>
 </html>

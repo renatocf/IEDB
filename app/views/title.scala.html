@@ -1,103 +1,97 @@
 @(title: Title)
 
-
 <!DOCTYPE html>
 <html>
     @head("IEDB - " + title.getName)
     <body>
-    
-    <h2>@title.getName</h2><br>
-    <p>Description: @title.getDescription</p>
+    @top_bar()
+    <div class="container" id="result-wrapper">
+      <h2>@title.getName</h2><br>
+      <p><b>Description:</b> @title.getDescription</p>
 
-    @*<!-- Do not move the '}else{' structure, otherwise scala wont understand-->*@
-    @if(title.isInstanceOf[Auditive]) {
-        <p>Duration: @title.asInstanceOf[Music].getDuration min</p>
-    }
-    
-    @if(title.isInstanceOf[Written]) {
-
-        @if(title.isInstanceOf[Comic]) {
-            <p>Number: @title.asInstanceOf[Comic].getNum</p>
-            <p>Arc: @title.asInstanceOf[Comic].getArc</p>
-        } else {
-            <p>Number of editions: @title.asInstanceOf[Book].getNumEditions</p>
-        }
-    }
-
-    @if(title.isInstanceOf[Visual]) {
-        @if(title.isInstanceOf[Movie]) {
-            <p>Duration: @title.asInstanceOf[Movie].getDuration</p>
-            <p>Nationality: @title.asInstanceOf[Movie].getNationality</p>
-        } else {
-            <p>Start date: @title.asInstanceOf[Series].getDateInit</p>
-            <p>End date: @title.asInstanceOf[Series].getDateEnd</p>
-            <p>Number of seasons: @title.asInstanceOf[Series].getNumSeasons</p>
-        }
-    }
-
-    @if(!title.getReferences.isEmpty){
-    <h4> Refers to</h4>
-        <ul> 
-            @for(title_ref <- title.getReferences){
-                <li><a href="/view/@(title_ref.getType.toLowerCase)/@(title_ref.getName.toLowerCase.replace(' ','-'))">@(title_ref.getName)</a></li>
-            }
-        </ul>
-    }
-    <br><br><br>
-        How many stars "@title.getName" deserves?
-        <form method="post" action="@routes.StarsController.addNewStars()">
-
-            <input type="checkbox" id="1" onclick="checkStars(1);">
-            <input type="checkbox" id="2" onclick="checkStars(2);">
-            <input type="checkbox" id="3" onclick="checkStars(3);">
-            <input type="checkbox" id="4" onclick="checkStars(4);">
-            <input type="checkbox" id="5" onclick="checkStars(5);">
-            <br>
-            <input type="submit" value="Vote">
-        </form>
-
-    <script>
-      function checkStars(x){
-        if(x==1){
-            document.getElementById('1').checked=true;
-
-            document.getElementById('2').checked=false;
-            document.getElementById('3').checked=false;
-            document.getElementById('4').checked=false;
-            document.getElementById('5').checked=false;
-        }
-        else if(x==2){
-            document.getElementById('1').checked=true;
-            document.getElementById('2').checked=true;
-
-            document.getElementById('3').checked=false;
-            document.getElementById('4').checked=false;
-            document.getElementById('5').checked=false;
-        }
-        else if(x==3){
-            document.getElementById('1').checked=true;
-            document.getElementById('2').checked=true;
-            document.getElementById('3').checked=true;
-
-            document.getElementById('4').checked=false;
-            document.getElementById('5').checked=false;
-        }
-        else if(x==4){
-            document.getElementById('1').checked=true;
-            document.getElementById('2').checked=true;
-            document.getElementById('3').checked=true;
-            document.getElementById('4').checked=true;
-
-            document.getElementById('5').checked=false;
-        }
-        else if(x==5){
-            document.getElementById('1').checked=true;
-            document.getElementById('2').checked=true;
-            document.getElementById('3').checked=true;
-            document.getElementById('4').checked=true;
-            document.getElementById('5').checked=true;
-        }
+      @*<!-- Do not move the '}else{' structure, otherwise scala wont understand-->*@
+      @if(title.isInstanceOf[Auditive]) {
+          <p><b>Duration:</b> @title.asInstanceOf[Music].getDuration min</p>
       }
-    </script>
-    </body>
+      
+      @if(title.isInstanceOf[Written]) {
+           @if(title.isInstanceOf[Comic]) {
+              <p><b>Number:</b> @title.asInstanceOf[Comic].getNum</p>
+              <p><b>Arc:</b> @title.asInstanceOf[Comic].getArc</p>
+          } else {
+              <p><b>Number of editions:</b> @title.asInstanceOf[Book].getNumEditions</p>
+          }
+      }
+
+      @if(title.isInstanceOf[Visual]) {
+          @if(title.isInstanceOf[Movie]) {
+              <p><b>Duration:</b> @title.asInstanceOf[Movie].getDuration</p>
+              <p><b>Nationality:</b> @title.asInstanceOf[Movie].getNationality</p>
+          } else {
+              <p><b>Start date:</b> @title.asInstanceOf[Series].getDateInit</p>
+              <p><b>End date:</b> @title.asInstanceOf[Series].getDateEnd</p>
+              <p><b>Number of seasons:</b> @title.asInstanceOf[Series].getNumSeasons</p>
+          }
+      }
+
+      @if(!title.getReferences.isEmpty){
+      <h4> Refers to</h4>
+          <ul> 
+              @for(title_ref <- title.getReferences){
+                  <li><a href="/view/@(title_ref.getType.toLowerCase)/@(title_ref.getName.toLowerCase.replace(' ','-'))">@(title_ref.getName)</a></li>
+              }
+          </ul>
+      }
+      <br><br><br>
+          How many stars "@title.getName" deserves?
+          <form method="post" action="@routes.StarsController.addNewStars()">
+              <input type="checkbox" id="1" onclick="checkStars(1);">
+              <input type="checkbox" id="2" onclick="checkStars(2);">
+              <input type="checkbox" id="3" onclick="checkStars(3);">
+              <input type="checkbox" id="4" onclick="checkStars(4);">
+              <input type="checkbox" id="5" onclick="checkStars(5);">
+              <br>
+              <input type="submit" value="Vote">
+          </form>
+  </div>
+  <script>
+    function checkStars(x){
+      if(x==1){
+          document.getElementById('1').checked=true;
+          document.getElementById('2').checked=false;
+          document.getElementById('3').checked=false;
+          document.getElementById('4').checked=false;
+          document.getElementById('5').checked=false;
+      }
+      else if(x==2){
+          document.getElementById('1').checked=true;
+          document.getElementById('2').checked=true;
+          document.getElementById('3').checked=false;
+          document.getElementById('4').checked=false;
+          document.getElementById('5').checked=false;
+      }
+      else if(x==3){
+          document.getElementById('1').checked=true;
+          document.getElementById('2').checked=true;
+          document.getElementById('3').checked=true;
+          document.getElementById('4').checked=false;
+          document.getElementById('5').checked=false;
+      }
+      else if(x==4){
+          document.getElementById('1').checked=true;
+          document.getElementById('2').checked=true;
+          document.getElementById('3').checked=true;
+          document.getElementById('4').checked=true;
+          document.getElementById('5').checked=false;
+      }
+      else if(x==5){
+          document.getElementById('1').checked=true;
+          document.getElementById('2').checked=true;
+          document.getElementById('3').checked=true;
+          document.getElementById('4').checked=true;
+          document.getElementById('5').checked=true;
+      }
+    }
+  </script>
+  </body>
 </html>
