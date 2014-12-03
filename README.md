@@ -35,6 +35,8 @@ following order:
 1. IEDB.sql
 2. IEDB\_procedures.sql
 3. IEDB\_views.sql
+4. IEDB\_categories.sql
+5. IEDB\_prototypes.sql
 
 To populate it with a sample database, just run `IEDB_data.sql`.
 
