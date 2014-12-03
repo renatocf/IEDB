@@ -41,8 +41,12 @@ public class BookCRUD extends CRUD<Book> {
         return dao.getByName(name).get(0);
     }
     
-    protected void store(Form<Book> form) { 
+    protected void storeNew(Form<Book> form) { 
         dao.add(form.get());
+    }
+    
+    protected void storeChanged(Form<Book> form) { 
+        dao.update(form.get());
     }
     
     protected Content renderUpdate(Form<Book> form) {

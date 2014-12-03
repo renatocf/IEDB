@@ -40,9 +40,13 @@ public class MovieCRUD extends CRUD<Movie> {
     protected Movie find(String name) {
         return dao.getByName(name).get(0);
     }
-    
-    protected void store(Form<Movie> form) { 
+
+    protected void storeNew(Form<Movie> form) { 
         dao.add(form.get());
+    }
+
+    protected void storeChanged(Form<Movie> form) { 
+        dao.update(form.get());
     }
     
     protected Content renderUpdate(Form<Movie> form) {

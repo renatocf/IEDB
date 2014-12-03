@@ -41,8 +41,12 @@ public class SeriesCRUD extends CRUD<Series> {
         return dao.getByName(name).get(0);
     }
     
-    protected void store(Form<Series> form) { 
+    protected void storeNew(Form<Series> form) { 
         dao.add(form.get());
+    }
+    
+    protected void storeChanged(Form<Series> form) { 
+        dao.update(form.get());
     }
     
     protected Content renderUpdate(Form<Series> form) {

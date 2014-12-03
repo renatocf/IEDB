@@ -57,7 +57,7 @@ abstract public class CRUD<T> extends Controller {
         if (form.hasErrors())
             return badRequest(this.renderUpdate(form));
 
-        this.store(form);
+        this.storeNew(form);
         return redirect(routes.Application.index());
     }
 
@@ -67,14 +67,15 @@ abstract public class CRUD<T> extends Controller {
         if (form.hasErrors())
             return badRequest(this.renderUpdate(form));
 
-        this.store(form);
+        this.storeChanged(form);
         return redirect(routes.Application.index());
     }
 
     abstract protected T       find         (String name);
-    abstract protected void    store        (Form<T> form);
     abstract protected Content renderRead   (Form<T> form);
     abstract protected Content renderUpdate (Form<T> form);
+    abstract protected void    storeNew     (Form<T> form);
+    abstract protected void    storeChanged (Form<T> form);
     
     private Form<T> newForm(String name) {
         return Form.form(clazz).fill(this.find(name));

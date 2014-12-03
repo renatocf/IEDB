@@ -41,8 +41,12 @@ public class MusicCRUD extends CRUD<Music> {
         return dao.getByName(name).get(0);
     }
     
-    protected void store(Form<Music> form) { 
+    protected void storeNew(Form<Music> form) { 
         dao.add(form.get());
+    }
+    
+    protected void storeChanged(Form<Music> form) { 
+        dao.update(form.get());
     }
     
     protected Content renderUpdate(Form<Music> form) {

@@ -41,8 +41,12 @@ public class ComicCRUD extends CRUD<Comic> {
         return dao.getByName(name).get(0);
     }
     
-    protected void store(Form<Comic> form) { 
+    protected void storeNew(Form<Comic> form) { 
         dao.add(form.get());
+    }
+    
+    protected void storeChanged(Form<Comic> form) { 
+        dao.update(form.get());
     }
     
     protected Content renderUpdate(Form<Comic> form) {
