@@ -7,8 +7,6 @@ import static play.data.Form.*;
 import models.Stars;
 import models.StarsDAO;
 
-import javax.swing.JOptionPane;
-
 // Views
 import views.html.index;
 import views.html.title;
@@ -24,7 +22,6 @@ public class StarsController extends Controller {
         Stars stars = Form.form(Stars.class).bindFromRequest().get();
         StarsDAO dao = new StarsDAO();
         dao.add(stars);
-        JOptionPane.showMessageDialog(null, stars.getRate());
         return redirect(controllers.routes.Application.index());
     }
 }
