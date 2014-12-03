@@ -1,7 +1,15 @@
-#brand{
-
-  background-color: #E1E1E1;
-  color:#222;
-
-
+#brand {
+  /*background-color:#000044;*/
+  background-color: #E9E9E9;
+  color:#000000;
 }
+
+#navbar-full {
+ /* background-color:#003366; */
+  color:#000000;
+}
+
+#resto {
+  color:#000000;
+}
+

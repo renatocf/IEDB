@@ -4,10 +4,12 @@
   <body>
     @top_bar()
     <div id="search-wrapper">
-      <form id="search_form" method="post" action="@routes.Viewer.search()">
-        <h3> Search for a Title </h3>
-        <input id="search_input" type="text" placeholder="Search" name="name">
-        <input id="search_submit" type="submit" value="Search" action="@routes.Viewer.search()">
+      <form id="search-form" method="post" action="@routes.Viewer.search()">
+		<div class="form-group">
+          <label for="search-input" id="search-label"> IEDB </label>
+          <input id="search-input" class="form-control" type="text" placeholder="Search" name="name">
+          <input id="search-submit" class="form-control" type="submit" value="Search" action="@routes.Viewer.search()">
+		</div>
       </form>
     </div>  
   </body>

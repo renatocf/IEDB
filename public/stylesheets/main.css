@@ -1,3 +1,13 @@
+html {
+  background-image:url(footer_lodyas.png);
+/*  background-color:#E9E9E9;*/
+}
+
+body {
+  background-image:url(footer_lodyas.png);
+/*  background-color:#E9E9E9;*/
+}
+
 .add-wrapper{
   width:400px;
   margin-left: auto;

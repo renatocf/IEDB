@@ -1,19 +1,26 @@
-#search_wrapper{
+#search-wrapper{
   text-align:center;
 }
 
-#search_form{
-  width:380px;
+#search-form{
+  padding-top:10%;
   margin-left:auto;
   margin-right:auto;
 }
 
-#search_input{
-  width:300px;
+#search-label{
+  display:block;
+  font-size:64px;
+}
+
+#search-input{
+  display:inline;
+  width:25%;
   height:32px;
 }
 
-#search_submit{
+#search-submit{
+  display:inline;
   width:64px;
   height:32px;
 }
