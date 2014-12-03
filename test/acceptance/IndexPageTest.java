@@ -33,9 +33,11 @@ public class IndexPageTest extends WithApplication{
 	            browser.goTo("http://localhost:3333");
 	            
 	            //assertThat(, isEqualTo();
-	            browser.$("#search_input").get(0).text("lord");
+	            browser.$("#search_input").get(0).text("matrix");
 	            browser.$("#search_submit").click();
 	            assertEquals("IEDB - Search Results", browser.$("#title").getText());
+	            browser.$("#acceptance_test").click();
+	            assertEquals("IEDB - Matrix", browser.$("#title").getText());
 	            //assertEquals(browser.url(), "http://localhost:3333/login");
 	            //assertThat(, isEqualTo());
 	        }
