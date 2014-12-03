@@ -30,7 +30,7 @@ abstract public class Manager extends Controller {
         return getCRUD(type).create();
     }
     
-    public static Result read(String type, String name) {
+    public static Result show(String type, String name) {
         return getCRUD(type).read(Manager.toDBName(name));
     }
     

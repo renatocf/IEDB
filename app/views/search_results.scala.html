@@ -16,7 +16,7 @@
 	    @results.map { result =>
 	    <tr>
         @*O id="bla" eh necessario para o teste de aceitacao. Sabemos que esse id nao faz sentido, mas nao achamos outro meio de fazer isso*@
-	      <td><a id="acceptance_test" href="@routes.Manager.read(result.getType, result.getName)">@(result.getName)</a></td>
+	      <td><a id="acceptance_test" href="@routes.Manager.show(result.getType, result.getName)">@(result.getName)</a></td>
 	      <td>@(result.getType)</td>
 	      <td>@(result.getDateCreation)</td>
 	    </tr>
