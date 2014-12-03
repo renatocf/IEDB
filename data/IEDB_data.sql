@@ -47,6 +47,17 @@ SELECT create_music(_name := 'Get Lucky', _genre := 'Electronic', _duration := 4
 
 -- Series
 SELECT create_series(_name := 'Friends', _genre := 'Comedy', _date_init := '1994-09-22', _date_end := '2004-05-06', _num_seasons := 10);
+SELECT create_series(_name := 'Prison Break', _genre := 'Action', _num_seasons := 4);
+SELECT create_series(_name := 'Smallville', _genre := 'Action', _num_seasons := 9);
+SELECT create_series(_name := 'Breaking Bad', _genre := 'Action', _num_seasons := 5);
+SELECT create_series(_name := 'Homeland', _genre := 'Action', _num_seasons := 4);
+SELECT create_series(_name := 'Supernatural', _genre := 'Action', _num_seasons := 10);
+SELECT create_series(_name := 'House of Cards', _genre := 'Politics', _num_seasons := 2);
+SELECT create_series(_name := 'Stargate SG1', _genre := 'Science Fiction', _num_seasons := 10);
+SELECT create_series(_name := 'Doctor Who', _genre := 'Adventure', _num_seasons := 8);
+SELECT create_series(_name := 'Flash', _genre := 'Action', _num_seasons := 1);
+SELECT create_series(_name := 'Gotham', _genre := 'Action', _num_seasons := 1);
+SELECT create_series(_name := 'Agents of Shield', _genre := 'Action', _num_seasons := 2);
 
 SELECT create_change('renatocf', 'u_title_description', '1', 
 'A meek hobbit of the Shire and eight companions set out on a journey to Mount Doom to destroy the One Ring and the dark lord Sauron.');
