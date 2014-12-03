@@ -61,6 +61,16 @@ abstract public class CRUD<T> extends Controller {
         return redirect(routes.Application.index());
     }
 
+    public Result amend() {
+        Form<T> form = Form.form(clazz).bindFromRequest();
+
+        if (form.hasErrors())
+            return badRequest(this.renderUpdate(form));
+
+        this.store(form);
+        return redirect(routes.Application.index());
+    }
+
     abstract protected T       find         (String name);
     abstract protected void    store        (Form<T> form);
     abstract protected Content renderRead   (Form<T> form);

@@ -39,7 +39,7 @@ abstract public class Manager extends Controller {
     }
     
     public static Result amend(String type, String name) {
-        return getCRUD(type).add();
+        return getCRUD(type).amend();
     }
     
     public static Result show(String type, String name) {
