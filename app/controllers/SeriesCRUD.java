@@ -37,9 +37,6 @@ public class SeriesCRUD extends CRUD<Series> {
     
     public static SeriesCRUD getInstance() { return self; }
     
-    public static Result build() { return self.create(); }
-    public static Result store() { return self.add();  }
-    
     protected Series find(String name) {
         return dao.getByName(name).get(0);
     }

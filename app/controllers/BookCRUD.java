@@ -37,9 +37,6 @@ public class BookCRUD extends CRUD<Book> {
     
     public static BookCRUD getInstance() { return self; }
     
-    public static Result build() { return self.create(); }
-    public static Result store() { return self.add();  }
-    
     protected Book find(String name) {
         return dao.getByName(name).get(0);
     }

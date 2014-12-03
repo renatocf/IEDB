@@ -37,9 +37,6 @@ public class MovieCRUD extends CRUD<Movie> {
     
     public static MovieCRUD getInstance() { return self; }
     
-    public static Result build() { return self.create(); }
-    public static Result store() { return self.add();  }
-    
     protected Movie find(String name) {
         return dao.getByName(name).get(0);
     }

@@ -37,9 +37,6 @@ public class MusicCRUD extends CRUD<Music> {
     
     public static MusicCRUD getInstance() { return self; }
     
-    public static Result build() { return self.create(); }
-    public static Result store() { return self.add();  }
-    
     protected Music find(String name) {
         return dao.getByName(name).get(0);
     }
