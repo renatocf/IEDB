@@ -19,6 +19,8 @@ package controllers;
 // Model
 import models.Book;
 import models.BookDAO;
+import models.Client;
+import models.ClientDAO;
 
 // Views
 import views.html.index;
@@ -54,7 +56,9 @@ public class BookCRUD extends CRUD<Book> {
     }
     
     protected Content renderRead(Form<Book> form) {
-        return title.render(form.get());
+        ClientDAO client = new ClientDAO();
+        String username = client.getByEmail(session().get("email")).getUsername();
+        return title.render(form.get(), username);
     }
     
     private BookCRUD() {

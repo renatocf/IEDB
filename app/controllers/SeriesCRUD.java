@@ -19,6 +19,8 @@ package controllers;
 // Model
 import models.Series;
 import models.SeriesDAO;
+import models.Client;
+import models.ClientDAO;
 
 // Views
 import views.html.index;
@@ -56,7 +58,9 @@ public class SeriesCRUD extends CRUD<Series> {
     }
     
     protected Content renderRead(Form<Series> form) {
-        return title.render(form.get());
+        ClientDAO client = new ClientDAO();
+        String username = client.getByEmail(session().get("email")).getUsername();
+        return title.render(form.get(), username);
     }
     
     private SeriesCRUD() {

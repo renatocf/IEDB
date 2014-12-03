@@ -19,6 +19,8 @@ package controllers;
 // Model
 import models.Movie;
 import models.MovieDAO;
+import models.Client;
+import models.ClientDAO;
 
 // Views
 import views.html.index;
@@ -56,7 +58,9 @@ public class MovieCRUD extends CRUD<Movie> {
     }
     
     protected Content renderRead(Form<Movie> form) {
-        return title.render(form.get());
+        ClientDAO client = new ClientDAO();
+        String username = client.getByEmail(session().get("email")).getUsername();
+        return title.render(form.get(), username);
     }
     
     private MovieCRUD() {

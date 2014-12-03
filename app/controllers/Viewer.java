@@ -19,6 +19,8 @@ package controllers;
 // Models
 import models.Title;
 import models.TitleDAO;
+import models.Client;
+import models.ClientDAO;
 
 // Views
 import views.html.title;
@@ -29,6 +31,8 @@ import views.html.index;
 import play.data.Form;
 import play.mvc.Result;
 import play.mvc.Controller;
+
+import controllers.Login;
 
 public class Viewer extends Controller {
 
@@ -46,8 +50,11 @@ public class Viewer extends Controller {
     }
 
     public static Result showTitle(String type, String name) {
+        ClientDAO client = new ClientDAO();
+        String username = client.getByEmail(session().get("email")).getUsername();
         return ok(title.render(
-            Viewer.dao.getByTypeAndName(type, name.replace('-',' ')).get(0)
+            Viewer.dao.getByTypeAndName(type, name.replace('-',' ')).get(0),
+            username
         ));
     }
 }

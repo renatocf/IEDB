@@ -19,6 +19,8 @@ package controllers;
 // Model
 import models.Comic;
 import models.ComicDAO;
+import models.Client;
+import models.ClientDAO;
 
 // Views
 import views.html.index;
@@ -54,7 +56,9 @@ public class ComicCRUD extends CRUD<Comic> {
     }
     
     protected Content renderRead(Form<Comic> form) {
-        return title.render(form.get());
+        ClientDAO client = new ClientDAO();
+        String username = client.getByEmail(session().get("email")).getUsername();
+        return title.render(form.get(), username);
     }
     
     private ComicCRUD() {

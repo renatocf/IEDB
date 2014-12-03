@@ -1,4 +1,4 @@
-@(title: Title)
+@(title: Title, username: String)
 
 <!DOCTYPE html>
 <html>
@@ -45,14 +45,15 @@
       <br><br><br>
           How many stars "@title.getName" deserves?
           <form method="post" action="@routes.StarsController.addNewStars()">
-              <input type="hidden" name = "client" value='karinaawoki'>
+              <input type="hidden" name = "client" value=@username>
               <input type="hidden" name = "title" value=@(title.getId)>
+              <input type="hidden" name = "rate" id="star">
 
-              <input type="checkbox" name= "rate" value="1" id="1" onclick="checkStars(1);">
-              <input type="checkbox" name= "rate" value="2" id="2" onclick="checkStars(2);">
-              <input type="checkbox" name= "rate" value="3" id="3" onclick="checkStars(3);">
-              <input type="checkbox" name= "rate" value="4" id="4" onclick="checkStars(4);">
-              <input type="checkbox" name= "rate" value="5" id="5" onclick="checkStars(5);">
+              <input type="checkbox" value="1" id="1" onclick="checkStars(1);">
+              <input type="checkbox" value="2" id="2" onclick="checkStars(2);">
+              <input type="checkbox" value="3" id="3" onclick="checkStars(3);">
+              <input type="checkbox" value="4" id="4" onclick="checkStars(4);">
+              <input type="checkbox" value="5" id="5" onclick="checkStars(5);">
               <br>
               <input type="submit" value="Vote">
           </form>
@@ -61,10 +62,11 @@
     function checkStars(x){
       if(x==1){
           document.getElementById('1').checked=true;
-          document.getElementById('2').checked=false;
+          document.getElementById('2').checked=true;
           document.getElementById('3').checked=false;
           document.getElementById('4').checked=false;
           document.getElementById('5').checked=false;
+          document.getElementById('star').value="1";   
       }
       else if(x==2){
           document.getElementById('1').checked=true;
@@ -72,6 +74,7 @@
           document.getElementById('3').checked=false;
           document.getElementById('4').checked=false;
           document.getElementById('5').checked=false;
+          document.getElementById('star').value="2";
       }
       else if(x==3){
           document.getElementById('1').checked=true;
@@ -79,6 +82,7 @@
           document.getElementById('3').checked=true;
           document.getElementById('4').checked=false;
           document.getElementById('5').checked=false;
+          document.getElementById('star').value="3";
       }
       else if(x==4){
           document.getElementById('1').checked=true;
@@ -86,6 +90,7 @@
           document.getElementById('3').checked=true;
           document.getElementById('4').checked=true;
           document.getElementById('5').checked=false;
+          document.getElementById('star').value="4";
       }
       else if(x==5){
           document.getElementById('1').checked=true;
@@ -93,6 +98,7 @@
           document.getElementById('3').checked=true;
           document.getElementById('4').checked=true;
           document.getElementById('5').checked=true;
+          document.getElementById('star').value="5";
       }
     }
   </script>
