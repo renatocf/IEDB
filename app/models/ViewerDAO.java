@@ -49,6 +49,9 @@ abstract class ViewerDAO<T> extends DAO<T> {
             }
         );
     }
+
+    abstract public void add    (final T t);
+    abstract public void update (final T t);
     
     public boolean existsName(String name) {
         return !this.getByName(name).isEmpty();

@@ -49,6 +49,21 @@ public class BookDAO extends ViewerDAO<Book> {
             }
         );
     }
+
+    public void update(final Book book) {
+        this.persistFromQuery(
+            "SELECT IEDB.create_book(?,?,?,?)",
+            new StatementConfigurator() {
+                public void configureStatement(PreparedStatement stmt) 
+                    throws SQLException {
+                    stmt.setString (1, book.getName());
+                    stmt.setString (2, book.getDescription());
+                    stmt.setString (3, book.getGenre());
+                    stmt.setInt    (4, book.getNumEditions());
+                }
+            }
+        );
+    }
     
     @Override
     protected Book buildFromResultSet(ResultSet rs) throws SQLException {

@@ -36,6 +36,14 @@ public class CharacterDAO extends ViewerDAO<Character> {
     public CharacterDAO() {
         this(DB.getConnection());
     }
+    
+    public void add(final Character character) {
+        throw new RuntimeException("Not yet implemented");
+    }
+    
+    public void update(final Character character) {
+        throw new RuntimeException("Not yet implemented");
+    }
 
     public List<Character> getAllCharactersFromTitle(final Title title) {
         List<Character> characters

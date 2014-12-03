@@ -52,6 +52,23 @@ public class MovieDAO extends ViewerDAO<Movie> {
             }
         );
     }
+
+    public void update(final Movie movie) {
+        this.persistFromQuery(
+            "SELECT IEDB.create_movie(?,?,?,?,?,?)",
+            new StatementConfigurator() {
+                public void configureStatement(PreparedStatement stmt) 
+                    throws SQLException {
+                    stmt.setString (1, movie.getName());
+                    stmt.setString (2, movie.getDescription());
+                    stmt.setString (3, movie.getGenre());
+                    stmt.setInt    (4, movie.getDuration());
+                    stmt.setString (5, movie.getNationality());
+                    stmt.setString (6, movie.getCensorship());
+                }
+            }
+        );
+    }
     
     @Override
     protected Movie buildFromResultSet(ResultSet rs) throws SQLException {

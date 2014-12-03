@@ -36,6 +36,14 @@ public class TitleDAO extends ViewerDAO<Title> {
     public TitleDAO(Connection connection) {
         super("IEDB.Title", connection);
     }
+    
+    public void add(final Title title) {
+        throw new RuntimeException("Not yet implemented");
+    }
+    
+    public void update(final Title title) {
+        throw new RuntimeException("Not yet implemented");
+    }
 
     public Boolean thisNameExists(final String name, final String type) {
     

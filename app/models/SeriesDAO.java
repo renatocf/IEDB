@@ -53,6 +53,24 @@ public class SeriesDAO extends ViewerDAO<Series> {
             }
         );
     }
+
+    public void update(final Series series) {
+        this.persistFromQuery(
+            "SELECT IEDB.create_series(?,?,?,?,?,?,?)",
+            new StatementConfigurator() {
+                public void configureStatement(PreparedStatement stmt) 
+                    throws SQLException {
+                    stmt.setString (1, series.getName());
+                    stmt.setString (2, series.getDescription());
+                    stmt.setString (3, series.getGenre());
+                    stmt.setDate   (4, toSQLDate(series.getDateInit()));
+                    stmt.setDate   (5, toSQLDate(series.getDateEnd()));
+                    stmt.setInt    (6, series.getNumSeasons());
+                    stmt.setString (7, series.getCensorship());
+                }
+            }
+        );
+    }
     
     @Override
     protected Series buildFromResultSet(ResultSet rs) throws SQLException {

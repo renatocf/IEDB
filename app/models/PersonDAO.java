@@ -36,6 +36,14 @@ public class PersonDAO extends ViewerDAO<Person> {
     public PersonDAO() {
         this(DB.getConnection());
     }
+    
+    public void add(final Person person) {
+        throw new RuntimeException("Not yet implemented");
+    }
+    
+    public void update(final Person person) {
+        throw new RuntimeException("Not yet implemented");
+    }
 
     @Override
     protected Person buildFromResultSet(ResultSet rs) throws SQLException {

@@ -50,6 +50,21 @@ public class MusicDAO extends ViewerDAO<Music> {
             }
         );
     }
+
+    public void update(final Music music) {
+        this.persistFromQuery(
+            "SELECT IEDB.create_music(?,?,?,?)",
+            new StatementConfigurator() {
+                public void configureStatement(PreparedStatement stmt) 
+                    throws SQLException {
+                    stmt.setString (1, music.getName());
+                    stmt.setString (2, music.getDescription());
+                    stmt.setString (3, music.getGenre());
+                    stmt.setInt    (4, music.getDuration());
+                }
+            }
+        );
+    }
     
     @Override
     protected Music buildFromResultSet(ResultSet rs) throws SQLException {
