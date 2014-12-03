@@ -27,7 +27,7 @@ Database
 --------
 
 IEDB's database is implemented with [PostgreSQL][8]. All avaiable
-SQL files are stored in `/app/models/sql/`.
+SQL files are stored in `/data/`.
 
 To recreate the database, run them on PostgreSQL in the 
 following order:
