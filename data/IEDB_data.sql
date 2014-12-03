@@ -30,14 +30,20 @@ SELECT create_comic(_name := 'Superman', _genre := 'Action', _num := 423);
 -- Movies
 SELECT create_movie('The Lord of the Rings: The Fellowship of the Ring', 'A meek hobbit of the Shire and eight companions set out on a journey to Mount Doom to destroy the One Ring and the dark lord Sauron.', 'Adventure', 178, 'USA', 'G');
 SELECT create_movie('Matrix', 'A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.', 'Action', 136, 'USA', 'G');
+SELECT create_movie('The Lord of the Rings: The Two Towers', 'A meek hobbit of the Shire and eight companions set out on a journey to Mount Doom to destroy the One Ring and the dark lord Sauron.', 'Adventure', 178, 'USA', 'G');
+SELECT create_movie('Matrix', 'A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.', 'Action', 136, 'USA', 'G');
 
 -- Musics
 SELECT create_music(_name := 'Lucy in the sky with diamonds', _genre := 'Rock', _duration := 3);
-SELECT create_music(_name := 'Lucy in the sky with diamonds', _genre := 'Rock', _duration := 3);
-SELECT create_music(_name := 'Lucy in the sky with diamonds', _genre := 'Rock', _duration := 3);
-SELECT create_music(_name := 'Lucy in the sky with diamonds', _genre := 'Rock', _duration := 3);
-SELECT create_music(_name := 'Lucy in the sky with diamonds', _genre := 'Rock', _duration := 3);
-SELECT create_music(_name := 'Lucy in the sky with diamonds', _genre := 'Rock', _duration := 3);
+SELECT create_music(_name := 'Penny Lane', _genre := 'Rock', _duration := 3);
+SELECT create_music(_name := 'Octavarium', _genre := 'Rock', _duration := 29);
+SELECT create_music(_name := 'Mirror Mirror', _genre := 'Rock', _duration := 5);
+SELECT create_music(_name := 'The Trooper', _genre := 'Rock', _duration := 4);
+SELECT create_music(_name := 'Excalibur', _genre := 'Rock', _duration := 5);
+SELECT create_music(_name := 'Applause', _genre := 'Pop', _duration := 4);
+SELECT create_music(_name := 'Anaconda', _genre := 'Pop', _duration := 3);
+SELECT create_music(_name := 'Harder, Better, Faster, Stronger', _genre := 'Electronic', _duration := 4);
+SELECT create_music(_name := 'Get Lucky', _genre := 'Electronic', _duration := 4);
 
 -- Series
 SELECT create_series(_name := 'Friends', _genre := 'Comedy', _date_init := '1994-09-22', _date_end := '2004-05-06', _num_seasons := 10);
