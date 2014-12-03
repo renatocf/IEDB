@@ -21,6 +21,8 @@ INSERT INTO IEDB.Genre_visual VALUES ('Comedy');
 INSERT INTO IEDB.Genre_visual VALUES ('Thriller');
 INSERT INTO IEDB.Genre_visual VALUES ('Adventure');
 INSERT INTO IEDB.Genre_visual VALUES ('Science Fiction');
+INSERT INTO IEDB.Genre_visual VALUES ('Drama');
+INSERT INTO IEDB.Genre_visual VALUES ('Politics');
 
 INSERT INTO IEDB.Genre_visual 	VALUES ('Other');
 INSERT INTO IEDB.Genre_auditive VALUES ('Other');
