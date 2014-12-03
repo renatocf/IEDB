@@ -30,20 +30,20 @@ abstract public class Manager extends Controller {
         return getCRUD(type).create();
     }
     
-    public static Result show(String type, String name) {
-        return getCRUD(type).read(Manager.toDBName(name));
+    public static Result add(String type) {
+        return getCRUD(type).add();
     }
     
     public static Result update(String type, String name) {
         return getCRUD(type).update(Manager.toDBName(name));
     }
     
-    public static Result add(String type) {
+    public static Result amend(String type, String name) {
         return getCRUD(type).add();
     }
     
-    public static Result amend(String type, String name) {
-        return getCRUD(type).add();
+    public static Result show(String type, String name) {
+        return getCRUD(type).read(Manager.toDBName(name));
     }
     
     private static CRUD getCRUD(String type) {
