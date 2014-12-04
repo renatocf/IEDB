@@ -345,12 +345,12 @@ CREATE TABLE IF NOT EXISTS IEDB.rel_rates
 
 CREATE TABLE IF NOT EXISTS IEDB.rel_stars
 (
-    client_name  TYPE_USERNAME,
+    client_email  TYPE_EMAIL,
     title_id     INTEGER,
     rate         TYPE_RATE,
     
-    PRIMARY KEY(client_name, title_id),
-    FOREIGN KEY(client_name) REFERENCES IEDB.Client(username)
+    PRIMARY KEY(client_email, title_id),
+    FOREIGN KEY(client_email) REFERENCES IEDB.Client(email)
         ON UPDATE CASCADE ON DELETE RESTRICT,
     FOREIGN KEY(title_id) REFERENCES IEDB.Title(id)
         ON UPDATE CASCADE ON DELETE RESTRICT
