@@ -1,4 +1,5 @@
-@(form: Form[Movie], results: List[Genre], censorships: List[Censorship])
+@(form: Form[Movie], route: String, results: List[Genre], 
+  censorships: List[Censorship])
 
 <!DOCTYPE html>
 <html>
@@ -6,7 +7,7 @@
   <body>
     @top_bar()
     <div class="add-wrapper">
-      <form method="post" action='@routes.Manager.add("movie")'>
+      <form method="post" action='@route'>
         <font size="5">Add Movie:</font><br><br>
 
         Name: <br>

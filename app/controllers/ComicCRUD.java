@@ -51,8 +51,10 @@ public class ComicCRUD extends CRUD<Comic> {
         dao.update(form.get());
     }
     
-    protected Content renderUpdate(Form<Comic> form) {
-        return add_comic.render(form, daoGenre.getAllWritten());
+    protected Content renderUpdate(Form<Comic> form, String response) {
+        return add_comic.render(
+            form, response, daoGenre.getAllWritten()
+        );
     }
     
     protected Content renderRead(Form<Comic> form) {

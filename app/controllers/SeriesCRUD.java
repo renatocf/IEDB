@@ -51,9 +51,10 @@ public class SeriesCRUD extends CRUD<Series> {
         dao.update(form.get());
     }
     
-    protected Content renderUpdate(Form<Series> form) {
+    protected Content renderUpdate(Form<Series> form, String response) {
         return add_series.render(
-            form, daoGenre.getAllVisual(), daoCensorship.getAllVisual()
+            form, response, 
+            daoGenre.getAllVisual(), daoCensorship.getAllVisual()
         );
     }
     

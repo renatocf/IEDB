@@ -51,8 +51,10 @@ public class MusicCRUD extends CRUD<Music> {
         dao.update(form.get());
     }
     
-    protected Content renderUpdate(Form<Music> form) {
-        return add_music.render(form, daoGenre.getAllAuditive());
+    protected Content renderUpdate(Form<Music> form, String response) {
+        return add_music.render(
+            form, response, daoGenre.getAllAuditive()
+        );
     }
     
     protected Content renderRead(Form<Music> form) {

@@ -51,8 +51,10 @@ public class BookCRUD extends CRUD<Book> {
         dao.update(form.get());
     }
     
-    protected Content renderUpdate(Form<Book> form) {
-        return add_book.render(form, daoGenre.getAllWritten());
+    protected Content renderUpdate(Form<Book> form, String response) {
+        return add_book.render(
+            form, response, daoGenre.getAllWritten()
+        );
     }
     
     protected Content renderRead(Form<Book> form) {

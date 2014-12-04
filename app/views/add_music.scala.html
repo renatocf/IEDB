@@ -1,4 +1,4 @@
-@(form: Form[Music], results: List[Genre])
+@(form: Form[Music], route: String, results: List[Genre])
 
 <!DOCTYPE html>
 <html>
@@ -6,7 +6,7 @@
   <body>
     @top_bar()
     <div class="add-wrapper">
-      <form method="post" action='@routes.Manager.add("music")'>
+      <form method="post" action='@route'>
       	<font size="5">Add Music:</font> <br><br>
 
         Name: <br>
