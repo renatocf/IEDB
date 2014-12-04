@@ -43,7 +43,7 @@ public class StarsDAO extends DAO<Stars> {
                     throws SQLException {
                     stmt.setString(1, stars.getClientEmail());
                     stmt.setInt(2, stars.getTitle());
-                    stmt.setInt(3, stars.getRate());
+                    stmt.setFloat(3, stars.getRate());
                 }
             }
         );
@@ -54,7 +54,7 @@ public class StarsDAO extends DAO<Stars> {
         Stars stars = new Stars();
         stars.setClientEmail    (rs.getString  ("client_email"));
         stars.setTitle          (rs.getInt     ("title_id"));
-        stars.setRate           (rs.getInt     ("rate"));
+        stars.setRate           (rs.getFloat  ("rate"));
         return stars;
     }
 }

@@ -26,6 +26,7 @@ public class Title
     protected String name;
     protected Date dateCreation;
     protected String description;
+    protected float rate;
     protected List<Title> references;
 
     // Getters
@@ -47,6 +48,10 @@ public class Title
     
     public String getDescription() {
         return this.description;
+    }
+
+    public float getRate() {
+        return this.rate;
     }
 
     public List<Title> getReferences(){
@@ -72,6 +77,10 @@ public class Title
     
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void setRate(float rate) {
+        this.rate = rate;
     }
 
     public void setReferences(List<Title> references){

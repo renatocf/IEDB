@@ -20,7 +20,7 @@ public class Stars
 {
     protected String client_email;
     protected int title;
-    protected int rate;
+    protected float rate;
 
     // Getters
     public String getClientEmail(){
@@ -31,7 +31,7 @@ public class Stars
         return this.title;
     }
 
-    public int getRate(){
+    public float getRate(){
         return this.rate;
     }
     
@@ -43,7 +43,7 @@ public class Stars
         this.title = id;
     }
 
-    public void setRate(int stars){
+    public void setRate(float stars){
         this.rate = stars;
     }
 

@@ -277,22 +277,22 @@ $$ LANGUAGE plpgsql;
 --                          Calculate rate                            --
 ------------------------------------------------------------------------
 CREATE OR REPLACE FUNCTION create_stars(
-    _client_name       TYPE_USERNAME,
+    _client_email      TYPE_EMAIL,
     _title_id          INTEGER,
     _rate              TYPE_RATE
     )
 RETURNS void AS $$
 BEGIN
-    INSERT INTO IEDB.rel_stars(client_name, title_id, rate)
-    VALUES(_client_name, _title_id, _rate);
+    INSERT INTO IEDB.rel_stars(client_email, title_id, rate)
+    VALUES(_client_email, _title_id, _rate);
 END;
 $$ LANGUAGE plpgsql;
 
 
 -- @procedure calculate_rate
 CREATE OR REPLACE FUNCTION calculate_rate(_title_id INTEGER)
-RETURNS INTEGER AS $$
-BEGIN
+RETURNS REAL AS $$
+BEGIN   
     RETURN (SELECT avg(rate) FROM IEDB.rel_stars
             WHERE  title_id = _title_id);
 END;
@@ -301,7 +301,7 @@ $$ LANGUAGE plpgsql;
 -- @procedure calculate_rate
 CREATE OR REPLACE FUNCTION calculate_rate(
     _original_title_id INTEGER, _adaptation_title_id INTEGER)
-RETURNS INTEGER AS $$
+RETURNS REAL AS $$
 BEGIN
     RETURN (SELECT avg(rate) FROM IEDB.rel_rates
             WHERE  original_title_id = _original_title_id

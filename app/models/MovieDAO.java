@@ -84,7 +84,7 @@ public class MovieDAO extends ViewerDAO<Movie> {
         /* movie.setGenre        (rs.getString ("genre")); */
         movie.setDuration     (rs.getInt    ("duration"));
         movie.setNationality  (rs.getString ("nationality"));
-        /* movie.setRate         (rs.getInt    ("rate")); */
+        movie.setRate         (rs.getFloat  ("rate"));
         return movie;
     }
 }

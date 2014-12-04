@@ -8,7 +8,7 @@
     <div class="container" id="result-wrapper">
       <h2>@title.getName</h2><br>
       <p><b>Description:</b> @title.getDescription</p>
-
+      <p><b>Rate:</b> @title.getRate</p>
       @*<!-- Do not move the '}else{' structure, otherwise scala wont understand-->*@
       @if(title.isInstanceOf[Auditive]) {
           <p><b>Duration:</b> @title.asInstanceOf[Music].getDuration min</p>
@@ -46,8 +46,7 @@
           @if(session().get("email") != null){
             How many stars "@title.getName" deserves?
             <form method="post" action="@routes.StarsController.addNewStars()">
-                <input type="hidden" name = "client_email" value=@session().get("email")>
-                <input type="hidden" name = "title" value=@(title.getId)>
+                <input type="hidden" name="title" value=@(title.getId)>
                 <input type="hidden" name = "rate" id="star">
 
                 <input type="checkbox" value="1" id="1" onclick="checkStars(1);">
@@ -64,7 +63,7 @@
     function checkStars(x){
       if(x==1){
           document.getElementById('1').checked=true;
-          document.getElementById('2').checked=true;
+          document.getElementById('2').checked=false;
           document.getElementById('3').checked=false;
           document.getElementById('4').checked=false;
           document.getElementById('5').checked=false;
