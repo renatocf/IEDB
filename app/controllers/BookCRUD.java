@@ -56,9 +56,7 @@ public class BookCRUD extends CRUD<Book> {
     }
     
     protected Content renderRead(Form<Book> form) {
-        ClientDAO client = new ClientDAO();
-        String username = client.getByEmail(session().get("email")).getUsername();
-        return title.render(form.get(), username);
+        return title.render(form.get());
     }
     
     private BookCRUD() {

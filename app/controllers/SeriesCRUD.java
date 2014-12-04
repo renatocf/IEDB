@@ -58,9 +58,7 @@ public class SeriesCRUD extends CRUD<Series> {
     }
     
     protected Content renderRead(Form<Series> form) {
-        ClientDAO client = new ClientDAO();
-        String username = client.getByEmail(session().get("email")).getUsername();
-        return title.render(form.get(), username);
+        return title.render(form.get());
     }
     
     private SeriesCRUD() {

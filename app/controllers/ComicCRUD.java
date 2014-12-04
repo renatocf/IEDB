@@ -56,9 +56,7 @@ public class ComicCRUD extends CRUD<Comic> {
     }
     
     protected Content renderRead(Form<Comic> form) {
-        ClientDAO client = new ClientDAO();
-        String username = client.getByEmail(session().get("email")).getUsername();
-        return title.render(form.get(), username);
+        return title.render(form.get());
     }
     
     private ComicCRUD() {

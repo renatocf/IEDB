@@ -1,4 +1,4 @@
-@(title: Title, username: String)
+@(title: Title)
 
 <!DOCTYPE html>
 <html>
@@ -45,7 +45,7 @@
       <br><br><br>
           How many stars "@title.getName" deserves?
           <form method="post" action="@routes.StarsController.addNewStars()">
-              <input type="hidden" name = "client" value=@username>
+              <input type="hidden" name = "client_email" value=@session().get("email")>
               <input type="hidden" name = "title" value=@(title.getId)>
               <input type="hidden" name = "rate" id="star">
 
