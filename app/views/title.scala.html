@@ -43,20 +43,22 @@
           </ul>
       }
       <br><br><br>
-          How many stars "@title.getName" deserves?
-          <form method="post" action="@routes.StarsController.addNewStars()">
-              <input type="hidden" name = "client_email" value=@session().get("email")>
-              <input type="hidden" name = "title" value=@(title.getId)>
-              <input type="hidden" name = "rate" id="star">
+          @if(session().get("email") != null){
+            How many stars "@title.getName" deserves?
+            <form method="post" action="@routes.StarsController.addNewStars()">
+                <input type="hidden" name = "client_email" value=@session().get("email")>
+                <input type="hidden" name = "title" value=@(title.getId)>
+                <input type="hidden" name = "rate" id="star">
 
-              <input type="checkbox" value="1" id="1" onclick="checkStars(1);">
-              <input type="checkbox" value="2" id="2" onclick="checkStars(2);">
-              <input type="checkbox" value="3" id="3" onclick="checkStars(3);">
-              <input type="checkbox" value="4" id="4" onclick="checkStars(4);">
-              <input type="checkbox" value="5" id="5" onclick="checkStars(5);">
-              <br>
-              <input type="submit" value="Vote">
-          </form>
+                <input type="checkbox" value="1" id="1" onclick="checkStars(1);">
+                <input type="checkbox" value="2" id="2" onclick="checkStars(2);">
+                <input type="checkbox" value="3" id="3" onclick="checkStars(3);">
+                <input type="checkbox" value="4" id="4" onclick="checkStars(4);">
+                <input type="checkbox" value="5" id="5" onclick="checkStars(5);">
+                <br>
+                <input type="submit" value="Vote">
+            </form>
+          }
   </div>
   <script>
     function checkStars(x){
