@@ -58,9 +58,7 @@ public class MusicCRUD extends CRUD<Music> {
     }
     
     protected Content renderRead(Form<Music> form) {
-        ClientDAO client = new ClientDAO();
-        String username = client.getByEmail(session().get("email")).getUsername();
-        return title.render(form.get(), username);
+        return title.render(form.get());
     }
     
     private MusicCRUD() {

@@ -18,20 +18,16 @@ package models;
 
 public class Stars
 {
-    //protected Client client;
-    //protected Title title;
-    protected String client;
+    protected String client_email;
     protected int title;
     protected int rate;
 
     // Getters
-    public String getClient(){
-    //public Client getClient() {
-        return this.client;
+    public String getClientEmail(){
+        return this.client_email;
     }
 
     public int getTitle(){
-    //public Title getTitle(){
         return this.title;
     }
 
@@ -39,17 +35,8 @@ public class Stars
         return this.rate;
     }
     
-    // Setters
-    //public void setClient(Client client) {
-        //this.client = client;
-    //}
-
-    //public void setTitle(Title title){
-        //this.title = title;
-    //}
-
-    public void setClient(String name){
-        this.client = name;
+    public void setClientEmail(String email){
+        this.client_email = email;
     }
 
     public void setTitle(int id){

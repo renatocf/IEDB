@@ -4,7 +4,7 @@
 
 INSERT INTO IEDB.Genre_auditive VALUES ('Rock');
 INSERT INTO IEDB.Genre_auditive VALUES ('Samba');
-INSERT INTO IEDB.Genre_auditive VALUES ('Eletronic');
+INSERT INTO IEDB.Genre_auditive VALUES ('Electronic');
 INSERT INTO IEDB.Genre_auditive VALUES ('Country');
 INSERT INTO IEDB.Genre_auditive VALUES ('Pop');
 
