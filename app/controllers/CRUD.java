@@ -40,7 +40,10 @@ abstract public class CRUD<T> extends Controller {
     }
 
     public Result create() {
-        return ok(this.renderUpdate(this.newForm()));
+        return ok(this.renderUpdate(
+            this.newForm(),
+            routes.Manager.add(clazz.getName()).url()
+        ));
     }
 
     public Result read(String name) {
@@ -48,14 +51,18 @@ abstract public class CRUD<T> extends Controller {
     }
 
     public Result update(String name) {
-        return ok(this.renderUpdate(this.newForm(name)));
+        return ok(this.renderUpdate(
+            this.newForm(name), 
+            routes.Manager.amend(clazz.getName(), null).url()
+        ));
     }
 
     public Result add() {
         Form<T> form = Form.form(clazz).bindFromRequest();
 
         if (form.hasErrors())
-            return badRequest(this.renderUpdate(form));
+            return badRequest(this.renderUpdate(
+                form, routes.Manager.add(clazz.getName()).url()));
 
         this.storeNew(form);
         return redirect(routes.Application.index());
@@ -65,7 +72,8 @@ abstract public class CRUD<T> extends Controller {
         Form<T> form = Form.form(clazz).bindFromRequest();
 
         if (form.hasErrors())
-            return badRequest(this.renderUpdate(form));
+            return badRequest(this.renderUpdate(
+                form, routes.Manager.amend(clazz.getName(), null).url()));
 
         this.storeChanged(form);
         return redirect(routes.Application.index());
@@ -73,7 +81,7 @@ abstract public class CRUD<T> extends Controller {
 
     abstract protected T       find         (String name);
     abstract protected Content renderRead   (Form<T> form);
-    abstract protected Content renderUpdate (Form<T> form);
+    abstract protected Content renderUpdate (Form<T> form, String response);
     abstract protected void    storeNew     (Form<T> form);
     abstract protected void    storeChanged (Form<T> form);
     

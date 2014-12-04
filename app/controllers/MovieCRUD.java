@@ -51,9 +51,10 @@ public class MovieCRUD extends CRUD<Movie> {
         dao.update(form.get());
     }
     
-    protected Content renderUpdate(Form<Movie> form) {
+    protected Content renderUpdate(Form<Movie> form, String response) {
         return add_movie.render(
-            form, daoGenre.getAllVisual(), daoCensorship.getAllVisual()
+            form, response, 
+            daoGenre.getAllVisual(), daoCensorship.getAllVisual()
         );
     }
     
