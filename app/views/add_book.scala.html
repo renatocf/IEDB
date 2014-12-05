@@ -1,5 +1,7 @@
 @(form: Form[Book], route: String, results: List[Genre])
 
+@import scala.collection.immutable.Map
+
 <!DOCTYPE html>
 <html>
   @head("IEDB - Add Book")
@@ -9,26 +11,27 @@
       <form method="post" action='@route'>
         <font size="5">Add Book:</font><br><br>
 
-        Name: <br>
-        <input type="text" name="name" required/> <br><br>
-        
-        Description: <br>
-        <input type="text" name="description"> <br><br>
-        
-        Genre: <br>
-        <select name="genre">
-        	<ul> 
-        		@results.map { result =>		
-        		  <option value=@(result.getGenre)>@(result.getGenre)</option>
-        		}
-      		</ul>
-      	</select> <br><br>
-        
-        Number of Editions: <br>
-        <input type="number" value = "0" min="0" name="numEditions"> <br><br> <br>
+        <!-- Name -->
+        @form_input(form, "text", "name", "Name",
+                    if (form("name").value == null) Map('required -> "")
+                    else Map('readonly -> ""))
 
-        <input type="submit" value="Finish">      	
+        <!-- Description -->
+        @form_textarea(form, "text", "description", "Description",
+                       Map('rows -> "5"))
+
+        <!-- Genre -->
+        @form_select(form, "genre", "Genre", results.map { 
+                     result => result.getGenre() })
+
+        <!-- Number of Editions -->
+        @form_input(form, "number", "numEditions", "Number of Editions", 
+                    Map('value -> "0", 'min -> "0"))
+
+        <!-- Submit -->
+        @form_submit("Finish")
       </form>
+
     </div>
   </body>
 </html>

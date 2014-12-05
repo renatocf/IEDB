@@ -1,38 +1,41 @@
 @(form: Form[Comic], route: String, results: List[Genre])
 
+@import scala.collection.immutable.Map
+
 <!DOCTYPE html>
 <html>
   @head("IEDB - Add Comic")
   <body>
     @top_bar()
     <div class="add-wrapper">
+
       <form method="post" action='@route'>
       	<font size="5">Add Comic:</font><br><br>
 
-        Name: <br>
-        <input type="text" name="name" required/> <br><br>
+        <!-- Name -->
+        @form_input(form, "text", "name", "Name",
+                    if (form("name").value == null) Map('required -> "")
+                    else Map('readonly -> ""))
 
-        Description: <br>
-        <input type="text" name="description"> <br><br>
+        <!-- Description -->
+        @form_textarea(form, "text", "description", "Description",
+                       Map('rows -> "5"))
 
-        Genre: <br>
-        <select name="genre">
-        	<ul> 
-        		@results.map { result =>	
-        		  <option value=@(result.getGenre)>@(result.getGenre)</option>
-        		}
-      		</ul>
-      	</select> <br><br>
+        <!-- Genre -->
+        @form_select(form, "genre", "Genre", results.map { 
+                     result => result.getGenre() })
 
-        Arc:<br>
-        <input type="text" name="arc"> <br><br>
-        
-        Edition: <br>
-        <input type="number" value="0" min="0" name="num"> <br><br><br>
-       
-        <input type="submit" value="Finish">
-        	
+        <!-- Nationality -->
+        @form_input(form, "text", "arc", "Arc")
+
+        <!-- Edition -->
+        @form_input(form, "number", "num", "Edition", 
+                    Map('value -> "0", 'min -> "0"))
+
+        <!-- Submit -->
+        @form_submit("Finish")
       </form>
+
     </div>
   </body>
 </html>

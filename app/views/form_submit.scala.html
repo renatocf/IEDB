@@ -1,0 +1,7 @@
+@(button_name: String, args: scala.collection.immutable.Map[Symbol,String]
+  = scala.collection.immutable.Map())
+
+<dl class="submit_item" id="input_submit">
+  <dd><input type="submit" id="input_submit" value="@button_name"
+             class="form-control" @toHtmlArgs(args)></dd>
+</dl>

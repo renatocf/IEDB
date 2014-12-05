@@ -1,0 +1,16 @@
+@(form: Form[_ <: Any], input_type: String, attr: String, label: String, 
+  args: scala.collection.immutable.Map[Symbol,String]
+  = scala.collection.immutable.Map(), reuse: Boolean = true)
+
+<dl class="input_item" id="@("input_"+attr)">
+  <dt><label for="@attr">@label</label></dt>
+  <dd>
+    <textarea type="@input_type" id="@("input_"+attr)"
+              name="@attr" class="form-control" @toHtmlArgs(args)>
+      @if(reuse){@form(attr).value}
+    </textarea>
+  </dd>
+  @if(!form(attr).errors.isEmpty) {<dd class="error">
+    @for(error <- form(attr).errors) {<div>@error.message</div>}
+  </dd>}
+</dl>
