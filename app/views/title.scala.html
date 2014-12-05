@@ -5,6 +5,7 @@
   @head("IEDB - " + title.getName)
   <body>
   @top_bar()
+
   <div class="container" id="result-wrapper">
     <h2>@title.getName</h2><br>
 
@@ -13,7 +14,7 @@
     @if(title.isInstanceOf[Auditive]) {
       <p><b>Duration:</b> @title.asInstanceOf[Music].getDuration min</p>
     }
-    
+
     @if(title.isInstanceOf[Written]) {
       @if(title.isInstanceOf[Comic]) {
         <p><b>Number:</b> @title.asInstanceOf[Comic].getNum</p>
@@ -44,7 +45,7 @@
       }
     </ul>
     }
-    
+
     <input type="checkbox" class="glyphicon glyphicon-star-empty">
     <br><br><br>
     @if(session().get("email") != null) {
@@ -61,18 +62,20 @@
         <input type="submit" value="Vote">
       </form>
     }
-  </div>
-  
-  <br><br>
-  <div>
-  @if(session().get("email") != null) {
-  <a href='@routes.Manager.update(title.getType, title.getName)'>
-    Edit
-  </a>
-  }
+
+    <br><br>
+    <p>
+    @if(session().get("email") != null) {
+      <button id="edit-button" class="btn btn-default">Edit</button>
+    }
+    </p>
   </div>
 
   <script>
+    document.getElementById("edit-button").onclick = function() {
+      location.href 
+        = "@routes.Manager.update(title.getType, title.getName)";
+    };
     function vote(x) {
       if(x >= 0 && x <= 5) {
         for(var id = 1; id <= 5; id++) {
