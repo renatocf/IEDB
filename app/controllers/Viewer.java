@@ -36,7 +36,6 @@ import controllers.Login;
 
 public class Viewer extends Controller {
 
-    
     static private TitleDAO dao = new TitleDAO();
 
     public static Result search() {
@@ -46,15 +45,6 @@ public class Viewer extends Controller {
 
         return ok(search_results.render(
             Viewer.dao.getByName(title.getName())
-        ));
-    }
-
-    public static Result showTitle(String type, String name) {
-        ClientDAO client = new ClientDAO();
-        String username = client.getByEmail(session().get("email")).getUsername();
-        return ok(title.render(
-            Viewer.dao.getByTypeAndName(type, name.replace('-',' ')).get(0),
-            username
         ));
     }
 }
