@@ -63,6 +63,6 @@ public class MovieCRUD extends CRUD<Movie> {
     }
     
     private MovieCRUD() {
-        super(Movie.class);
+        super(Movie.class, "movie");
     }
 }

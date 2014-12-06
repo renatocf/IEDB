@@ -63,6 +63,6 @@ public class SeriesCRUD extends CRUD<Series> {
     }
     
     private SeriesCRUD() {
-        super(Series.class);
+        super(Series.class, "series");
     }
 }

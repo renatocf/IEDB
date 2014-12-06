@@ -62,6 +62,6 @@ public class MusicCRUD extends CRUD<Music> {
     }
     
     private MusicCRUD() {
-        super(Music.class);
+        super(Music.class, "music");
     }
 }

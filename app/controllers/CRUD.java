@@ -34,15 +34,17 @@ abstract public class CRUD<T> extends Controller {
     protected CensorshipDAO daoCensorship = new CensorshipDAO();
 
     protected Class<T> clazz;
+    protected String   clazzName;
 
-    protected CRUD(Class<T> clazz) {
+    protected CRUD(Class<T> clazz, String clazzName) {
         this.clazz = clazz;
+        this.clazzName = clazzName;
     }
 
     public Result create() {
         return ok(this.renderUpdate(
             this.newForm(),
-            routes.Manager.add(clazz.getName()).url()
+            routes.Manager.add(clazzName).url()
         ));
     }
 
@@ -53,7 +55,7 @@ abstract public class CRUD<T> extends Controller {
     public Result update(String name) {
         return ok(this.renderUpdate(
             this.newForm(name), 
-            routes.Manager.amend(clazz.getName(), null).url()
+            routes.Manager.amend(clazzName, null).url()
         ));
     }
 
@@ -62,7 +64,7 @@ abstract public class CRUD<T> extends Controller {
 
         if (form.hasErrors())
             return badRequest(this.renderUpdate(
-                form, routes.Manager.add(clazz.getName()).url()));
+                form, routes.Manager.add(clazzName).url()));
 
         this.storeNew(form);
         return redirect(routes.Application.index());
@@ -73,7 +75,7 @@ abstract public class CRUD<T> extends Controller {
 
         if (form.hasErrors())
             return badRequest(this.renderUpdate(
-                form, routes.Manager.amend(clazz.getName(), null).url()));
+                form, routes.Manager.amend(clazzName, null).url()));
 
         this.storeChanged(form);
         return redirect(routes.Application.index());

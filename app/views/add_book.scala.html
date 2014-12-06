@@ -12,9 +12,7 @@
         <font size="5">Add Book:</font><br><br>
 
         <!-- Name -->
-        @form_input(form, "text", "name", "Name",
-                    if (form("name").value == null) Map('required -> "")
-                    else Map('readonly -> ""))
+        @form_input(form, "text", "name", "Name", Map('required -> ""))
 
         <!-- Description -->
         @form_textarea(form, "text", "description", "Description",

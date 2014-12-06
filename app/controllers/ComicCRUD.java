@@ -62,6 +62,6 @@ public class ComicCRUD extends CRUD<Comic> {
     }
     
     private ComicCRUD() {
-        super(Comic.class);
+        super(Comic.class, "comic");
     }
 }

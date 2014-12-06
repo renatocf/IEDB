@@ -62,6 +62,6 @@ public class BookCRUD extends CRUD<Book> {
     }
     
     private BookCRUD() {
-        super(Book.class);
+        super(Book.class, "book");
     }
 }
