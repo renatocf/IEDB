@@ -21,8 +21,6 @@ public class StarsController extends Controller {
     public static Result addNewStars(){
         Stars stars = Form.form(Stars.class).bindFromRequest().get();
         StarsDAO dao = new StarsDAO();
-        System.out.println("AUEHUAEHUAHEUA");
-        System.out.println(stars.getRate());
         stars.setClientEmail(session().get("email"));
         dao.add(stars);
         return redirect(controllers.routes.Application.index());
