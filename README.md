@@ -4,6 +4,7 @@ IEDB
 **International Enterteinment Database**
 
 All enterteinment reference in just one place.
+All the documentation can be found at "doc" folder.
 
 WebApp
 ------
