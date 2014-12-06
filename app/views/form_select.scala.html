@@ -1,0 +1,20 @@
+@(form: Form[_ <: Any], attr: String, label: String, list: List[_ <: Any],
+  args: scala.collection.immutable.Map[Symbol,String]
+  = scala.collection.immutable.Map(), reuse: Boolean = true)
+
+<dl class="select_item" id="@("input_"+attr)">
+  <dt><label for="@attr">@label</label></dt>
+  <dd>
+    <select name="@attr" value="@if(reuse){@form(attr).value}"
+            id="@("input_"+attr)" class="form-control" @toHtmlArgs(args)>
+      @list.map { item => @if(reuse && item == form(attr).value) {
+      <option value=@item selected>@item</option>
+      } else {
+      <option value=@item>@item</option> 
+      }}
+    </select> 
+  </dd>
+  @if(!form(attr).errors.isEmpty) {<dd class="error">
+    @for(error <- form(attr).errors) {<div>@error.message</div>}
+  </dd>}
+</dl>

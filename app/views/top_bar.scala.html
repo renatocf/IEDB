@@ -12,19 +12,19 @@
       </a>
     </div>
     <div class="navbar-collapse collapse">
-    	@if(session().get("email") != null) {
+      @if(session().get("email") != null) {
       <ul class="nav navbar-nav navbar-left">
         <li><a href='@routes.Application.addTitle()'>Add Title</a></li>
       </ul>
       }
       <ul class="nav navbar-nav navbar-right">
-  		@if(session().get("email") != null) {
-  			<p class="navbar-text">@session().get("email")</p>
-  			<li><a href='@routes.Login.signout()'>Sign out</a></li>
-  		} else {
-  			<li><a href='@routes.Login.signin()'>Sign in</a></li>
-  			<li><a href='@routes.Register.signup()'>Sign up</a></li>
-  		}
+        @if(session().get("email") != null) {
+            <p class="navbar-text">@session().get("email")</p>
+            <li><a href='@routes.Login.signout()'>Sign out</a></li>
+        } else {
+            <li><a href='@routes.Login.signin()'>Sign in</a></li>
+            <li><a href='@routes.Register.signup()'>Sign up</a></li>
+        }
       </ul>
     </div>
   </nav>

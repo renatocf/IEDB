@@ -1,49 +1,52 @@
 @(form: Form[Series], route: String, results: List[Genre], 
   censorships: List[Censorship])
 
+@import scala.collection.immutable.Map
+
 <!DOCTYPE html>
 <html>
   @head("IEDB - Add Series")
   <body>
     @top_bar()
     <div class="add-wrapper">
+
       <form method="post" action='@route'>
       	<font size="5">Add Series:</font> <br><br>
 
-        Name: <br>
-        <input type="text" name="name" required/> <br><br>
-        	
-        Description: <br>
-        <input type="text" name="description"> <br><br>
-        	
-        Genre: <br>
-        <select name="genre">
-        	<ul> 
-        		@results.map { result =>		
-        			<option value=@(result.getGenre)>@(result.getGenre)</option>
-        		}
-      		</ul>
-      	</select> <br><br>
-        
-        Date Init: <br>
-        <input type="date" value="2014-01-01" name="dateInit" required/> <br><br>
-        
-        Date End: <br>
-        <input type="date" value="2014-01-01" name="dateEnd" required/> <br><br>
-        
-        Seasons: <br>
-        <input type="number" value="0" min="0" name="numSeasons"> <br><br>
-        
-        Censorship: <br>
-        <select name="censorship">
-          <ul> 
-            @censorships.map { censorship =>      
-              <option value=@(censorship.getCensorship)>@(censorship.getCensorship)</option>
-            }
-          </ul>
-        </select> <br><br><br>
-        <input type="submit" value="Finish"> <br><br>	
+        <!-- Name -->
+        @form_input(form, "text", "name", "Name",
+                    if (form("name").value == null) Map('required -> "")
+                    else Map('readonly -> ""))
+
+        <!-- Description -->
+        @form_textarea(form, "text", "description", "Description",
+                       Map('rows -> "5"))
+
+        <!-- Genre -->
+        @form_select(form, "genre", "Genre", results.map { 
+                     result => result.getGenre() })
+
+        <!-- Nationality -->
+        @form_input(form, "text", "nationality", "Nationality")
+
+        <!-- Date init -->
+        @form_input(form, "date", "dateInit", "Date Init")
+
+        <!-- Date end -->
+        @form_input(form, "date", "dateEnd", "Date End")
+
+        <!-- Seasons -->
+        @form_input(form, "number", "numSeasons", "Seasons",
+                    Map('value -> "0", 'min -> "0"))
+
+        <!-- Censorship-->
+        @form_select(form, "censorship", "Censorship", censorships.map {
+                     censorship => censorship.getCensorship() })
+
+        <!-- Submit -->
+        @form_submit("Finish")
       </form>
+
     </div>
   </body>
 </html>

@@ -80,10 +80,10 @@ abstract public class CRUD<T> extends Controller {
     }
 
     abstract protected T       find         (String name);
-    abstract protected Content renderRead   (Form<T> form);
-    abstract protected Content renderUpdate (Form<T> form, String response);
     abstract protected void    storeNew     (Form<T> form);
     abstract protected void    storeChanged (Form<T> form);
+    abstract protected Content renderRead   (Form<T> form);
+    abstract protected Content renderUpdate (Form<T> form, String response);
     
     private Form<T> newForm(String name) {
         return Form.form(clazz).fill(this.find(name));
